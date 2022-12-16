@@ -33,6 +33,7 @@ button {padding: 30px;}
 document.getElementById("btn1").addEventListener("click", function(e) {
 	console.log("버튼1...1");
 	e.stopPropagation(); // 버블링을 하지 않도록 설정한다.
+    // 부모 태그로 bubble X
 });
 document.getElementById("btn1").addEventListener("click", function(e) {
     console.log("버튼1...2");

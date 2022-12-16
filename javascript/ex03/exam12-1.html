@@ -15,12 +15,13 @@
 //
 //
 
+// 일반함수 정의
 function f0() {
 	 return "안녕";
 }
 console.log(f0());
 
-
+// 익명함수정의
 var f1 = function() {
 	return "안녕";
 };
@@ -29,19 +30,101 @@ console.log(f1());
 // 애로우(arrow ) 함수 : 초간단 함수 정의 문법
 // 1) function 키워드를 제거한다.
 // 2) 대신 파라미터 블록과 코드 블록 사이에 화살표를 추가한다.
-var f2 = () => {
+// 3) 다른 언어에서는 람다(lamdba)라고 부른다.
+var f2 = () => {	// => 애로우
 	return "안녕";
 };
 console.log(f2());
 
-// 3) 한 문장만 있을 때는 중괄호를 제거할 수 있다.
+// 3) 한 문장만 있을 때는 중괄호를 반드시 제거
 // 4) 그 한 문장이 리턴 문장일 경우 return을 반드시 생략해야 한다.
 //    그리고 문장의 끝을 나타내는 세미콜론을 제거한다.
 // (한 문장 밖에 없으니까 가능한 한 줄로 표현하라!)
+// 중괄호 생략하면 return도 생략
+
 var f3 = () => "안녕";
 console.log(f3());
+console.log("----------------------------");
 
-console.log((() => "안녕")());
+
+var f4 = function() {
+	return "안녕";
+}
+console.log(f4());
+// 위 코드 = 아래 코드
+// 익명 함수 정의 후 바로 호출하는 방법
+console.log((function() {
+	return "안녕"
+})());
+
+
+var f5 = () => "안녕";
+console.log(f5());
+
+// 애로우 함수 정의 후 바로 호출하는 방법
+console.log((() =>"안녕")());
+console.log("------------------------");
+
+var plus = function(a, b) {
+	return a + b;
+};
+console.log(plus(100, 200));
+// 위 코드 = 아래 코드
+console.log((function(a, b) {
+	return a + b;
+})(100, 200));
+
+console.log("------------------------");
+
+var plus = (a, b) => a + b;
+console.log(plus(111, 222));
+
+console.log(((a, b) => a + b)(111, 222));
+console.log("------------------------");
+
+
+
+// 연습
+
+function xx(name) {
+	console.log(name + "님 반갑습니다.");
+}
+xx("홍길동");
+
+// 익명함수
+// 앞에 var 생성
+var xx = function(name) {
+	console.log(name + "님 반갑습니다.");
+};
+xx("홍길동");
+
+// 정의 하자마자 호출
+// xx에 function 대입
+(function(name) {
+	console.log(name + "님 반갑습니다.");
+})("홍길동");
+
+// 익명함수를 애로우로 변경
+// function 제거
+((name) => {
+	console.log(name + "님 반갑습니다.");
+})("홍길동");
+
+// 애로우 줄이기
+// 중괄호 지우기
+((name) => console.log(name + "님 반갑습니다."))("홍길동");
+
+console.log("-----------------------------");
+
+// 시작 > 익명함수 > 정의하자마자 호출 > 애로우 > 줄이기
+
+function divide(a, b) {
+	console.log(a / b);
+}
+divide(10,5);
+
+((a, b) => console.log(a + b))(2, 3);
+
 </script>
 
 </body>

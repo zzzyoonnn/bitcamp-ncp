@@ -24,6 +24,10 @@ obj.toString = function() {
 	// 자바와 달리 객체의 프로퍼티 변수를 사용할 때는 반드시 this를 붙여야 한다.생략하면 안된다.
 	return this.name + "," + this.kor + "," + this.eng + "," + this.math;
 };
+// this는 obj의 주소를 가리킴
+// name만 입력 시 window.name
+// 또는 가장 가까이에 있는 것 가져옴
+// kor만 입력 시 not defined 이유는 window 객체에 kor이 없기 때문
 
 console.log(obj.toString());
 
@@ -41,6 +45,8 @@ obj.sum = function() {
 obj.aver = function() {
 	return this.sum() / 3; // 항상 같은 객체의 멤버를 가리킬 때는 this를 붙여야 한다.
 };
+
+// this 지정 주의
 
 console.log(obj.sum(), obj.aver());
 

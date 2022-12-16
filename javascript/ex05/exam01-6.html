@@ -20,7 +20,12 @@
 "use strict"
 
 var list1 = document.getElementsByTagName("li");
+// HTMLCollection type
+// 실시간 변경 값 반영
 var list2 = document.querySelectorAll("li");
+// Nodelist
+// 한번 값을 받으면 변경되던말던 리턴 받은 값 유지 -> 처음 값 유지
+// 목적에 따라 사용하기
 
 console.log(list1);
 console.log(list2);

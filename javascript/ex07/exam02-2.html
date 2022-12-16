@@ -8,7 +8,8 @@
 <h1>AJAX - POST 요청</h1>
 
 <h2>일반 POST 요청</h2>
-<form action="test4" method="post">
+<form action="http://127.0.0.1:3000/exam02-2" method="post">
+    <!-- method 반드시 기입 안하면 get -->
 이름: <input type="text" name="name"><br>
 나이: <input type="text" name="age"><br>
 <button type="submit">등록</button> 
@@ -30,7 +31,7 @@ document.querySelector("#btn1").onclick = () => {
     var xhr = new XMLHttpRequest();
     
     // POST 요청은 데이터를 send()를 호출할 때 넘긴다. 
-    xhr.open("POST", "test4", false);
+    xhr.open("POST", "http://127.0.0.1:3000/exam02-2", false);
     
     // 주의! 
     // 서버에 POST 요청으로 데이터를 보낼 때는 반드시 Content-Type 헤더를 설정하여 
@@ -38,11 +39,15 @@ document.querySelector("#btn1").onclick = () => {
     // => 일반적인 form 데이터의 형식(이름=값&이름=값&...)은 다음과 같이 MIME 타입을 선언해야 한다.
     //    "application/x-www-form-urlencoded"
     //
+    // 아래 문장 추가됨
     xhr.setRequestHeader(
         "Content-Type", 
         "application/x-www-form-urlencoded");
     
     var messageBody = "name=" + window.encodeURIComponent("홍길동") + "&age=20";
+    // 웹브라우저가 자동으로 변환 안해줌
+    // encodeURIComponent 필수
+    
     console.log(messageBody);
     
     xhr.send(messageBody);

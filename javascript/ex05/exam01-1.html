@@ -18,8 +18,11 @@
 "use strict"
 
 // Document.prototype.getElementById("태그아이디")
+// getElementById 객체에 대해 사용
 // => 리턴 값: HTMLElement 하위 생성자에 의해 초기화된 객체를 리턴
 var e1 = document.getElementById("header4"); // vanilla JS 방식
+// HTML DOMtree에서 h1 id가 header4인 얘가 리턴하는 것은
+// HTMHeadingElement의 인스턴스를 리턴
 //var e1 = jQuery("#header4");
 //var e1 = $("#header4");
 
@@ -27,6 +30,11 @@ console.log(e1);
 console.log(e1.name); // undefined
 console.log(e1.localName); // 태그명
 console.log(e1.constructor.name); // 객체의 생성자 이름
+// 어떤걸로 초기화된거니??를 알려줌
+
+// <h1> -> HTMLHeadingElement()
+// <a> -> AnchorElement()
+// <p> ->  필기 확인하기
 
 console.log("----------------------------");
 

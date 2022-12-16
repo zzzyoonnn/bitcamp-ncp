@@ -9,12 +9,15 @@
 <button id="btn1" onclick="btn1Click(event)">버튼1</button><br>
 
 <script>
+	// 태그에서 자바스크립트 사용할 때
+// event 값
 "use strict"
 
 // HTML 태그의 onclick 속성에 많은 자바스크립트 코드를 넣을 수 없을 때,
 // 함수를 만들고 호출하라!
 // => 물론 event 객체를 함수를 호출할 때 넘겨줘야 한다.
 //    당연히 함수에서는 event 객체를 받는 파라미터가 있어야 한다.
+// e 변수
 function btn1Click(e) {
   console.log(e);
   console.log(e.constructor.name);
