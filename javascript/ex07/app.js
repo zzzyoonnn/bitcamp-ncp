@@ -143,17 +143,23 @@ app.get('/proxy2', (req, res) => {
   "&base_time=0600" +
   "&nx=" + req.query.nx +
   "&ny=" + req.query.ny;
-
-  console.log(openApiUrl);
-
   request.get({
-      uri: openApiUrl
-    }, (error, response, body) => {
-      // console.log(body);
-      // console.log(error);
-      res.send(body);
-  });
+    uri: openApiUrl
+  }, (error, response, body) => {
+    res.send(body);
 });
+}); 
+
+  
+  app.post('/login', (req, res) => {
+    res.set('Access-Control-Allow-Origin', '*');
+    res.set('Content-Type', 'text/plain; charset=UTF-8');
+  
+    var payload = `이메일: ${req.body.email}\n`;
+    payload += `암호: ${req.body.password}\n`;
+  
+    res.send(payload);
+  }); 
 
 // 웹서버 실행하기
 app.listen(
@@ -161,5 +167,4 @@ app.listen(
   () => {   // 서버가 시자되었을 때 호출될 함수 = 리스너 = 이벤트 핸들러
     console.log(`${port}번 포트에서 서버 시작했음!`);
   } 
-)
-
+);

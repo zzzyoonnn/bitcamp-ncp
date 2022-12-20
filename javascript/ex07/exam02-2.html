@@ -45,11 +45,12 @@ document.querySelector("#btn1").onclick = () => {
         "application/x-www-form-urlencoded");
     
     var messageBody = "name=" + window.encodeURIComponent("홍길동") + "&age=20";
+    
+    
     // 웹브라우저가 자동으로 변환 안해줌
     // encodeURIComponent 필수
-    
-    console.log(messageBody);
-    
+
+
     xhr.send(messageBody);
     
     ta.value = xhr.responseText;
