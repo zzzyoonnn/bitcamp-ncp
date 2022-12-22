@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ex07</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script>
+// $(handler)
+// - $(document).ready(handler) 코드의 단축 문법이다.
+// - $(document).ready(handler) 함수는 deprecated 되었다.
+
+// ready() 함수로 등록하는 것과 같다.
+// HTML 콘텐츠로 로딩한 후,
+// 화면에 출력하기 전에 등록된 메서드가 호출된다.
+$(() => {
+    // 아직 화면에 콘텐츠를 출력한 상태는 아니지만,
+    // HTML 모든 콘텐츠를 모두 로딩한 후에 이 메서드를 호출되기 때문에
+    // tbody 태그를 찾을 수 있다.
+    let tbody = $("tbody");
+
+    $.getJSON("http://localhost:3000/exam04-3", (result) => {
+        result.forEach((b) => {
+            $("<tr>")
+            .html("<td>" + b.no + "</td>" + 
+                    "<td>" + b.title + "</td>" + 
+                    "<td>" + b.writer + "</td>" +
+                    "<td>" + b.viewCnt + "</td>")
+            .appendTo(tbody);
+        });
+    });
+});
+</script>
+</head>
+
+<body>
+<h1>load 이벤트 - $(handler)</h1>
+
+<table border="1">
+  <thead>
+      <tr><th>번호</th><th>제목</th><th>작성자</th><th>조회수</th></tr>
+  </thead>
+<tbody>
+</tbody>
+</table>
+
+<hr>
+<p>비트캠프@2022</p>
+
+</body>
+</html>
+
+
+
+
+

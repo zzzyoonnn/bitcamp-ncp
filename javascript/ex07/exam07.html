@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ex07</title>
+</head>
+<body>
+<h1>외부라이브러리 활용 - SweetAlert2</h1>
+
+<button id="btn1">일반 알림 창 띄우기</button>
+<button id="btn2">SweetAlert2 알림 창 띄우기</button>
+
+<script src="node_modules/jquery/dist/jquery.min.js"></script>
+<!-- jQuery 기능 추가 -->
+<script src="node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
+<!-- 기존의 jQuery에다가 button을 사용할 수 있도록 메서드 추가 -->
+<script>
+"use strict"
+
+$("#btn1").click(() => {
+  window.alert('알림 창 입니다!')
+});
+
+$("#btn2").click(() => {
+  Swal.fire({
+  title: 'Error!',
+  text: 'Do you want to continue',
+  icon: 'error',
+  confirmButtonText: 'Cool'
+})
+});
+
+</script>
+</body>
+</html>
+
+
+
+
+
