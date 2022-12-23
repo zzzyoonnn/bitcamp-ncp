@@ -16,17 +16,18 @@ const promise = new Promise((resolve, reject) => {
   xhr.onreadystatechange = function() {
     if (xhr.readyState == 4) {
       console.log(xhr.responseText);
-      resolve(); // 작업 수행을 정상적으로 완료하지 못했음을 통지한다.
+      reject(); // 문제가 발생하여 약속된 작업을 거절한다고 알린다.
     }
   };
-  xhr.open("GET", "exam01", true); 
+  xhr.open("GET", "http://localhost:3000/hello", true); 
   xhr.send();
 });
 
-console.log("1111");
-
-//비동기 작업을 수행하는 중 오류가 발생했다고 통보 받았을 때 실행할 함수를 등록한다.
+// executor로부터 작업 거절을 통지받았을 때 호출될 함수를 등록한다.
 promise.then(undefined, onRejected);
+
+console.log("끝!");
+
 
 
 </script>
