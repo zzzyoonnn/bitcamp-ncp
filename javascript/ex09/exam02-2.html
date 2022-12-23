@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ex07</title>
+</head>
+<body>
+<h1>fetch 사용하기</h1>
+<table border="1">
+<thead>
+    <tr><th>번호</th><th>제목</th><th>작성자</th><th>조회수</th></tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<script>
+"use strict"
+// 웹페이지를 만들 때 AJAX를 이용하여 여러 조각을 붙여서 만들 수 있다.
+//       
+var tbody = document.querySelector("tbody");
+
+let promise = fetch("http://localhost:3000/boards");
+let promise2 = promise.then((response) => {
+    return response.json(); // 응답에서 텍스트를 추출하여 객체로 deserialize를 수행하는 Promise
+    // return 받는 값이 response
+});
+promise2.then((arr) => {
+        for (var b of arr) {
+            var tr = document.createElement("tr");
+            tr.innerHTML = "<td>" + b.no + "</td>" + 
+                "<td>" + b.title + "</td>" + 
+                "<td>" + b.writer + "</td>" +
+                "<td>" + b.viewCnt + "</td>";
+            tbody.appendChild(tr);
+        }
+});
+
+</script>
+</body>
+</html>

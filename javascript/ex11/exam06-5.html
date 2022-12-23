@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>비동기작업</title>
+</head>
+<body>
+<h1>Promise - 예외처리: Method Chaining</h1>
+<script>
+const promise = new Promise((resolve, reject) => {
+  throw '오류 발생!!!';
+})
+.then(() => console.log("fulfilled!"))
+.catch(() => console.log("catched!"));
+
+// then()이 리턴한 promise 에 오류 핸들러가 등록되어 있다면,
+// 그 연결을 따라가서 오류 핸들러를 호출한다.
+
+// // then()으로 핸들러를 등록할 때 
+// // reject를 다루는 핸들러를 등록하지 않으면,
+// // 오류가  발생했을 때 그 오류를 처리할 수 없어서 예외가 발생한다.
+// promise.then(() => console.log("fulfilled!"));
+
+// // 따로 오류를 다루는 핸들러를 등록하면
+// // 그것은 그것대로 오류가 발생했을 때 호출된다.
+// promise.catch(() => console.log("catched!"));
+
+console.log("끝!");
+
+</script>
+</body>
+</html>
