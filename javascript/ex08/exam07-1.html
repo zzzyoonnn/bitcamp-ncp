@@ -12,8 +12,8 @@ const promise = new Promise((resolve, reject) => {
   xhr.onreadystatechange = function() {
     if (xhr.readyState == 4) {
       console.log(xhr.responseText);
-      //reject();
-      throw '오류 발생!';
+      reject();
+      //throw '오류 발생!';
     }
   };
   xhr.open("GET", "http://localhost:3000/hello", true); 
