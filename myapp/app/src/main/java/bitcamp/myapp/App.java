@@ -1,63 +1,109 @@
 package bitcamp.myapp;
 
+import java.sql.Date;
 import java.util.Scanner;
 
 public class App {
   public static void main(String[] args) {
 
-    // 키보드에서 입력을 받는 도구 준비
-    // Scanner 옆에 커서를 두고 ctrl + space 또는 ctrl + shift + O
-    Scanner keyScanner = new java.util.Scanner(System.in);
+    Scanner keyScanner = new Scanner(System.in);
 
-    System.out.print("번호?");
-    int no = Integer.parseInt(keyScanner.nextLine());
+    final int SIZE = 100;
+    int count = 0;
 
-    System.out.print("이름?");
-    String name = keyScanner.nextLine();
+    int[] no = new int[SIZE];
+    String[] name = new String[SIZE];
+    String[] tel = new String[SIZE];
+    String[] postNo = new String[SIZE];
+    String[] basicAddress = new String[SIZE];
+    String[] detailAddress = new String[SIZE];
+    boolean[] working = new boolean[SIZE];
+    char[] gender = new char[SIZE];
+    byte[] level = new byte[SIZE];
+    String[] createdDate = new String[SIZE];
 
-    System.out.print("전화?");
-    String tel = keyScanner.nextLine();
+    for (int i = 0; i < SIZE; i++) {
+      System.out.print("번호? ");
+      no[i] = Integer.parseInt(keyScanner.nextLine());
 
-    System.out.print("우편번호?");
-    String postNo = keyScanner.nextLine();  // int일 경우 앞 0 출력안됨   // 자바는 낙타 표기법 사용
+      System.out.print("이름? ");
+      name[i] = keyScanner.nextLine();
 
-    System.out.print("주소1?");
-    String basicAddress = keyScanner.nextLine();
+      System.out.print("전화? ");
+      tel[i] = keyScanner.nextLine();
 
-    System.out.print("주소2?");
-    String detailAddress = keyScanner.nextLine();
+      System.out.print("우편번호? ");
+      postNo[i] = keyScanner.nextLine();
 
-    System.out.print("재직자?(true/false)");
-    boolean working = Boolean.parseBoolean(keyScanner.nextLine());
+      System.out.print("주소1? ");
+      basicAddress[i] = keyScanner.nextLine();
 
-    System.out.print("성별?(남자: M, 여자: W");
-    char gender = keyScanner.nextLine().charAt(0);   // M(남자), W(여자)
+      System.out.print("주소2? ");
+      detailAddress[i] = keyScanner.nextLine();
 
-    System.out.println("전공?(0. 비전공자)");
-    System.out.println("전공?(1. 준전공자)");
-    System.out.println("전공?(2. 전공자)");
-    System.out.print("전공?");
-    byte level = Byte.parseByte(keyScanner.nextLine()); // 0(비전공자), 1(준전공자), 2(전공자)
+      System.out.println("0. 미취업");
+      System.out.println("1. 재직중");
+      System.out.print("재직자? ");
+      working[i] = Integer.parseInt(keyScanner.nextLine()) == 1;
 
-    System.out.print("가입일?(예: 2022-12-29)");
-    String createdDate = keyScanner.nextLine();
+      System.out.println("0. 남자");
+      System.out.println("1. 여자");
+      System.out.print("성별? ");
+      gender[i] = Integer.parseInt(keyScanner.nextLine()) == 0 ? 'M' : 'W';
 
-    System.out.printf("번호 : %d\n", no); // system이라는 도구함에 out이란 변수에는 콘솔에 대한 정보가 저장되어있다 // 콘솔 정보를 가지고 println 수행
-    System.out.printf("이름 : %s\n", name);
-    System.out.printf("전화번호 : %s\n", tel);
-    System.out.printf("우편 번호 : %s\n", postNo);
-    System.out.printf("주소1 : %s\n", basicAddress);
-    System.out.printf("주소2 : %s\n", detailAddress);
-    System.out.printf("재직자 : %s\n",working ? "예" : "아니오");
-    System.out.printf("성별 : %s\n", gender=='M' ? "남자" : "여자");
+      System.out.println("0. 비전공자");
+      System.out.println("1. 준전공자");
+      System.out.println("2. 전공자");
+      System.out.print("전공? ");
+      level[i] = Byte.parseByte(keyScanner.nextLine()); // 0(비전공자), 1(준전공자), 2(전공자)
 
-    String levelTitle;
-    switch (level) {
-      case 0: levelTitle = "비전공자"; break;
-      case 1: levelTitle = "준전공자"; break;
-      default: levelTitle = "전공자";
+      Date today = new Date(System.currentTimeMillis());
+      createdDate[i] = today.toString();
+
+      count++;
+
+      System.out.print("계속 입력하시겠습니까?(Y/n) ");
+      String str = keyScanner.nextLine();
+      if (!str.equalsIgnoreCase("Y") && str.length() != 0) {
+        break;
+      }
     }
-    System.out.printf("전공 : %s\n", levelTitle);
-    System.out.printf("가입일 : %s\n", createdDate);
-  }
-}
+
+    keyScanner.close();
+
+    System.out.println();
+
+    for (int i = 0; i < count; i++) {
+      System.out.printf("번호: %d\n", no[i]);
+      System.out.printf("이름: %s\n", name[i]);
+      System.out.printf("전화: %s\n", tel[i]);
+      System.out.printf("우편번호: %s\n", postNo[i]);
+      System.out.printf("주소1: %s\n", basicAddress[i]);
+      System.out.printf("주소2: %s\n", detailAddress[i]);
+      System.out.printf("재직자: %s\n", working[i] ? "예" : "아니오");
+      System.out.printf("성별: %s\n", gender[i] == 'M' ? "남자" : "여자");
+
+      String levelTitle;
+      switch (level[i]) {
+        case 0: levelTitle = "비전공자"; break;
+        case 1: levelTitle = "준전공자"; break;
+        default: levelTitle = "전공자";
+      }
+      System.out.printf("전공: %s\n", levelTitle);
+
+      System.out.printf("가입일: %s\n", createdDate[i]);
+
+      System.out.println("---------------------------------------");
+    }
+
+  } // main()
+} // class App
+
+
+
+
+
+
+
+
+
