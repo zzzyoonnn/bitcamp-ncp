@@ -4,24 +4,12 @@ public class App {
 
   public static void main(String[] args) {
 
-    MemberHandler.inputMembers();
+    MemberHandling.inputMembers();
 
-    System.out.println();
-
-    MemberHandler.printMembers();
+    MemberHandling.printMembers();
 
 
   } // main()
 
 
-
 } // class App
-
-
-
-
-
-
-
-
-

@@ -2,7 +2,8 @@ package bitcamp.myapp;
 
 import java.sql.Date;
 
-public class MemberHandler {
+public class MemberHandling {
+
 
   static final int SIZE = 100;
   static int count = 0;
@@ -18,9 +19,11 @@ public class MemberHandler {
   static byte[] level = new byte[SIZE];
   static String[] createdDate = new String[SIZE];
 
-  static void inputMembers() {
 
+
+  static void inputMembers() {
     for (int i = 0; i < SIZE; i++) {
+
       no[i] = Prompt.promptInt("번호? ");
 
       name[i] = Prompt.promptString("이름? ");
@@ -37,7 +40,7 @@ public class MemberHandler {
 
       gender[i] = Prompt.promptInt("0. 남자\n1. 여자\n성별? ") == 0 ? 'M' : 'W';
 
-      level[i] = (byte)Prompt.promptInt("0. 비전공자\n1. 준전공자\n2. 전공자\n전공? ");
+      level[i] = (byte) Prompt.promptInt("0. 비전공자\n1. 준전공자\n2. 전공자\n전공? ");
 
       createdDate[i] = new Date(System.currentTimeMillis()).toString();
 
@@ -48,11 +51,14 @@ public class MemberHandler {
         break;
       }
     }
+
     Prompt.close();
+
+    System.out.println();
+
   }
 
   static void printMembers() {
-
 
     for (int i = 0; i < count; i++) {
       System.out.printf("번호: %d\n", no[i]);
@@ -76,6 +82,5 @@ public class MemberHandler {
 
       System.out.println("---------------------------------------");
     }
-
   }
 }
