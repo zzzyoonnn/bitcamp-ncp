@@ -16,6 +16,7 @@ public class Exam0230 {
     // return 값;
     return "안녕하세요!"; // 리턴 명령을 실행하면 메서드 실행을 종료한다.
 
+    // 리턴문 다음에 어떤 문장도 삽입 x
     // 메서드를 리턴한 후에 작업을 수행할 수 없다.
     //    int a; // 컴파일 오류!
     //    System.out.println("NO!"); // 컴파일 오류!
@@ -30,7 +31,7 @@ public class Exam0230 {
     String r = hello();
     System.out.println(r);
 
-    // 메서드가 리턴한 값을 한 번만 사용할 경우 
+    // 메서드가 리턴한 값을 한 번만 사용할 경우
     // 쓸데없이 로컬 임시 변수를 만들지 않는다.
     // 사용할 곳에 바로 메서드 호출 코드를 둔다.
     System.out.println(hello());

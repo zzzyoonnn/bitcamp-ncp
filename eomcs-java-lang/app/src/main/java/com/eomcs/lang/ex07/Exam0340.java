@@ -13,7 +13,7 @@ public class Exam0340 {
   }
 
   static MyObject swap(int a, int b) {
-    MyObject ref = new MyObject();
+    MyObject ref = new MyObject();  // new로 생성된 것은 제거 X 메모리 자리 없으면 제거됨
     ref.a = b;
     ref.b = a;
     return ref;

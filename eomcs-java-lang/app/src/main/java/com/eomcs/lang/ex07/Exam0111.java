@@ -6,7 +6,7 @@ import java.util.Scanner;
 //
 public class Exam0111 {
 
-  static void printSpaces(int len) {
+  static void printSpaces(int len) {    // 자바 기본 데이터 크기 4byte -> int
     int spaceCnt = 1;
     while (spaceCnt <= len) {
       System.out.print(" ");
@@ -22,7 +22,7 @@ public class Exam0111 {
 
     int starLen = 1;
     while (starLen <= len) {
-      printSpaces((len - starLen) / 2);
+      printSpaces((len - starLen) / 2); // 메서드엔 주석 필요 X 메서드 자체가 주석
 
       // 별 출력
       int starCnt = 1;
