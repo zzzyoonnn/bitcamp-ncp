@@ -2,7 +2,7 @@ package com.eomcs.oop.ex02.domain;
 
 public class Score2 {
 
-  public String name; 
+  public String name;
   public int kor;
   public int eng;
   public int math;
@@ -24,7 +24,7 @@ public class Score2 {
   }
 
   public void compute() {
-    this.sum = this.kor + this.eng + this.math;
+    this.sum = this.kor + this.eng + this.math; // this는 Score2 것
     this.aver = (float) this.sum / 3;
   }
 }
