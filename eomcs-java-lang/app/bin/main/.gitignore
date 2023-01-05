@@ -1,4 +1,7 @@
+/com/
+/META-INF/
+/README-resources.md
+/log4j2.xml
 /Hello.class
 /Hello2.class
 /Test.class
-/com/

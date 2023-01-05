@@ -4,7 +4,6 @@ public class App {
 
   public static void main(String[] args) {
     goMainMenu();
-
     System.out.println("안녕히 가세요!");
 
     // 프로그램이 사용한 자원 해제하기
