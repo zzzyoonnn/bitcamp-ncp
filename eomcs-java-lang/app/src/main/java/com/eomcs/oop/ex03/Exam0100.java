@@ -1,44 +1,41 @@
-// # 인스턴스 변수
+// # 변수의 종류
 //
 package com.eomcs.oop.ex03;
 
 public class Exam0100 {
 
-  // 지금 당장 A 클래스 앞에 붙은 static은 고민하지 말라!
-  // 이 예제의 목표는 인스턴스 변수이다.
-  static class A {
-    // 인스턴스 변수 = 논스태틱 변수
-    // => new 명령을 통해 생성된다.
-    // => new 명령을 실행하기 전까지는 인스턴스 변수는 존재하지 않는다.
-    // => Heap 영역에 생성된다.
-    // => static이 붙지 않는다.
-    int v1; // 4바이트 int 값을 저장할 메모리를 만들라는 명령!
-    boolean v2; // true/false 논리값을 저장할 메모리를 만들라는 명령!
-    // 이 명령은 new 명령을 실행할 때 비로서 실행된다.
-  }
+  // static 필드 = 클래스 필드(변수)
+  // - 클래스를 로딩할 때 Method Area 영역에 생성된다.
+  // - 클래스는 단 한 번만 로딩된다.
+  // - 따라서 스태틱 변수도 한 번만 생성된다.
+  // - JVM을 종료할 때 메모리에서 한꺼번에 제거된다.
+  static int a;
 
-  public static void main(String[] args) {
+  // non-static instance = 인스턴스
+  // - new 연산자를 실행할 때 Heap 영역에 생성된다.
+  // - new 연산자를 실행할 때마다 생성된다.
+  // - Garbage Collector에 의해 인스턴스가 해제될 때 제거된다.
+  int b;
 
-    // A 클래스에 대해 new 명령을 사용하기 전에는 v1, v2 메모리는 존재하지 않는다.
-    // 단지 설계도일 뿐이다.
-    A obj1 = new A(); // A 클래스에서 변수 선언 명령을 실행한다. 주의! 메서드 정의는 실행하지 않는다!
-    A obj2 = new A();
-    A obj3 = new A();
+  public static void main(String[] args /* 파라미터 = 로컬변수 */ ) {
 
-    // 이렇게 생성된 메모리를 "인스턴스", "객체"라고 부른다.
-    // 이 인스턴스의 주소를 저장하는 obj1, obj2, obj3를 "레퍼런스"라 부른다.
-    // 인스턴스가 생성될 때 만들어지는 v1, v2를 변수를 "인스턴스 변수"라 부른다.
+    // 로컬 변수
+    // - 메서드가 호출될 때 JVM Stack 영억에 생성된다.
+    // - 메서드 호출이 끝나면 제거된다.
+    int c;
 
-    // 인스턴스 변수는 레퍼런스를 통해 사용할 수 있다.
-    obj1.v1 = 100;
-    obj2.v1 = 200;
-    obj3.v1 = 300;
+    // <=== 현재 실행 시점
+    // Method Area: a 변수 존재
+    // JVM Stack: args, c, obj 변수 존재
+    // Heap: 아직 생성된 객체 없음
 
-    System.out.printf("%d, %d, %d\n", obj1.v1, obj2.v1, obj3.v1);
+    Exam0100 obj;   // obj는 main()을 호출할 때 시작 시점에 JVM Stack에 생성된 상태이다.
+
+    obj = new Exam0100();
+    // <=== 현재 실행 시점
+    // Method Area: a 변수 존재
+    // JVM Stack: args, c, obj 변수 존재
+    // Heap: b 변수 존재
+
   }
 }
-
-// 인스턴스 변수는 new 명령을 실행할 때 마다 생성되기 때문에
-// 각각 구분되는 개별 데이터를 저장할 때 사용한다.
-
-
