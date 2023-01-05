@@ -14,11 +14,12 @@ public class Exam0230 {
     // - "스태틱 변수"라고도 부른다.
     // - 클래스 변수는 new 명령으로 생성하지 않는다.
     // - 클래스가 메모리에 로딩될 때 자동으로 "Method Area" 영역에 생성된다.
+    // 클래스가 생략된걵 ㅣ this가 생략된건지
     static int result = 0;
 
     static void plus(int value) {
       // 메서드 작업 결과는 클래스 변수에 보관한다.
-      result += value; // result = result + value
+      Calculator.result += value; // result = result + value
     }
 
     static void minus(int value) {

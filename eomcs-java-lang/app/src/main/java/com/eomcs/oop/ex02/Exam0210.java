@@ -14,6 +14,8 @@ public class Exam0210 {
 
     // 메서드를 호출하여 작업을 수행하고,
     // 리턴 결과는 로컬 변수에 저장한다.
+    // static 메서드는 반드시 앞에 class 이름을 붙여야 함
+    // 같은 클래스 안에 있다면 스태틱 앞에 클래스 이름 안적어도 됨
     result = plus(2, 3);
     result = minus(result, 1);
     result = multiple(result, 7);
