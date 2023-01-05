@@ -12,6 +12,7 @@ public class App {
 
 
     // 2단계
+
     System.out.println("1. 등록");
     System.out.println("2. 목록");
     System.out.println("3. 조회");
