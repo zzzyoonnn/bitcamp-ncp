@@ -23,6 +23,7 @@ public class Exam0100 {
     // - 메서드가 호출될 때 JVM Stack 영억에 생성된다.
     // - 메서드 호출이 끝나면 제거된다.
     int c;
+    c = 100;
 
     // <=== 현재 실행 시점
     // Method Area: a 변수 존재
@@ -37,5 +38,6 @@ public class Exam0100 {
     // JVM Stack: args, c, obj 변수 존재
     // Heap: b 변수 존재
 
+    System.out.println(c);
   }
 }
