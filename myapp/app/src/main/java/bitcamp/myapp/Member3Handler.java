@@ -2,7 +2,7 @@ package bitcamp.myapp;
 
 import java.sql.Date;
 
-public class MemberHandler {
+public class Member3Handler {
 
   static final int SIZE = 100;
   static int count = 0;
@@ -13,6 +13,7 @@ public class MemberHandler {
   static String title = "회원관리";
   
   static void inputMember() {
+
     Member m = new Member();
     m.no = Prompt.inputInt("번호? ");
     m.name = Prompt.inputString("이름? ");
@@ -30,17 +31,19 @@ public class MemberHandler {
   }
 
   static void printMembers() {
-		
-	    System.out.println("번호\t이름\t전화\t재직\t전공");
-	    for (int i = 0; i < count; i++) {
-	      Member m = members[i];
+	
+	  System.out.println("번호\t이름\t전화\t재직\t전공");
+for (int i = 0; i < count; i++) {
+  Member m = members[i];
 
-	      System.out.printf("%d\t%s\t%s\t%s\t%s\n",
-	          m.no, m.name, m.tel,
-	          m.working ? "예" : "아니오", 
-	        		  getLevelText(m.level));
-	    }
-	  }
+  System.out.printf("%d\t%s\t%s\t%s\t%s\n",
+  m.no, m.name, m.tel,
+  m.working ? "예" : "아니오", 
+  getLevelText(m.level));
+    }
+  }
+
+  
   
   static void printMember() {
 	int memberNo = Prompt.inputInt("회원번호? ");
@@ -181,17 +184,17 @@ public class MemberHandler {
       System.out.println("6. 검색");
       System.out.println("0. 이전");
       int menuNo = Prompt.inputInt(String.format("%s> ", title));
-      
+  
       switch (menuNo) {
-        case 0: return;
-        case 1: inputMember(); break;
-        case 2: printMembers(); break;
-        case 3: printMember(); break;
-        case 4: modifyMember(); break; 
-        case 5: deleteMember(); break;
-        case 6: searchMember(); break;
-        default:
-      	  System.out.println("잘못된 메뉴 번호 입니다.");
+		case 0: return;
+		case 1: inputMember(); break;
+		case 2: printMembers(); break;
+		case 3: printMember(); break; 
+		case 4: modifyMember(); break; 
+		case 5: deleteMember(); break;
+		case 6: searchMember(); break;
+    	  default:
+    		  System.out.println("잘못된 메뉴 번호 입니다.");
       }
     }
   }
