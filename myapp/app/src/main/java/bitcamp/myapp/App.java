@@ -5,17 +5,9 @@ public class App {
   public static void main(String[] args) {
     goMainMenu();
     System.out.println("안녕히 가세요!");
-
-<<<<<<< HEAD
-    // 프로그램이 사용한 자원 해제하기
-    Prompt.close();
-=======
-    goMenu();
-
+    
     Prompt.close();
 
-
->>>>>>> 6e666e9a723460470ddce1c3b064936ea6251b7b
   } // main()
   public static void goMenu() {
     while (true) {
