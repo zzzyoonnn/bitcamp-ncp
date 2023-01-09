@@ -27,7 +27,7 @@ class Patient3 {
     if (age > 0 && age < 150)
       this.age = age;
     else
-      throw new RuntimeException("나이가 유효하지 않습니다!");
+      throw new RuntimeException("나이가 유효하지 않습니다!");	// 예외를 던지는 문법
   }
 
   public int getHeight() {

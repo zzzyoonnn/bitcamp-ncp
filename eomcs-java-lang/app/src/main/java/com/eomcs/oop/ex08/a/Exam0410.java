@@ -43,6 +43,7 @@ class Score4 {
 
   public void setName(String name) {
     // 이렇게 유효성을 검사하지 않더라도 setter를 그냥 만들라!
+	// 일관성을 위해서 생성
     this.name = name;
   }
 

@@ -17,7 +17,7 @@ class Score2 {
   private int sum;
   private float aver;
 
-  // sum과 aver의 값을 직접 변경하지 못하게 막았으면,
+  // sum과 aver의 값을 직접 변경하지 못하게 접근을 막았으면,
   // 외부에서 이 값들을 조회할 수 있는 방법/수단(method)은 제공해야 한다.
   // => 보통 이렇게 필드의 값을 조회하는 용도로 사용하기 위해 메서드를 만들 경우
   //    메서드의 용도를 이해하기 쉽도록 getXxx() 형태로 이름을 짓는다.
@@ -25,6 +25,7 @@ class Score2 {
   // => 메서드의 이름이 get 으로 시작한다고 해서 "게터(getter)"라고 부른다.
   // => 그리고 이런 getter는 공개 모드로 설정한다.
   //
+  
   public int getSum() {
     return this.sum;
   }

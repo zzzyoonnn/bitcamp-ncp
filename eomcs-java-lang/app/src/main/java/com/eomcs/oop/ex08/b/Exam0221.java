@@ -1,6 +1,8 @@
 // 캡슐화(encapsulation) 응용 - 생성자를 private 으로 막기 1
 package com.eomcs.oop.ex08.b;
 
+import java.util.Calendar;
+
 class Car {
   String model;
   String maker;
@@ -59,6 +61,7 @@ public class Exam0221 {
     //    다른 메서드를 통해 인스턴스를 생성하라는 의미다!
     //
     Car c2 = Car.create("티코"); // 팩토리 일을 하는 메서드를 통해 인스턴스를 생성한다. 
+    // 객체를 만드는 메서드 -> 팩토리 메서드
 
     System.out.printf("%s,%s,%d,%d\n",
         c2.model, c2.maker, c2.cc, c2.valve);

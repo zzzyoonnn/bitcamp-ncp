@@ -7,27 +7,28 @@ public class MemberHandler {
   // 모든 인스턴스가 공유하는 데이터를 스태틱 필드로 만든다.
   // 특히 데이터를 조회하는 용으로 사용하는 final 변수는 스태틱 필드로 만들어야 한다.
   static final int SIZE = 100;
-  int count;	// 스태틱 필드나 인스턴스 필드는 0으로 초기화됨
-  static Member[] members = new Member[SIZE];
+
+  int count;
+  Member[] members = new Member[SIZE];
   String title;
-  
-  // 인스턴스를 만들 때 프롬포트 제목을 반드시 입력하도록 강제한다.
-  MemberHandler(String title) {	// 생성자 생성
-	  this.title = title;
+
+  // 인스턴스를 만들 때 프롬프트 제목을 반드시 입력하도록 강제한다.
+  MemberHandler(String title) {
+    this.title = title;
   }
 
   void inputMember() {
     Member m = new Member();
-    m.no = Prompt.inputInt("번호? ");
-    m.name = Prompt.inputString("이름? ");
-    m.tel = Prompt.inputString("전화? ");
-    m.postNo = Prompt.inputString("우편번호? ");
-    m.basicAddress = Prompt.inputString("주소1? ");
-    m.detailAddress = Prompt.inputString("주소2? ");
-    m.working = Prompt.inputInt("0. 미취업\n1. 재직중\n재직자? ") == 1;
-    m.gender = Prompt.inputInt("0. 남자\n1. 여자\n성별? ") == 0 ? 'M' : 'W';
-    m.level = (byte) Prompt.inputInt("0. 비전공자\n1. 준전공자\n2. 전공자\n전공? ");
-    m.createdDate = new Date(System.currentTimeMillis()).toString();
+    m.setNo(Prompt.inputInt("번호? "));
+    m.setName(Prompt.inputString("이름? "));
+    m.setTel(Prompt.inputString("전화? "));
+    m.setPostNo(Prompt.inputString("우편번호? "));
+    m.setBasicAddress(Prompt.inputString("주소1? "));
+    m.setDetailAddress(Prompt.inputString("주소2? "));
+    m.setWorking(Prompt.inputInt("0. 미취업\n1. 재직중\n재직자? ") == 1);
+    m.setGender(Prompt.inputInt("0. 남자\n1. 여자\n성별? ") == 0 ? 'M' : 'W');
+    m.setLevel((byte) Prompt.inputInt("0. 비전공자\n1. 준전공자\n2. 전공자\n전공? "));
+    m.setCreatedDate(new Date(System.currentTimeMillis()).toString());
 
     this.members[count++] = m;
   }
@@ -38,9 +39,9 @@ public class MemberHandler {
     for (int i = 0; i < this.count; i++) {
       Member m = this.members[i];
       System.out.printf("%d\t%s\t%s\t%s\t%s\n",
-        m.no, m.name, m.tel,
-        m.working ? "예" : "아니오",
-          getLevelText(m.level));
+          m.getNo(), m.getName(), m.getTel(),
+          m.isWorking() ? "예" : "아니오",
+              getLevelText(m.getLevel()));
     }
   }
 
@@ -65,7 +66,7 @@ public class MemberHandler {
     System.out.printf("  등록일: %s\n", m.createdDate);
   }
 
-  // 인스턴스 멤버(필든 메서드)를 사용하지 않기 때문에
+  // 인스턴스 멤버(필드나 메서드)를 사용하지 않기 때문에
   // 그냥 스태틱 메서드로 두어라!
   static String getLevelText(int level) {
     switch (level) {
@@ -95,14 +96,14 @@ public class MemberHandler {
     m.basicAddress = Prompt.inputString(String.format("기본주소(%s)? ", old.basicAddress));
     m.detailAddress = Prompt.inputString(String.format("상세주소(%s)? ", old.detailAddress));
     m.working = Prompt.inputInt(String.format(
-      "0. 미취업\n1. 재직중\n재직여부(%s)? ",
-      old.working ? "재직중" : "미취업")) == 1;
+        "0. 미취업\n1. 재직중\n재직여부(%s)? ",
+        old.working ? "재직중" : "미취업")) == 1;
     m.gender = Prompt.inputInt(String.format(
-      "0. 남자\n1. 여자\n성별(%s)? ",
-      old.gender == 'M' ? "남자" : "여자")) == 0 ? 'M' : 'W';
+        "0. 남자\n1. 여자\n성별(%s)? ",
+        old.gender == 'M' ? "남자" : "여자")) == 0 ? 'M' : 'W';
     m.level = (byte) Prompt.inputInt(String.format(
-      "0. 비전공자\n1. 준전공자\n2. 전공자\n전공(%s)? ",
-      getLevelText(old.level)));
+        "0. 비전공자\n1. 준전공자\n2. 전공자\n전공(%s)? ",
+        getLevelText(old.level)));
 
     String str = Prompt.inputString("정말 변경하시겠습니까?(y/N) ");
     if (str.equalsIgnoreCase("Y")) {
@@ -156,21 +157,21 @@ public class MemberHandler {
     }
     return -1;
   }
-  
+
   void searchMember() {
-	String name = Prompt.inputString("이름? ");
-	
+    String name = Prompt.inputString("이름? ");
+
     System.out.println("번호\t이름\t전화\t재직\t전공");
 
-	for (int i = 0; i < this.count; i++) {
-	  Member m = this.members[i];
-	  if (m.name.equalsIgnoreCase(name)) {
-	      System.out.printf("%d\t%s\t%s\t%s\t%s\n",
-	        m.no, m.name, m.tel,
-	        m.working ? "예" : "아니오",
-	          getLevelText(m.level));
-	    }
-	  }
+    for (int i = 0; i < this.count; i++) {
+      Member m = this.members[i];
+      if (m.name.equalsIgnoreCase(name)) {
+        System.out.printf("%d\t%s\t%s\t%s\t%s\n",
+            m.no, m.name, m.tel,
+            m.working ? "예" : "아니오",
+                getLevelText(m.level));
+      }
+    }
   }
 
   void service() {
