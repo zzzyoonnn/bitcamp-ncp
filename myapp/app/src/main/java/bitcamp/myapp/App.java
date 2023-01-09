@@ -1,5 +1,8 @@
 package bitcamp.myapp;
 
+import bitcamp.myapp.handler.BoardHandler;
+import bitcamp.myapp.handler.MemberHandler;
+
 public class App {
 
   public static void main(String[] args) {

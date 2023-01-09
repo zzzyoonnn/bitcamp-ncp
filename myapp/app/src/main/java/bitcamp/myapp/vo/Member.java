@@ -1,4 +1,4 @@
-package bitcamp.myapp;
+package bitcamp.myapp.vo;
 
 // 회원 데이터를 담을 메모리를 설계한다.
 public class Member {

@@ -1,4 +1,4 @@
-package bitcamp.myapp;
+package bitcamp.myapp.vo;
 
 public class Board {
   public int getNo() {
