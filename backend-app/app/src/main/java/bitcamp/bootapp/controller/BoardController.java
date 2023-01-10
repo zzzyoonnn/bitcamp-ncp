@@ -76,7 +76,7 @@ public class BoardController {
     return contentMap;
   }
   
-  @PutMapping("/boards{boardNo}")
+  @PutMapping("/boards/{boardNo}")
   public Object updateBoard(
 		  @PathVariable int boardNo,
 		  @RequestParam(required = false) String title,

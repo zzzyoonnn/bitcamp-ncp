@@ -12,36 +12,40 @@
 <table border="1">
   <tbody>
     <tr>
-      <td>이름</td>
+      <th>이름</th>
       <td><input type="text" name="name" id="f-name"></td>
     </tr>
     <tr>
-      <td>전화번호</td>
+      <th>전화번호</th>
       <td><input type="text" name="tel" id="f-tel"></td>
     </tr>
     <tr>
-      <td>우편번호</td>
+      <th>우편번호</th>
       <td><input type="text" name="postNo" id="f-postNo"></td>
     </tr>
     <tr>
-      <td>기본주소</td>
+      <th>기본주소</th>
       <td><input type="text" name="basicAddress" id="f-basicAddress"></td>
     </tr>
     <tr>
-      <td>상세주소</td>
+      <th>상세주소</th>
       <td><input type="text" name="detailAddress" id="f-detailAddress"></td>
     </tr>
     <tr>
-      <td>재직여부</td>
+      <th>재직여부</th>
       <td><input type="text" name="working" id="f-working"></td>
     </tr>
     <tr>
-      <td>성별</td>
+      <th>성별</th>
       <td><input type="text" name="gender" id="f-gender"></td>
     </tr>
     <tr>
-      <td>전공</td>
+      <th>전공</th>
       <td><input type="text" name="level" id="f-level"></td>
+    </tr>
+    <tr>
+      <th>암호</th>
+      <td><input type="password" name="password" id="f-password"></td>
     </tr>
   </tbody>
 </table>
@@ -59,7 +63,7 @@ document.querySelector('#add-btn').onclick = (e) => {
   var working = encodeURIComponent(document.querySelector('#f-working').value);
   var gender = encodeURIComponent(document.querySelector('#f-gender').value);
   var level = encodeURIComponent(document.querySelector('#f-level').value);
-  // var password = encodeURIComponent(document.querySelector('#f-password').value);
+  var password = encodeURIComponent(document.querySelector('#f-password').value);
 
   // console.log(`title=${title}&content=${content}&password=${password}`);
   fetch('http://localhost:8080/members', {

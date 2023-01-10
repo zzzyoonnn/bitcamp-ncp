@@ -67,25 +67,23 @@
 </form>
 
 <script>
-  // 주석 풀면 올바른 페이지 주소가 아닙니다 등장
-  // no 숫자 안늘어남
-  // var values = location.href.split('?');
-  // if (values.length != 2) {
-  //   alert("올바른 페이지 주소가 아닙니다.");
-  //   throw "no 파라미터 값이 누락되었습니다.";
-  // } 
+  var values = location.href.split('?');
+  if (values.length != 2) {
+    alert("올바른 페이지 주소가 아닙니다.");
+    throw "no 파라미터 값이 누락되었습니다.";
+  } 
   
-  // var values2 = values[1].split("=");
-  // if (values2.length != 2 || values2[0] != "no") {
-  //   alert("올바른 페이지 주소가 아닙니다.");
-  //   throw "no 파라미터 값이 누락되었습니다.";
-  // }
+  var values2 = values[1].split("=");
+  if (values2.length != 2 || values2[0] != "no") {
+    alert("올바른 페이지 주소가 아닙니다.");
+    throw "no 파라미터 값이 누락되었습니다.";
+  }
   
-  // var no = parseInt(values2[1]);
-  // if (isNaN(no)) {
-  //   alert("페이지 번호가 옳지 않습니다.");
-  //   throw "no 파라미터 값이 숫자가 아닙니다.";
-  // }
+  var no = parseInt(values2[1]);
+  if (isNaN(no)) {
+    alert("페이지 번호가 옳지 않습니다.");
+    throw "no 파라미터 값이 숫자가 아닙니다.";
+  }
   
   fetch(`http://localhost:8080/members/${no}`)
     .then((response) => response.json())
