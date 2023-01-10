@@ -1,10 +1,9 @@
 package bitcamp.myapp.handler;
 
 import java.sql.Date;
-
-import bitcamp.myapp.Prompt;
 import bitcamp.myapp.dao.MemberDao;
 import bitcamp.myapp.vo.Member;
+import bitcamp.myapp.util.Prompt;
 
 public class MemberHandler {
 

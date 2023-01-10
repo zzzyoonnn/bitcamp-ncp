@@ -2,8 +2,8 @@ package bitcamp.myapp.handler;
 
 import java.sql.Date;
 
-import bitcamp.myapp.Prompt;
 import bitcamp.myapp.dao.BoardDao;
+import bitcamp.myapp.util.Prompt;
 import bitcamp.myapp.vo.Board;
 
 public class BoardHandler {

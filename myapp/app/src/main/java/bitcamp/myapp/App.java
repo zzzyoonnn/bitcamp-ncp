@@ -2,6 +2,7 @@ package bitcamp.myapp;
 
 import bitcamp.myapp.handler.BoardHandler;
 import bitcamp.myapp.handler.MemberHandler;
+import bitcamp.myapp.util.Prompt;
 
 public class App {
 
