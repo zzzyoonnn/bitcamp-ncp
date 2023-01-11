@@ -37,10 +37,10 @@ public class Board {
 	public void setViewCount(int viewCount) {
 		this.viewCount = viewCount;
 	}
-private int no;
-  private String title;
-  private String content;
-  private String password;
-  private String createdDate;
-  private int viewCount;
+	private int no;
+	  private String title;
+	  private String content;
+	  private String password;
+	  private String createdDate;
+	  private int viewCount;
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,21 +7,17 @@
   <title>Document</title>
 </head>
 <body>
-<h1>멤버</h1>
-<a href="form.html">새 멤버</a>
+<h1>강사</h1>
+<a href="form.html">새 강사</a>
 <table border="1">
   <thead>
     <tr>
       <th>번호</th>
       <th>이름</th>
-      <th>전화번호</th>
-      <th>우편번호</th>
-      <th>기본주소</th>
-      <th>상세주소</th>
-      <th>재직여부</th>
-      <th>성별</th>
+      <th>전화</th>
+      <th>학위</th>
       <th>전공</th>
-      <th>작성일</th>
+      <th>시강료</th>
     </tr>
   </thead>
   <tbody>
@@ -31,22 +27,30 @@
 <script>
 var tbody = document.querySelector("tbody");
 
-fetch('http://localhost:8080/members')
+function getDegreeTitle(level) {
+  switch (level) {
+    case 1: return "고졸";
+    case 2: return "전문학사";
+    case 3: return "학사";
+    case 4: return "석사";
+    case 5: return "박사";
+    case 0: return "기타";
+    default: return "";
+  }
+}
+
+fetch('http://localhost:8080/teachers')
   .then((response) => {return response.json();})
   .then((obj) => {
     var html = '';
-    for (var m of obj.data) {
+    for (var t of obj.data) {
       html += `<tr>
-        <td>${m.no}</td>
-        <td><a href="view.html?no=${m.no}">${m.name} </a></td>
-        <td>${m.tel}</td>
-        <td>${m.postNo}</td>
-        <td>${m.basicAddress}</td>
-        <td>${m.detailAddress}</td>
-        <td>${m.working}</td>
-        <td>${m.gender}</td>
-        <td>${m.level}</td>
-        <td>${m.createdDate}</td>
+        <td>${t.no}</td>
+        <td><a href="view.html?no=${t.no}">${t.name} </a></td>
+        <td>${t.tel}</td>
+        <td>${getDegreeTitle(t.degree)}</td>
+        <td>${t.major}</td>
+        <td>${t.wage}</td>
         </tr>\n`;
     }
     tbody.innerHTML = html;

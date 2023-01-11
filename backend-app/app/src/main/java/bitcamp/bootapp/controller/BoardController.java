@@ -110,7 +110,7 @@ public class BoardController {
   @DeleteMapping("/boards/{boardNo}")
   public Object deleteBoard(
 		  @PathVariable int boardNo,
-		  @RequestParam String password) {
+		  @RequestParam(required = false) String password) {
 	 
 	  Board b = this.boardDao.findByNo(boardNo);
 	  // 응답 결과를 담을 맵 객체준비

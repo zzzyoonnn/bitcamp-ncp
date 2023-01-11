@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,7 +7,7 @@
   <title>Document</title>
 </head>
 <body>
-<h1>새 멤버</h1>
+<h1>새 회원</h1>
 <form>
 <table border="1">
   <tbody>
@@ -16,7 +16,7 @@
       <td><input type="text" name="name" id="f-name"></td>
     </tr>
     <tr>
-      <th>전화번호</th>
+      <th>전화</th>
       <td><input type="text" name="tel" id="f-tel"></td>
     </tr>
     <tr>
@@ -33,19 +33,24 @@
     </tr>
     <tr>
       <th>재직여부</th>
-      <td><input type="text" name="working" id="f-working"></td>
+      <td><input type="checkbox" name="working" value="true" id="f-working"> 재직중</td>
     </tr>
     <tr>
       <th>성별</th>
-      <td><input type="text" name="gender" id="f-gender"></td>
+      <td>
+        <input type="radio" name="gender" value="W" id="f-gender-w" checked> 여성
+        <input type="radio" name="gender" value="M" id="f-gender-m"> 남성
+      </td>
     </tr>
     <tr>
       <th>전공</th>
-      <td><input type="text" name="level" id="f-level"></td>
-    </tr>
-    <tr>
-      <th>암호</th>
-      <td><input type="password" name="password" id="f-password"></td>
+      <td>
+        <select name="level" id="f-level">
+          <option value="0">비전공자</option>
+          <option value="1">준전공자</option>
+          <option value="2">전공자</option>
+        </select>
+      </td>
     </tr>
   </tbody>
 </table>
@@ -56,23 +61,25 @@
 <script>
 document.querySelector('#add-btn').onclick = (e) => {
   var name = encodeURIComponent(document.querySelector('#f-name').value);
-  var tel = encodeURIComponent(document.querySelector('#f-tel').value);
-  var postNo = encodeURIComponent(document.querySelector('#f-postNo').value);
+  var tel = document.querySelector('#f-tel').value;
+  var postNo = document.querySelector('#f-postNo').value;
   var basicAddress = encodeURIComponent(document.querySelector('#f-basicAddress').value);
   var detailAddress = encodeURIComponent(document.querySelector('#f-detailAddress').value);
-  var working = encodeURIComponent(document.querySelector('#f-working').value);
-  var gender = encodeURIComponent(document.querySelector('#f-gender').value);
-  var level = encodeURIComponent(document.querySelector('#f-level').value);
-  var password = encodeURIComponent(document.querySelector('#f-password').value);
+  var working = document.querySelector('#f-working').checked;
+  var gender = document.querySelector('#f-gender-w').checked ? 'W' : 'M';
+  var level = document.querySelector('#f-level').value;
+/*  
+  console.log(`name=${name}&tel=${tel}&postNo=${postNo}&basicAddress=${basicAddress}&detailAddress=${detailAddress}` +
+              `&working=${working}&gender=${gender}&level=${level}`);
+  */
 
-  // console.log(`title=${title}&content=${content}&password=${password}`);
   fetch('http://localhost:8080/members', {
     method: 'POST',
     headers: {
       'Content-type': 'application/x-www-form-urlencoded'
     },
-    body: `name=${name}&tel=${tel}&postNo=${postNo}&basicAddress=${basicAddress}
-    &detailAddress=${detailAddress}&working=${working}&gender=${gender}&level=${level}`
+    body: `name=${name}&tel=${tel}&postNo=${postNo}&basicAddress=${basicAddress}&detailAddress=${detailAddress}` +
+          `&working=${working}&gender=${gender}&level=${level}`
   })
   .then((response) => {return response.json();})
   .then((obj) => {
@@ -82,11 +89,13 @@ document.querySelector('#add-btn').onclick = (e) => {
     alert("서버 요청 오류!");
     console.log(err);
   });
+
 };
 
 document.querySelector('#cancel-btn').onclick = (e) => {
   location.href = "list.html";
 };
+
 </script>
 </body>
 </html>
