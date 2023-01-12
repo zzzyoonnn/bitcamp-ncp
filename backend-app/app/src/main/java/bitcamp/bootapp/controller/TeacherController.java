@@ -3,6 +3,8 @@ package bitcamp.bootapp.controller;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,15 +12,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import bitcamp.bootapp.dao.TeacherDao;
 import bitcamp.bootapp.vo.Teacher;
 
-@CrossOrigin(origins = {"http://127.0.0.1:5500", "http://localhost:5500"})
-@RestController
+@RestController	// JSON
+
 public class TeacherController {
 
-  TeacherDao teacherDao = new TeacherDao();
+  @Autowired TeacherDao teacherDao;	// 인스턴스 필드에만  오토와일드 가능
 
+  
   @PostMapping("/teachers")
   public Object addTeacher(Teacher teacher) {
 

@@ -17,7 +17,7 @@ public class Exam0161 {
     // - 그리고 그 값을 사용할 때는 변수를 통해 사용한다.
     // - 조회 용으로 사용할 변수이기에 final 로 선언한다.
     // - 상수라는 것을 직관적으로 알리기 위해 변수 이름을 대문자로 선언한다.
-    //
+
     final int GUEST = 0;
     final int MEMBER = 1;
     final int MANAGER = 2;

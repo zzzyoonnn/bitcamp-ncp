@@ -16,11 +16,14 @@ import org.springframework.web.bind.annotation.RestController;
 import bitcamp.bootapp.dao.BoardDao;
 import bitcamp.bootapp.vo.Board;
 
-@CrossOrigin(origins = {"http://127.0.0.1:5500", "http://localhost:5500"})
 @RestController
 public class BoardController {
 	
   private BoardDao boardDao = new BoardDao();
+  
+  public BoardController(BoardDao boardDao) {
+	  this.boardDao = boardDao;
+  }
   
   @PostMapping("/boards")	// POST 요청
   public Object addBoard(	// 이 메서드를 스프링부트가 호출

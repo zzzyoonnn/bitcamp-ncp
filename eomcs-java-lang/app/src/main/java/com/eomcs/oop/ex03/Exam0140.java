@@ -6,7 +6,7 @@ public class Exam0140 {
 
   static class A {
     static int v1;
-    int v2;
+    int v2;	// heap
   }
 
   public static void main(String[] args) {

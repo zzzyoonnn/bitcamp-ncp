@@ -7,7 +7,7 @@
   <title>Document</title>
 </head>
 <body>
-<h1>새 회원</h1>
+<h1>새 학생</h1>
 <form>
 <table border="1">
   <tbody>
@@ -73,7 +73,7 @@ document.querySelector('#add-btn').onclick = (e) => {
               `&working=${working}&gender=${gender}&level=${level}`);
   */
 
-  fetch('http://localhost:8080/members', {
+  fetch('http://localhost:8080/students', {
     method: 'POST',
     headers: {
       'Content-type': 'application/x-www-form-urlencoded'
