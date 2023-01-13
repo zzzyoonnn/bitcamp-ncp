@@ -17,9 +17,9 @@ public class Exam02 {
 
     // 좀 더 전문화해서 만든 Sedan, Truck 클래스도 사용할 수 있다.
     Sedan s = new Sedan();
-    Truck t = new Truck();
-
     s.doSunroof(true);
+D
+    Truck t = new Truck();
     t.dump();
   }
 

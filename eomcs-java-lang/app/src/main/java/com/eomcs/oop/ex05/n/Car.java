@@ -33,8 +33,7 @@ public abstract class Car {
   //       추상메서드를 갖는 클래스는 반드시 추상클래스여야 한다.
   //       일반 클래스는 추상메서드를 가질 수 없다.
   // 
-  public abstract void run();
-
+  public abstract void run();	// 추상메서드는 바디를 가져선 X
 }
 
 
