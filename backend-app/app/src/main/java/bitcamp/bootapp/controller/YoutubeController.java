@@ -33,7 +33,6 @@ public class YoutubeController {
 		String password = "admin";	// Youtube 게시물 작성자 비밀번호
 		String createdDate = "2023-01-14";	// Youtube 게시물 작성일
 		String link ="https://www.youtube.com/watch?v=chI0nkP07-M&t=1s";	// Youtube 링크
-		String thumbnail;	// Youtube 썸네일
 	}
 */
 
