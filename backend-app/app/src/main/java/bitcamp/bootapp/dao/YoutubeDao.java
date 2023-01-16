@@ -22,7 +22,7 @@ public class YoutubeDao {
   
   // Youtube 게시물 생성
   public void insert(Youtube youtube) {
-    youtube.setNo(++no);
+    youtube.setNo(no+4);
     youtube.setCreatedDate(new Date(System.currentTimeMillis()).toString());
     this.youtubes[this.count++] = youtube;
   }
@@ -65,10 +65,4 @@ public class YoutubeDao {
     return -1;
   }
 }
-
-
-
-
-
-
 
