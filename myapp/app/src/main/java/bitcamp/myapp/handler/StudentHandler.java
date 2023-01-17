@@ -1,26 +1,25 @@
 package bitcamp.myapp.handler;
 
 import java.sql.Date;
-import bitcamp.myapp.dao.MemberDao;
-import bitcamp.myapp.vo.Member;
+import bitcamp.myapp.dao.StudentDao;
+import bitcamp.myapp.vo.Student;
 import bitcamp.myapp.util.Prompt;
 
-public class MemberHandler {
+public class StudentHandler {
 
-  private MemberDao memberDao = new MemberDao();
+  private StudentDao memberDao = new StudentDao();
   private String title;
   // 모든 인스턴스가 공유하는 데이터를 스태틱 필드로 만든다.
   // 특히 데이터를 조회하는 용으로 사용하는 final 변수는 스태틱 필드로 만들어야 한다.
   
 
   // 인스턴스를 만들 때 프롬프트 제목을 반드시 입력하도록 강제한다.
-  MemberHandler(String title) {
+  public StudentHandler(String title) {
     this.title = title;
   }
 
   void inputMember() {
-    Member m = new Member();
-    m.setNo(Prompt.inputInt("번호? "));
+    Student m = new Student();
     m.setName(Prompt.inputString("이름? "));
     m.setTel(Prompt.inputString("전화? "));
     m.setPostNo(Prompt.inputString("우편번호? "));
@@ -29,18 +28,18 @@ public class MemberHandler {
     m.setWorking(Prompt.inputInt("0. 미취업\n1. 재직중\n재직자? ") == 1);
     m.setGender(Prompt.inputInt("0. 남자\n1. 여자\n성별? ") == 0 ? 'M' : 'W');
     m.setLevel((byte) Prompt.inputInt("0. 비전공자\n1. 준전공자\n2. 전공자\n전공? "));
-    m.setCreatedDate(new Date(System.currentTimeMillis()).toString());
 
     this.memberDao.insert(m);
   }
 
   void printMembers() {
 	  
-	Member[] members = this.memberDao.findAll();
+	Object[] members = this.memberDao.findAll();
 	  
     System.out.println("번호\t이름\t전화\t재직\t전공");
 
-    for (Member m : members) {
+    for (Object obj : members) {
+    	Student m = (Student) obj;
       System.out.printf("%d\t%s\t%s\t%s\t%s\n",
           m.getNo(), m.getName(), m.getTel(),
           m.isWorking() ? "예" : "아니오",
@@ -51,7 +50,7 @@ public class MemberHandler {
   void printMember() {
     int memberNo = Prompt.inputInt("회원번호? ");
 
-    Member m = this.memberDao.findByNo(memberNo);
+    Student m = this.memberDao.findByNo(memberNo);
 
     if (m == null) {
       System.out.println("해당 번호의 회원이 없습니다.");
@@ -82,7 +81,7 @@ public class MemberHandler {
   void modifyMember() {
     int memberNo = Prompt.inputInt("회원번호? ");
 
-    Member old = this.memberDao.findByNo(memberNo);
+    Student old = this.memberDao.findByNo(memberNo);
 
     if (old == null) {
       System.out.println("해당 번호의 회원이 없습니다.");
@@ -90,7 +89,7 @@ public class MemberHandler {
     }
 
     // 변경할 데이터를 저장할 인스턴스 준비
-    Member m = new Member();
+    Student m = new Student();
     m.no = old.no;
     m.createdDate = old.createdDate;
     m.name = Prompt.inputString(String.format("이름(%s)? ", old.name));
@@ -121,7 +120,7 @@ public class MemberHandler {
   void deleteMember() {
     int memberNo = Prompt.inputInt("회원번호? ");
 
-    Member m = this.memberDao.findByNo(memberNo);
+    Student m = this.memberDao.findByNo(memberNo);
 
     if (m == null) {
       System.out.println("해당 번호의 회원이 없습니다.");
@@ -134,22 +133,24 @@ public class MemberHandler {
       return;
     }
 
-    
+    this.memberDao.delete(m);
 
     System.out.println("삭제했습니다.");
 
   }
 
 
-  void searchMember() {
-	  
-	Member[] members = this.memberDao.findAll();
+ void searchMember() {
+	
+	Object[] members = (Student[]) this.memberDao.findAll();
+	
 	  
     String name = Prompt.inputString("이름? ");
 
     System.out.println("번호\t이름\t전화\t재직\t전공");
 
-    for (Member m : members) {
+    for (Object obj : members) {
+    	Student m = (Student) obj;
       if (m.getName().equalsIgnoreCase(name)) {
         System.out.printf("%d\t%s\t%s\t%s\t%s\n",
             m.no, m.name, m.tel,
@@ -159,7 +160,7 @@ public class MemberHandler {
     }
   }
 
-  void service() {
+  public void service() {
     while (true) {
       System.out.printf("[%s]\n", this.title);
       System.out.println("1. 등록");

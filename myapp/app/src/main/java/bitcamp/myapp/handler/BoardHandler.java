@@ -8,24 +8,22 @@ import bitcamp.myapp.vo.Board;
 
 public class BoardHandler {
 
-  private BoardDao boardDao = new BoardDao();
-  private String title;
+	private BoardDao boardDao = new BoardDao();
+	private String title;
 	
-  // 모든 인스턴스가 공유하는 데이터를 스태틱 필드로 만든다.
-  // 특히 데이터를 조회하는 용으로 사용하는 final 변수는 스태틱 필드로 만들어야 한다.
+	// 모든 인스턴스가 공유하는 데이터를 스태틱 필드로 만든다.
+	// 특히 데이터를 조회하는 용으로 사용하는 final 변수는 스태틱 필드로 만들어야 한다.
 
-  // 인스턴스를 만들 때 프롬프트 제목을 반드시 입력하도록 강제한다.
-  public BoardHandler(String title) {
-    this.title = title;
-  }
+	// 인스턴스를 만들 때 프롬프트 제목을 반드시 입력하도록 강제한다.
+	public BoardHandler(String title) {
+		this.title = title;
+	}
 
-  void inputBoard() {
+  private void inputBoard() {
     Board b = new Board();
-    b.setNo(Prompt.inputInt("번호? "));
     b.setTitle(Prompt.inputString("제목? "));
     b.setContent(Prompt.inputString("내용? "));
     b.setPassword(Prompt.inputString("암호? "));
-    b.setCreatedDate(new Date(System.currentTimeMillis()).toString());
 
     this.boardDao.insert(b);
   }
@@ -33,15 +31,17 @@ public class BoardHandler {
   void printBoards() {
     System.out.println("번호\t제목\t작성일\t조회수");
 
-    Board[] boards = this.boardDao.findAll();
+    Object[] boards = this.boardDao.findAll();
     
-    for (Board b : boards) {
-      System.out.printf("%d\t%s\t%s\t%d\n",
-          b.getNo(), b.getTitle(), b.getCreatedDate(), b.getViewCount());
+    for (Object obj : boards) {	// Obj안에 들은 보드객체 주소는 boards가 맞음
+    	Board b = (Board) obj;
+    		System.out.printf("%d\t%s\t%s\t%d\n",
+    			b.getNo(), b.getTitle(), b.getCreatedDate(), b.getViewCount());
+    			// ((Board)b).getNo(), ((Board)b).getTitle(), ((Board)b).getCreatedDate(), ((Board)b).getViewCount());
     }
   }
 
-  void printBoard() {
+  private void printBoard() {
     int boardNo = Prompt.inputInt("게시글 번호? ");
 
     Board b = this.boardDao.findByNo(boardNo);
@@ -58,7 +58,7 @@ public class BoardHandler {
     b.setViewCount(b.getViewCount() + 1);
   }
 
-  void modifyBoard() {
+  private void modifyBoard() {
     int boardNo = Prompt.inputInt("게시글 번호? ");
 
     Board old = this.boardDao.findByNo(boardNo);
@@ -91,7 +91,7 @@ public class BoardHandler {
 
   }
 
-  void deleteBoard() {
+  private void deleteBoard() {
     int boardNo = Prompt.inputInt("게시글 번호? ");
 
     Board b = this.boardDao.findByNo(boardNo);
@@ -119,22 +119,20 @@ public class BoardHandler {
 
   }
 
-  void searchBoard() {
-	Board[] boards = this.boardDao.findAll();
-    String keyword = Prompt.inputString("검색어? ");
-
-    System.out.println("번호\t제목\t작성일\t조회수");
-
-    for (Board b : boards) {
-      if (b.getTitle().indexOf(keyword) != -1 ||
-          b.getContent().indexOf(keyword) != -1) {
-        System.out.printf("%d\t%s\t%s\t%d\n",
-            b.getNo(), b.getTitle(), b.getCreatedDate(), b.getViewCount());
-      }
+  	private void searchBoard() {
+  		Object[] boards = this.boardDao.findAll();
+  		String keyword = Prompt.inputString("검색어? ");
+  		System.out.println("번호\t제목\t작성일\t조회수");
+  		for (Object obj : boards) {
+  			Board b = (Board) obj;
+  			if (b.getTitle().indexOf(keyword) != -1 || b.getContent().indexOf(keyword) != -1) {
+    				System.out.printf("%d\t%s\t%s\t%d\n",
+    				b.getNo(), b.getTitle(), b.getCreatedDate(), b.getViewCount());
+  			}
+    	}
     }
-  }
 
-  void service() {
+  public void service() {
     while (true) {
       System.out.printf("[%s]\n", this.title);
       System.out.println("1. 등록");
