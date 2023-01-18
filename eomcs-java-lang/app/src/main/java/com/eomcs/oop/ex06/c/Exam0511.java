@@ -1,4 +1,5 @@
 // 오버라이딩(overriding) - 레퍼런스가 가리키는 메서드
+// 강사님 코드 복붙하기
 package com.eomcs.oop.ex06.c;
 
 public class Exam0511 {
@@ -34,6 +35,10 @@ public class Exam0511 {
     void m1() {
       System.out.println("X4의 m1()");
     }
+    
+    void x() {
+    	System.out.println("X4의 x()");
+    }
   }
 
   public static void main(String[] args) {
@@ -45,7 +50,7 @@ public class Exam0511 {
     // 실제 레퍼런스가 가리키는 클래스에서 메서드를 찾아 올라간다.
     //
     ((X3)x4).m1();   // X4.m1()
-    ((X2)x4).m1();   // X4.m1()
+    ((X3)x4).m2();   // X4.m2()
     ((X)x4).m1();    // X4.m1();
 
     X3 x3 = x4;

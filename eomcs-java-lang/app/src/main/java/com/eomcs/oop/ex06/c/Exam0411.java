@@ -16,6 +16,7 @@ public class Exam0411 {
       System.out.println("A2의 m()");
     }
 
+    // 중요
     void test() {
       // this 레퍼런스로 메서드를 호출하면,
       // => 현재 클래스(this의 실제 클래스, 예: A3)에서 메서드를 찾아 호출한다.

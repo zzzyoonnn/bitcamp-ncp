@@ -1,4 +1,5 @@
 // hash code 응용 - HashSet 과 hashCode()
+// 코드 확인
 package com.eomcs.basic.ex01;
 
 import java.util.HashSet;
@@ -14,6 +15,18 @@ public class Exam0150 {
       this.name = name;
       this.age = age;
       this.working = working;
+    }
+    
+//    @Override
+//    public int hashCode() {
+//    	// TODO Auto-generated method stub
+//    	return 100;
+//    }
+    
+//    @Override
+//    public boolean equals(Object obj) {
+//    	// TODO Auto-generated method stub
+//    	return true;
     }
   }
   
@@ -50,12 +63,16 @@ public class Exam0150 {
     // 집합?
     // => 중복 값을 저장할 수 없다.
     // 
-    // HashSet
-    // => 집합의 기능을 수행한다. 중복 값을 저장하지 않는다.
-    // => 저장할 객체에 대해 hash 코드로 중복 여부를 검사한다.
-    // => 해시 값이 다르면 다른 값으로 취급한다.
-    // => 또한 hash 코드로 값을 저장할 인덱스를 결정하기 때문에
-    //    값을 꺼낼 때 저장한 순서대로 꺼낼 수 없다.
+    // HashSet = Hash + Set
+    // => 값을 저장할 때 해시값을 계산하여 저장 위치를 알아낸다.
+    // => 집합 방식으로 목록을 다룬다. 즉, 중복 값을 저장하지 않는다.
+    // => 저장 과정:
+    // 		1) equals()와 hashCode()를 호출하여 중복 여부를 검사한다.
+    //		2) equals()의 리턴 값도 true이고 hashCode()의 리턴 값도 같을 경우,
+    //		   같은 객체로 판단하여 저장하지 않는다.
+    //			- 리턴 값이 true라면, 같은 객체로 간주하여 저장하지 않는다.
+    //			- 리턴 값이 false라면, 다른 객체로 간주하여 저장한다.
+    //		3) 단, 저장 위치는 hashCode()의 리턴 값을 사용하여 계산한다.
     // 
     
     // 현재 예제의 문제점?

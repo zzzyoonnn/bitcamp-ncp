@@ -53,7 +53,7 @@ public class Exam0133 {
 //    String, 
 //    랩퍼 클래스(Byte,Short,Integer,Long,
 //    Float,Double,Boolean,Character)
-// 
+// => premative type과 같은 일 수행(byte, short, integer,long, ... )
 
 
 

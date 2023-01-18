@@ -13,7 +13,7 @@ public class Exam0121 {
     // 그럴 경우 toString()을 오버라이딩 하라!
     @Override
     public String toString() {
-      return "My [name=" + name + ", age=" + age + "]";
+    	return "My [name=" + name + ", age=" + age + "]";
     }
   }
 
@@ -30,6 +30,7 @@ public class Exam0121 {
     // println() 내부에서 파라미터로 넘어온 객체에 대해 toString() 호출한 후 
     // 그 리턴 값을 출력한다.
     // 따라서 그냥 객체(주소)를 넘겨줘도 된다.
+    // System.out.println(obj1.toString()); == System.out.println(obj1);
     System.out.println(obj1);
   }
 

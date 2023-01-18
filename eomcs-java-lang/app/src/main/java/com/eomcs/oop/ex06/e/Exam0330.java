@@ -1,4 +1,5 @@
 // final 사용법: 상수 필드 만들기
+// 강사님 코드 복붙
 package com.eomcs.oop.ex06.e;
 
 class E {
@@ -10,6 +11,7 @@ class E {
     v1 = 200; // OK!
     //    v1 = 300; // 컴파일 오류!
   }
+  // 
 }
 
 public final class Exam0330 {

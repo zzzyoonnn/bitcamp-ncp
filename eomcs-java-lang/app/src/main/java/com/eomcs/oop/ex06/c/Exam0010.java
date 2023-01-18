@@ -13,7 +13,7 @@ public class Exam0010 {
     float aver;
 
     public void compute() {
-      this.sum = this.kor + this.eng + this.math;
+      this.sum = this.kor + this.eng + this.math;	// this는 Score2를 가리킴
       this.aver = this.sum / 3f;
     }
   }

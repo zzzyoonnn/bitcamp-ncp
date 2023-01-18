@@ -6,9 +6,12 @@ class C {
   // 생성자에서 초기화시켜야 한다.
   //
   final int v1;
+  // final int v1 = 100; 컴파일러는 생성자를 통해 변수 초기화
+  // final은 단 한번만 초기화 가능
 
-  public C() {
+  public C() {	// 생성자
     v1 = 100;
+    // v1 = 101;	// final 필드는 딱 한 번만 값을 설정할 수 있다.
   }
 
   public void m1() {

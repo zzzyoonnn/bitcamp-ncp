@@ -1,4 +1,5 @@
 // Object 클래스 - clone() 사용법 I 
+//코드 확인
 package com.eomcs.basic.ex01;
 
 // clone()은 인스턴스를 복제할 때 호출하는 메서드이다.
@@ -32,7 +33,7 @@ public class Exam0170 {
     }
   }
 
-  public static void main(String[] args) throws Exception {
+  public static void main(String[] args) {
 
     Score s1 = new Score("홍길동", 100, 100, 100);
     System.out.println(s1);
@@ -61,7 +62,9 @@ public class Exam0170 {
     // 서브 클래스이면서, 자신의 인스턴스로 접근할 때는 
     // protected 멤버를 사용할 수 있다.
     Exam0170 obj = new Exam0170();
-    obj.clone(); // 접근 가능! 단, 호출할 때 예외 상황을 처리해야 한다.
+    try {
+    	obj.clone(); // 접근 가능! 단, 호출할 때 예외 상황을 처리해야 한다.
+    } else .
 
     // 해결책:
     // => Object에서 상속 받은 clone()을 오버라이딩 하라!

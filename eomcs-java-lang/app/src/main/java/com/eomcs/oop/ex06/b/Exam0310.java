@@ -12,7 +12,7 @@ public class Exam0310 {
     // 외부에서 값을 받아 Integer 객체를 생성하는 메서드들
     Integer obj1 = Integer.valueOf(100);
     Integer obj2 = Integer.valueOf("100");
-    Integer obj3 = Integer.valueOf("64", 16);
+    Integer obj3 = Integer.valueOf("64", 16);	// 16진수로 표현
 
     System.out.printf("%d, %d, %d\n", obj1, obj2, obj3);
 

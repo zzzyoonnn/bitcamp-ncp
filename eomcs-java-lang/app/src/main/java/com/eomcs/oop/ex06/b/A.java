@@ -27,7 +27,7 @@ public class A {
   // => 이유?
   //    메서드를 찾을 때 파라미터 값의 타입으로 찾기 때문이다.
   //    따라서 다음 메서드는 위의 메서드와 같은 메서드이기 때문에 컴파일 오류이다!
-  //
+  //  static public void m(int a, String b)
   //  static public void m(int x, String y) {
   //    System.out.println("m(int,String)");
   //  }
@@ -36,15 +36,8 @@ public class A {
   // => 이유?
   //    메서드를 찾을 때 파라미터 값의 타입으로 찾기 때문이다.
   //    따라서 다음 메서드는 컴파일 오류이다.
-  //
+  //  static public void m(int a, String b)
   //  static public int m(int a, String b) {
   //    return 0;
   //  }
 }
-
-
-
-
-
-
-

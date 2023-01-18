@@ -1,4 +1,5 @@
 // hash code 응용 II - MyKey의 hashCode()와 equals() 오버라이딩 하기
+// 코드 가져오기
 package com.eomcs.basic.ex01;
 
 import java.util.HashMap;
@@ -18,13 +19,19 @@ public class Exam0153 {
       return "MyKey2 [contents=" + contents + "]";
     }
 
-    //    @Override
-    //    public int hashCode() {
-    //      final int prime = 31;
-    //      int result = 1;
-    //      result = prime * result + ((contents == null) ? 0 : contents.hashCode());
-    //      return result;
-    //    }
+        @Override
+        public int hashCode() {
+          final int prime = 31;
+          int result = 1;
+          result = prime * result + ((contents == null) ? 0 : contents.hashCode());
+          return result;
+        }
+        
+        @Override
+        public boolean equals(Object obj) {
+        	// TODO Auto-generated method stub
+        	return super.equals(obj);
+        }
 
     @Override
     public boolean equals(Object obj) {
