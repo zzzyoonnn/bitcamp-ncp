@@ -11,6 +11,23 @@ public class BoardDao extends ObjectDao {
 	// 가장 최근 게시글이 삭제되더라도 그 값은 그대로 유지할 것이다.
 	int lastNo;
 	
+	// Board 객체를 게시글 번호를 찾는 메서드
+	  public Board findByNo(int no) {
+	    Board b = new Board();
+	    b.setNo(no);
+
+	    //    int index = this.indexOf(b);
+	    //
+	    //    if (index < 0) {
+	    //      return null;
+	    //    } else {
+	    //      return (Board) this.get(index);
+	    //    }
+
+	    return (Board) this.get(this.indexOf(b));
+	  }
+
+	
 	// Board 객체를 게시글 번호로 찾는 메서드
 	public Board findByNo(int no) {
 	    Board b = new Board();
@@ -31,7 +48,7 @@ public class BoardDao extends ObjectDao {
 	protected int indexOf(Object obj) {
 		Board board = (Board) obj;
 	    for (int i = 0; i < this.size(); i++) {
-	    	if (((Board) this.objects[i]).getNo() == ((Board)obj).getNo()) {
+	    	if (((Board)get(i)).getNo() == ((Board)obj).getNo()) {
 	    		return i;
 	    	}
 	    }

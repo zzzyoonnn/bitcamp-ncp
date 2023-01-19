@@ -25,7 +25,7 @@ public class Exam0310 {
     System.out.println(d5);
 
     // 간접적으로 객체를 생성하기
-    java.sql.Date d6 = java.sql.Date.valueOf("2021-2-4");
+    java.sql.Date d6 = java.sql.Date.valueOf("2023-1-19");
     System.out.println(d6);
   }
 }

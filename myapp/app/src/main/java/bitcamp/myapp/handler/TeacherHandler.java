@@ -137,17 +137,29 @@ public class TeacherHandler {
       System.out.println("4. 변경");
       System.out.println("5. 삭제");
       System.out.println("0. 이전");
-      int menuNo = Prompt.inputInt(String.format("%s> ", this.title));
-
-      switch (menuNo) {
-        case 0: return;
-        case 1: this.inputTeacher(); break;
-        case 2: this.printTeachers(); break;
-        case 3: this.printTeacher(); break;
-        case 4: this.modifyTeacher(); break;
-        case 5: this.deleteTeacher(); break;
-        default:
-          System.out.println("잘못된 메뉴 번호 입니다.");
+      
+      int menuNo;
+      
+      try {
+    	menuNo = Prompt.inputInt(String.format("%s> ", this.title));  
+      } catch (Throwable e) {
+    	  System.out.println("메뉴 번호가 옳지 않습니다.");
+    	  continue;
+      }
+      
+      try {
+    	  switch (menuNo) {
+          case 0: return;
+          case 1: this.inputTeacher(); break;
+          case 2: this.printTeachers(); break;
+          case 3: this.printTeacher(); break;
+          case 4: this.modifyTeacher(); break;
+          case 5: this.deleteTeacher(); break;
+          default:
+            System.out.println("잘못된 메뉴 번호 입니다.");
+        }
+      } catch (Throwable e) {
+    	  System.out.println("명령 실행 중 오류 발생!");
       }
     }
   }

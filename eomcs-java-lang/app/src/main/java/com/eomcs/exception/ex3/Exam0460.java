@@ -24,7 +24,7 @@ public class Exam0460 {
       m(1);
 
     } catch (RuntimeException | SQLException | IOException e) {
-      // OR 연산자를 사용하여 여러 개의 예외를 묶어 받을 수 있다.
+      // catch문법에서만 OR 연산자를 사용하여 여러 개의 예외를 묶어 받을 수 있다.
       //
     } catch (Exception e) {
 

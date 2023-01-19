@@ -19,7 +19,7 @@ public class Exam0510 {
 
   public static void main(String[] args) {
     try {
-      m(4);
+      m(3);
       System.out.println("try");
       return; 
     } catch (RuntimeException | SQLException | IOException e) {
@@ -40,5 +40,7 @@ public class Exam0510 {
       System.out.println("finally");
     }
   }
-
+  private void syso() {
+	  System.out.println("안녕히 가세요!");
+  }
 }
