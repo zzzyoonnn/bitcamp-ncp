@@ -1,5 +1,6 @@
 package bitcamp.myapp.vo;
 
+// Member를 상속받아서 equals 필요 X
 public class Teacher extends Member {
   // Member 클래스의 코드를 사용하겠다고 선언한다.
   private String email;
@@ -7,7 +8,7 @@ public class Teacher extends Member {
   private String school;
   private String major;
   private int wage;
-
+  
   public String getEmail() {
     return email;
   }

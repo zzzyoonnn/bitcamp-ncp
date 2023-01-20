@@ -3,12 +3,13 @@ package bitcamp.myapp.handler;
 import java.sql.Date;
 
 import bitcamp.myapp.dao.BoardDao;
+import bitcamp.myapp.util.LinkedList;
 import bitcamp.myapp.util.Prompt;
 import bitcamp.myapp.vo.Board;
 
 public class BoardHandler {
 
-	private BoardDao boardDao = new BoardDao();
+	private BoardDao boardDao = new BoardDao(new LinkedList());
 	private String title;
 	
 	// 모든 인스턴스가 공유하는 데이터를 스태틱 필드로 만든다.
@@ -31,10 +32,9 @@ public class BoardHandler {
   void printBoards() {
     System.out.println("번호\t제목\t작성일\t조회수");
 
-    Object[] boards = this.boardDao.findAll();
+    Board[] boards = this.boardDao.findAll();
     
-    for (Object obj : boards) {	// Obj안에 들은 보드객체 주소는 boards가 맞음
-    	Board b = (Board) obj;
+    for (Board b : boards) {	// Obj안에 들은 보드객체 주소는 boards가 맞음
     		System.out.printf("%d\t%s\t%s\t%d\n",
     			b.getNo(), b.getTitle(), b.getCreatedDate(), b.getViewCount());
     			// ((Board)b).getNo(), ((Board)b).getTitle(), ((Board)b).getCreatedDate(), ((Board)b).getViewCount());
@@ -120,11 +120,10 @@ public class BoardHandler {
   }
 
   	private void searchBoard() {
-  		Object[] boards = this.boardDao.findAll();
+  		Board[] boards = this.boardDao.findAll();
   		String keyword = Prompt.inputString("검색어? ");
   		System.out.println("번호\t제목\t작성일\t조회수");
-  		for (Object obj : boards) {
-  			Board b = (Board) obj;
+  		for (Board b : boards) {
   			if (b.getTitle().indexOf(keyword) != -1 || b.getContent().indexOf(keyword) != -1) {
     				System.out.printf("%d\t%s\t%s\t%d\n",
     				b.getNo(), b.getTitle(), b.getCreatedDate(), b.getViewCount());
@@ -132,16 +131,16 @@ public class BoardHandler {
     	}
     }
 
-  public void service() {
-    while (true) {
-      System.out.printf("[%s]\n", this.title);
-      System.out.println("1. 등록");
-      System.out.println("2. 목록");
-      System.out.println("3. 조회");
-      System.out.println("4. 변경");
-      System.out.println("5. 삭제");
-      System.out.println("6. 검색");
-      System.out.println("0. 이전");
+  	public void service() {
+  		while (true) {
+  			System.out.printf("[%s]\n", this.title);
+	      System.out.println("1. 등록");
+	      System.out.println("2. 목록");
+	      System.out.println("3. 조회");
+	      System.out.println("4. 변경");
+	      System.out.println("5. 삭제");
+	      System.out.println("6. 검색");
+	      System.out.println("0. 이전");
       
       int menuNo;
       

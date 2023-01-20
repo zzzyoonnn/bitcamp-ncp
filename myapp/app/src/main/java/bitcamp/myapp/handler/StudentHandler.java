@@ -1,13 +1,13 @@
 package bitcamp.myapp.handler;
 
-import java.sql.Date;
 import bitcamp.myapp.dao.StudentDao;
-import bitcamp.myapp.vo.Student;
+import bitcamp.myapp.util.ArrayList;
 import bitcamp.myapp.util.Prompt;
+import bitcamp.myapp.vo.Student;
 
 public class StudentHandler {
 
-  private StudentDao memberDao = new StudentDao();
+  private StudentDao memberDao = new StudentDao(new ArrayList());
   private String title;
   // 모든 인스턴스가 공유하는 데이터를 스태틱 필드로 만든다.
   // 특히 데이터를 조회하는 용으로 사용하는 final 변수는 스태틱 필드로 만들어야 한다.
