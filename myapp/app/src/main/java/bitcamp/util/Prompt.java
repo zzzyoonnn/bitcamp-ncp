@@ -1,9 +1,9 @@
-package bitcamp.myapp.util;
+package bitcamp.util;
 
 import java.util.Scanner;
 
 public class Prompt {
-  public static Scanner scanner = new Scanner(System.in);
+  private static Scanner scanner = new Scanner(System.in);
 
   public static String inputString(String title) {
     System.out.print(title);

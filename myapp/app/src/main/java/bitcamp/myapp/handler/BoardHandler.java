@@ -1,24 +1,19 @@
 package bitcamp.myapp.handler;
 
-import java.sql.Date;
-
 import bitcamp.myapp.dao.BoardDao;
-import bitcamp.myapp.util.LinkedList;
-import bitcamp.myapp.util.Prompt;
 import bitcamp.myapp.vo.Board;
+import bitcamp.util.LinkedList;
+import bitcamp.util.Prompt;
 
 public class BoardHandler {
 
-	private BoardDao boardDao = new BoardDao(new LinkedList());
-	private String title;
-	
-	// 모든 인스턴스가 공유하는 데이터를 스태틱 필드로 만든다.
-	// 특히 데이터를 조회하는 용으로 사용하는 final 변수는 스태틱 필드로 만들어야 한다.
+  private BoardDao boardDao = new BoardDao(new LinkedList());
+  private String title;
 
-	// 인스턴스를 만들 때 프롬프트 제목을 반드시 입력하도록 강제한다.
-	public BoardHandler(String title) {
-		this.title = title;
-	}
+  // 인스턴스를 만들 때 프롬프트 제목을 반드시 입력하도록 강제한다.
+  public BoardHandler(String title) {
+    this.title = title;
+  }
 
   private void inputBoard() {
     Board b = new Board();
@@ -29,15 +24,14 @@ public class BoardHandler {
     this.boardDao.insert(b);
   }
 
-  void printBoards() {
+  private void printBoards() {
     System.out.println("번호\t제목\t작성일\t조회수");
 
     Board[] boards = this.boardDao.findAll();
-    
-    for (Board b : boards) {	// Obj안에 들은 보드객체 주소는 boards가 맞음
-    		System.out.printf("%d\t%s\t%s\t%d\n",
-    			b.getNo(), b.getTitle(), b.getCreatedDate(), b.getViewCount());
-    			// ((Board)b).getNo(), ((Board)b).getTitle(), ((Board)b).getCreatedDate(), ((Board)b).getViewCount());
+
+    for (Board b : boards) {
+      System.out.printf("%d\t%s\t%s\t%d\n",
+          b.getNo(), b.getTitle(), b.getCreatedDate(), b.getViewCount());
     }
   }
 
@@ -119,52 +113,43 @@ public class BoardHandler {
 
   }
 
-  	private void searchBoard() {
-  		Board[] boards = this.boardDao.findAll();
-  		String keyword = Prompt.inputString("검색어? ");
-  		System.out.println("번호\t제목\t작성일\t조회수");
-  		for (Board b : boards) {
-  			if (b.getTitle().indexOf(keyword) != -1 || b.getContent().indexOf(keyword) != -1) {
-    				System.out.printf("%d\t%s\t%s\t%d\n",
-    				b.getNo(), b.getTitle(), b.getCreatedDate(), b.getViewCount());
-  			}
-    	}
-    }
+  private void searchBoard() {
+    Board[] boards = this.boardDao.findAll();
 
-  	public void service() {
-  		while (true) {
-  			System.out.printf("[%s]\n", this.title);
-	      System.out.println("1. 등록");
-	      System.out.println("2. 목록");
-	      System.out.println("3. 조회");
-	      System.out.println("4. 변경");
-	      System.out.println("5. 삭제");
-	      System.out.println("6. 검색");
-	      System.out.println("0. 이전");
-      
-      int menuNo;
-      
-      try {
-    	  menuNo = Prompt.inputInt(String.format("%s> ", this.title));
-      } catch (Throwable e) {
-    	  System.out.println("메뉴 번호가 옳지 않습니다.");
-    	  continue;
+    String keyword = Prompt.inputString("검색어? ");
+    System.out.println("번호\t제목\t작성일\t조회수");
+
+    for (Board b : boards) {
+      if (b.getTitle().indexOf(keyword) != -1 ||
+          b.getContent().indexOf(keyword) != -1) {
+        System.out.printf("%d\t%s\t%s\t%d\n",
+            b.getNo(), b.getTitle(), b.getCreatedDate(), b.getViewCount());
       }
-      
-      try {
-    	  switch (menuNo) {
-          case 0: return;
-          case 1: this.inputBoard(); break;
-          case 2: this.printBoards(); break;
-          case 3: this.printBoard(); break;
-          case 4: this.modifyBoard(); break;
-          case 5: this.deleteBoard(); break;
-          case 6: this.searchBoard(); break;
-          default:
-            System.out.println("잘못된 메뉴 번호 입니다.");
-        } 
-      } catch (Throwable e) {
-        	System.out.println("명령 실행 중 오류 발생!");
+    }
+  }
+
+  public void service() {
+    while (true) {
+      System.out.printf("[%s]\n", this.title);
+      System.out.println("1. 등록");
+      System.out.println("2. 목록");
+      System.out.println("3. 조회");
+      System.out.println("4. 변경");
+      System.out.println("5. 삭제");
+      System.out.println("6. 검색");
+      System.out.println("0. 이전");
+      int menuNo = Prompt.inputInt(String.format("%s> ", this.title));
+
+      switch (menuNo) {
+        case 0: return;
+        case 1: this.inputBoard(); break;
+        case 2: this.printBoards(); break;
+        case 3: this.printBoard(); break;
+        case 4: this.modifyBoard(); break;
+        case 5: this.deleteBoard(); break;
+        case 6: this.searchBoard(); break;
+        default:
+          System.out.println("잘못된 메뉴 번호 입니다.");
       }
     }
   }
