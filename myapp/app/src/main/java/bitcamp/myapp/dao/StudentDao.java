@@ -15,7 +15,6 @@ public class StudentDao {
     this.list = list;
   }
 
-
   public void insert(Student s) {
     s.setNo(++lastNo);
     s.setCreatedDate(new Date(System.currentTimeMillis()).toString());

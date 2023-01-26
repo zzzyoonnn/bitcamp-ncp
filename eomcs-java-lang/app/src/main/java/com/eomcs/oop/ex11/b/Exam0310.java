@@ -27,7 +27,6 @@ public class Exam0310 {
 
   public static void main(String[] args) {
     C.m1();
-
     C outer = new C();
     outer.m2();
   }

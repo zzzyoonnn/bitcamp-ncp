@@ -3,15 +3,17 @@ package com.eomcs.oop.ex11.c;
 
 class A2 {
   class X {
-    // inner class 는 스태틱 멤버를 가질 수 없다.
+    // inner class(non-static 중첩 클래스)는 스태틱 멤버를 가질 수 없다.
     // 스태틱 멤버는 오직 
     // - top level class 나 
     // - static nested class 
     // 만이 가질 수 있다.
     // 
-    //    static int v1; // 컴파일 오류!
-    //    static void m1() {} // 컴파일 오류!
-    //    static {} // 컴파일 오류!
+	// - java16 부터는 inner class도 스태틱 멤버를 가질 수 있다.
+	//
+    static int v1; // 컴파일 오류!
+    static void m1() {} // 컴파일 오류!
+    static {} // 컴파일 오류!
 
     int v2;
     void m2() {}

@@ -5,7 +5,7 @@ import org.springframework.web.servlet.config.annotation.CorsRegistration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-@Configuration
+//@Configuration
 // - 이 클래스는 설정에 관련된 일을 하는 클래스임을 선언한다.
 //	 즉 스프링 컴포넌트로 표시하는 것이다.
 // - Spring IoC 컨테이너는 이 클래스의 인스턴스를 자동 생성한다.
@@ -20,6 +20,7 @@ public class WebConfig implements WebMvcConfigurer {
 	//	 단, 모든 메서드를 정의할 필요는 없다.
 	//	 이 프로젝트에 요구 조건에 맞는 부분만 설정하면 된다. (customizing: 고객화)
 	// - Spring WebMVC 프레임워크는 이 클래스의 정의된 메서드를 호출하여 설정을 완성한다.
+	
 	public WebConfig() {
 		System.out.println("WebConfig 객체 생성됨!");
 	}
