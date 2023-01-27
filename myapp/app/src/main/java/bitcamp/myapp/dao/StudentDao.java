@@ -7,49 +7,49 @@ import bitcamp.util.List;
 
 public class StudentDao {
 
-  List list;
+    List<Student> list;
 
-  int lastNo;
+    int lastNo;
 
-  public StudentDao(List list) {
-    this.list = list;
-  }
-
-  public void insert(Student s) {
-    s.setNo(++lastNo);
-    s.setCreatedDate(new Date(System.currentTimeMillis()).toString());
-    list.add(s);
-  }
-
-  public Student[] findAll() {
-    Student[] students = new Student[list.size()];
-    Iterator i = list.iterator();
-    int index = 0;
-    while (i.hasNext()) {
-      students[index++] = (Student) i.next();
+    public StudentDao(List<Student> list) {
+        this.list = list;
     }
-    return students;
-  }
 
-  public Student findByNo(int no) {
-    Student s = new Student();
-    s.setNo(no);
-
-    int index = list.indexOf(s);
-    if (index == -1) {
-      return null;
+    public void insert(Student s) {
+        s.setNo(++lastNo);
+        s.setCreatedDate(new Date(System.currentTimeMillis()).toString());
+        list.add(s);
     }
-    return (Student) list.get(index);
-  }
 
-  public void update(Student s) {
-    int index = list.indexOf(s);
-    list.set(index, s);
-  }
+    public Student[] findAll() {
+        Student[] students = new Student[list.size()];
+        Iterator<Student> i = list.iterator();
+        int index = 0;
+        while (i.hasNext()) {
+            students[index++] = i.next();
+        }
+        return students;
+    }
 
-  public boolean delete(Student s) {
-    return list.remove(s);
-  }
+    public Student findByNo(int no) {
+        Student s = new Student();
+        s.setNo(no);
+
+        int index = list.indexOf(s);
+        if (index == -1) {
+            return null;
+        }
+        return (Student) list.get(index);
+    }
+
+    public void update(Student s) {
+        int index = list.indexOf(s);
+        list.set(index, s);
+    }
+
+    public boolean delete(Student s) {
+        return list.remove(s);
+    }
 
 }
 

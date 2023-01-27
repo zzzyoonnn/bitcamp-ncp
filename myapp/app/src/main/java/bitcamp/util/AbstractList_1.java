@@ -1,5 +1,5 @@
 package bitcamp.util;
-
+// 삭제
 public abstract class AbstractList_1 implements List {
 
   protected int size;

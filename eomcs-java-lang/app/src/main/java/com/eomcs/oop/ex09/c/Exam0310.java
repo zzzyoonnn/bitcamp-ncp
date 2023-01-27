@@ -53,10 +53,3 @@ public class Exam0310 {
     obj.rule3();
   }
 }
-
-
-
-
-
-
-

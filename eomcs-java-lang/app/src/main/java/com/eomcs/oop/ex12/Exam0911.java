@@ -13,6 +13,7 @@ public class Exam0911 {
     names.add("김구");
     names.add("안중근");
 
+    // 처음부터 끝까지 출력
     for (String name : names) {
       System.out.println(name);
     }

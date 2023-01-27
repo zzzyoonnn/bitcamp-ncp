@@ -22,10 +22,12 @@ public class Exam0150 {
 
     // Math.max()는 int 값을 리턴한다. 그래서 이 메서드를 호출하는 문장은 표현식이다.
     Calculator c3 = (a, b) -> Math.max(a, b);
+    // return Math.max(a, b);
     System.out.println(c3.compute(10, 20));
 
     // 값을 리턴해야 하는데 람다 문장에서 값을 리턴하지 않으면 컴파일 오류!
     //    Calculator c4 = (a, b) -> System.out.println(a + ",", b); // 컴파일 오류!
+    //											println의 return 값은 void <- int 값을 리턴해야 생략 가능
     //    System.out.println(c4.compute(10, 20));
   }
 

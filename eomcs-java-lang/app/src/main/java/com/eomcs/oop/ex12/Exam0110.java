@@ -19,6 +19,7 @@ public class Exam0110 {
         System.out.println("익명 클래스");
       }
     };
+    
     p1.play();
 
     // 람다 문법으로 인터페이스 구현하기
