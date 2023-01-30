@@ -72,6 +72,7 @@ public class BoardDao {
     		
     		// 3) 게시글 출력
     		// 목록에서 Board 객체를 꺼내 바이트 배열로 만든 다음 출력한다.
+    		// for (자료형 변수명 : 배열명)
     		for (Board b : list) {
     			out.write(BinaryEncoder.write(b.getNo()));
     			out.write(BinaryEncoder.write(b.getTitle()));
@@ -91,7 +92,7 @@ public class BoardDao {
     		return;	// 중복 로딩 방지!    	
     	}
     	try (
-    			// 1) 바이너리데이터를 읽을 도구 준비
+    			// 1) 바이너리 데이터를 읽을 도구 준비
     			FileInputStream in = new FileInputStream(filename)) {
     		
     		// 2) 저장된 게시글 개수를 읽는다 : 4byte

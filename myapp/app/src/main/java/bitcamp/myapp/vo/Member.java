@@ -8,23 +8,28 @@ public class Member {
   private String tel;
   private String createdDate;
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(no);
-  }
-  @Override
-  public boolean equals(Object obj) {
-    if (this == obj)
-      return true;
-    if (obj == null)
-      return false;
-    if (getClass() != obj.getClass())
-      return false;
-    Member other = (Member) obj;
-    return no == other.no;
-  }
 
-  public int getNo() {
+  @Override
+public String toString() {
+	return "Member [no=" + no + ", name=" + name + ", tel=" + tel + ", createdDate=" + createdDate + "]";
+}
+@Override
+public int hashCode() {
+	return Objects.hash(createdDate, name, no, tel);
+}
+@Override
+public boolean equals(Object obj) {
+	if (this == obj)
+		return true;
+	if (obj == null)
+		return false;
+	if (getClass() != obj.getClass())
+		return false;
+	Member other = (Member) obj;
+	return Objects.equals(createdDate, other.createdDate) && Objects.equals(name, other.name) && no == other.no
+			&& Objects.equals(tel, other.tel);
+}
+public int getNo() {
     return no;
   }
   public void setNo(int no) {
