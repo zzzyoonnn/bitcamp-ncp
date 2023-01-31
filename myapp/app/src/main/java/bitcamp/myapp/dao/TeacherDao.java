@@ -1,14 +1,15 @@
 package bitcamp.myapp.dao;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.sql.Date;
 import java.util.Iterator;
 import java.util.List;
 
 import bitcamp.myapp.vo.Teacher;
-import bitcamp.util.BinaryDecoder;
-import bitcamp.util.BinaryEncoder;
 
 public class TeacherDao {
 
@@ -45,7 +46,7 @@ public class TeacherDao {
             return null;
         }
 
-        return (Teacher) list.get(index);
+        return list.get(index);
     }
 
     public void update(Teacher t) {
@@ -56,70 +57,40 @@ public class TeacherDao {
     public boolean delete(Teacher t) {
         return list.remove(t);
     }
-    
+
     public void save(String filename) {
-    	try (
-    			// 1) 바이너리 데이터(바이트 배열) 출력할 도구 준비
-    			FileOutputStream out = new FileOutputStream(filename);) {
-    		
-    		// 2) 게시글 개수를 저장
-    		out.write(BinaryEncoder.write(list.size()));
-    		
-    		// 3) 게시글 출력
-    		// 목록에서 Board 객체를 꺼내 바이트 배열로 만든 다음 출력
-    		for (Teacher t : list) {
-    			out.write(BinaryEncoder.write(t.getNo()));
-    			out.write(BinaryEncoder.write(t.getName()));
-    			out.write(BinaryEncoder.write(t.getTel()));
-    			out.write(BinaryEncoder.write(t.getEmail()));
-    			out.write(BinaryEncoder.write(t.getDegree()));
-    			out.write(BinaryEncoder.write(t.getSchool()));
-    			out.write(BinaryEncoder.write(t.getMajor()));
-    			out.write(BinaryEncoder.write(t.getWage()));
-    			out.write(BinaryEncoder.write(t.getCreatedDate()));
-    		}
-    		
-    	} catch (Exception e) {
-    		e.printStackTrace();
-    	}
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filename))) {
+
+            out.writeObject(list);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
     
+    @SuppressWarnings("unchecked")
     public void load(String filename) {
-    	if (list.size() > 0) {
-    		return;	// 중복 로딩 방지!
-    	}
-    	try (
-    			// 1) 바이너리 데이터를 읽을 도구 준비
-    			FileInputStream in = new FileInputStream(filename)) {
-    		
-    		// 2) 저장된 게시글 개수를 읽는다 : 4byte
-    		int size = BinaryDecoder.readInt(in);
-    		
-    		// 3) 게시글 개수 만큼 반복해서 데이터를 읽어 Teacher 객체에 저장한다.
-    		for (int i = 0; i < size; i++) {
-    			
-    			// 4) 바이너리 데이터를 저장한 순서대로 Teacher 객체에 담는다.
-    			Teacher t = new Teacher();
-    			t.setNo(BinaryDecoder.readInt(in));
-    			t.setName(BinaryDecoder.readString(in));
-    			t.setEmail(BinaryDecoder.readString(in));
-    			t.setDegree(BinaryDecoder.readInt(in));
-    			t.setSchool(BinaryDecoder.readString(in));
-    			t.setMajor(BinaryDecoder.readString(in));
-    			t.setWage(BinaryDecoder.readInt(in));
-    			
-    			// 5) Teacher 객체 목록에 추가
-    			list.add(t);
-    		}
-    		
-    		if (list.size() > 0) {
-    			lastNo = list.get(list.size() - 1).getNo();
-    		}
-    	} catch (Exception e) {
-    		e.printStackTrace();
-    	
-    	}
+        if (list.size() > 0) {
+            return;
+        }
+
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(filename))) {
+
+            list = (List<Teacher>) in.readObject();
+
+            if (list.size() > 0) {
+                lastNo = list.get(list.size() - 1).getNo();
+            }
+
+        } catch (FileNotFoundException e) {
+            System.out.println("데이터 파일이 존재하지 않습니다!");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
 }
 
 
