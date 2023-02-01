@@ -11,11 +11,11 @@ public class Exam0720 {
 
     Map<String,Object> map = new Gson().fromJson(jsonStr, Map.class);
 
-    int v1 = Integer.parseInt((String)map.get("no"));
+    Object v1 = map.get("no");
     Object v2 = map.get("title");
     Object v3 = map.get("manager");
 
-    System.out.println(int.class.getName());
+    System.out.println(v1.getClass().getName());
     System.out.println(v2.getClass().getName());
     System.out.println(v3.getClass().getName());
 

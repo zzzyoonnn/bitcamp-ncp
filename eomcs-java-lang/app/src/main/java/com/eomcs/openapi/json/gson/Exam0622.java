@@ -17,6 +17,9 @@ public class Exam0622 {
 
     String jsonStr = "[{\"position\":\"대리\",\"fax\":\"02-1111-2222\",\"no\":101,\"name\":\"홍길동\",\"email\":\"hong@test.com\",\"registeredDate\":\"9월 16, 2021\"},{\"major\":\"컴퓨터공학\",\"hourPay\":10000,\"no\":103,\"name\":\"안창호\",\"email\":\"ahn@test.com\",\"registeredDate\":\"9월 16, 2021\"}]";
 
+    // 공장에 객체 생성기(JsonDeserializer)를 꼽는다.
+    
+    // 공장을 통해 Gson 객체를 준비한다.
     Gson gson = new GsonBuilder()
         .registerTypeAdapter(Member.class, new JsonDeserializer<Member>() {
           @Override
@@ -33,10 +36,12 @@ public class Exam0622 {
           }
         })
         .create();
-
+    
+    // Gson 객체가 JSON 데이터를 가지고 객체를 생성할 때 알아야 하는 객체 타입 정보 준비
     Type collectionType = TypeToken.getParameterized(Collection.class, Member.class).getType();
     Collection<Member> list = gson.fromJson(jsonStr, collectionType);
-
+    
+    // JSON 데이터를 읽어서 주어진 타입의 객체를 생성한다.
     for (Member m : list) {
       System.out.println(m);
     }
