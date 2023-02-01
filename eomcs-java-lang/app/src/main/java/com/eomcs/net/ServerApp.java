@@ -12,7 +12,9 @@ public class ServerApp {
 		
 		System.out.println("서버 실행중...");
 		
+		// 서버소켓 생성
 		ServerSocket serverSocket = new ServerSocket(8888);
+		// 클라이언트 접속 대기
 		Socket socket = serverSocket.accept();
 		
 		System.out.println("클라이언트와 연결됨!");
@@ -33,6 +35,8 @@ public class ServerApp {
 			String str = keyScan.nextLine();
 			out.println(str);
 		}
+		
+		// 통신 종료
 		socket.close();
 		serverSocket.close();
 		

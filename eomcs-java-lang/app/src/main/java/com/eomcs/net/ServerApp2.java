@@ -9,11 +9,14 @@ import java.net.Socket;
 public class ServerApp2 {
 
 	public static void main(String[] args) throws Exception{
-		ServerSocket serverSocket = new ServerSocket(8888);
+		// 서버 소켓 생성
+		ServerSocket serverSocket = new ServerSocket(8888);	// 포트 번호
 		
+		// 클라이언트 접속 대기
 		Socket socket = serverSocket.accept();
 		System.out.println("클라이언트와 연결됨!");
 		
+		// 데이터 송수신을 위한 I/O 스트림 생성
 		DataInputStream in = new DataInputStream(socket.getInputStream());
 		DataOutputStream out = new DataOutputStream(socket.getOutputStream());
 		
@@ -23,6 +26,7 @@ public class ServerApp2 {
 		// 클라이언트가 보낸 파일의 크기를 먼저 읽는다.
 		long length = in.readLong();
 		
+		// Output 스트림을 통한 데이터 송신
 		// 클라이언트가 보낸 바이트를 사진 바이트를 파일로 출력한다.
 		FileOutputStream fileOut = new FileOutputStream(filename);
 	
@@ -37,6 +41,7 @@ public class ServerApp2 {
 		in.close();
 		out.close();
 		
+		// 통신 종료
 		socket.close();
 		serverSocket.close();
 		

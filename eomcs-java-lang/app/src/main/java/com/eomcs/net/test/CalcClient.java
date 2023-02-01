@@ -1,0 +1,60 @@
+package com.eomcs.net.test;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
+import java.net.Socket;
+import java.util.Scanner;
+
+public class CalcClient {
+	public static void main(String[] args) {
+		
+		try (Scanner keyboardScanner = new Scanner(System.in);
+			Socket socket = new Socket("localhost", 8888);
+			PrintStream out = new PrintStream(socket.getOutputStream());
+			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
+				
+			// 계산식 입력받을 때 출력할 메세지
+			ableInput(in);
+			
+			// 계산식 입력 받아서 서버에 전달
+			while (true) {
+				String input = prompt(keyboardScanner);
+				sendCalculation(out, input);	// 서버에 계산식 전송
+				ableInput(in);	// 서버로부터 계산식 받고 다시 계산식 전달
+			}
+				
+		} catch (Exception e) {
+				e.printStackTrace();
+		}
+	}
+	
+	static String prompt(Scanner keyboardScanner) {
+		System.out.print("계산식 : ");
+		String input = keyboardScanner.nextLine();
+		
+		// 입력 형식에 맞게 입력했는지 확인
+		if (input.split(" ").length != 3) {
+			System.out.println("입력 형식이 올바르지 않습니다.");
+			return null;
+		}
+		return input;
+	}
+	
+	static void sendCalculation(PrintStream out, String message) throws Exception {
+		out.println(message);
+		out.flush();
+	}
+	
+	// 서버로부터 응답 받을 메세지 (계산식을 입력받아야 할 때 출력됨)
+	// -> 입력이 가능한 상태
+	static void ableInput(BufferedReader in) throws Exception {
+		while (true) {
+			String input = in.readLine();
+			if (input.length() == 0) {
+				break;
+			}
+			System.out.println(input);
+		}
+	}
+}

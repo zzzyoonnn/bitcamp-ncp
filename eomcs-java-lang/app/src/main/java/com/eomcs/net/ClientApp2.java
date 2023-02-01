@@ -10,14 +10,17 @@ public class ClientApp2 {
 
 	public static void main(String[] args) throws Exception {
 		
-		Socket socket = new Socket("192.168.0.254", 8888);
+		// 클라이언트 소켓 생성을 통한 서버 접속
+		Socket socket = new Socket("192.168.0.254", 8888);	// ip address, port
 		System.out.println("서버에 연결되었음!");
 		
+		// 데이터 송수신을 위한 I/O 스트림 생성
 		DataOutputStream out = new DataOutputStream(socket.getOutputStream());
 		DataInputStream in = new DataInputStream(socket.getInputStream());
 		
 		File file = new File("photo123.jpg");
 		
+		// 데이터 송신 (클라이언트 -> 서버)
 		// 전송할 파일의 이름을 보낸다.
 		out.writeUTF(file.getName());
 		
@@ -32,11 +35,14 @@ public class ClientApp2 {
 		}
 		fileIn.close();
 		
+		// 데이터 수신 (서버 -> 클라이언트)
 		// 서버의 응답을 읽는다.
 		System.out.println(in.readUTF());
 		
 		out.close();
 		in.close();
+		
+		// 통신 종료
 		socket.close();
 		
 		System.out.println("클라이언트 종료!");
