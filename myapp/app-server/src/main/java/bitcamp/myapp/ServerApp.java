@@ -21,6 +21,7 @@ public class ServerApp {
 
   void service(int port) {
     System.out.println("서버 실행 중...");
+    
 	  try (ServerSocket serverSocket = new ServerSocket(port);
         Socket socket = serverSocket.accept();
         DataInputStream in = new DataInputStream(socket.getInputStream());
@@ -32,7 +33,7 @@ public class ServerApp {
       StudentServlet studentServlet = new StudentServlet("학생");
       TeacherServlet teacherServlet = new TeacherServlet("강사");
       
-      BoardServlet boardServlet = new BoardServlet();
+      BoardServlet boardServlet = new BoardServlet(boardDao);
       
       while (true) {
         String dataName = in.readUTF();

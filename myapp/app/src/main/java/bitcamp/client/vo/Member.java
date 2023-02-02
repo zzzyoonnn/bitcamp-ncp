@@ -1,4 +1,4 @@
-package bitcamp.myapp.vo;
+package bitcamp.client.vo;
 
 import java.util.Objects;
 

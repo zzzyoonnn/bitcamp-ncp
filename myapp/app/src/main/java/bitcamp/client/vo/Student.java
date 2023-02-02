@@ -1,4 +1,4 @@
-package bitcamp.myapp.vo;
+package bitcamp.client.vo;
 
 // 회원 데이터를 담을 메모리를 설계한다.
 public class Student extends Member implements java.io.Serializable {

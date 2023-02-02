@@ -1,4 +1,4 @@
-package bitcamp.myapp.vo;
+package bitcamp.server.vo;
 
 public class Teacher extends Member implements java.io.Serializable {
     private static final long serialVersionUID = 1L;
