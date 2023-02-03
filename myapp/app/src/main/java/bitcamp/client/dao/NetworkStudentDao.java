@@ -27,46 +27,30 @@ public class NetworkStudentDao implements StudentDao {
   }
 
   @Override
-  public void insert(Student s) {
-    s.setNo(++lastNo);
-    s.setCreatedDate(new Date(System.currentTimeMillis()).toString());
-    list.add(s);
+  public void insert(Student student) {
+	fetch("student", "insert", student);
   }
 
   @Override
   public Student[] findAll() {
-    Student[] students = new Student[list.size()];
-    Iterator<Student> i = list.iterator();
-    int index = 0;
-    while (i.hasNext()) {
-      students[index++] = i.next();
-    }
-    return students;
+	return new Gson().fromJson(fetch("student", "findAll"), Student[].class);
   }
 
   @Override
   public Student findByNo(int no) {
-    Student s = new Student();
-    s.setNo(no);
-
-    int index = list.indexOf(s);
-    if (index == -1) {
-      return null;
-    }
-    return list.get(index);
+	return new Gson().fromJson(fetch("student", "findByNo"), Student.class);
   }
 
   @Override
-  public void update(Student s) {
-    int index = list.indexOf(s);
-    list.set(index, s);
+  public void update(Student student) {
+	fetch("student", "update", student);
   }
 
   @Override
-  public boolean delete(Student s) {
-    return list.remove(s);
+  public boolean delete(Student student) {
+    fetch("student", "delete", student);
+    return true;
   }
-
   
   public void save(String filename) {
     try (FileWriter out = new FileWriter(filename)) {

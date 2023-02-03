@@ -5,10 +5,10 @@ import bitcamp.myapp.vo.Board;
 import bitcamp.util.Prompt;
 
 public class BoardHandler {
+
   private BoardDao boardDao;
   private String title;
 
-  // 인스턴스를 만들 때 프롬프트 제목을 반드시 입력하도록 강제한다.
   public BoardHandler(String title, BoardDao boardDao) {
     this.title = title;
     this.boardDao = boardDao;
@@ -30,7 +30,7 @@ public class BoardHandler {
 
     for (Board b : boards) {
       System.out.printf("%d\t%s\t%s\t%d\n",
-        b.getNo(), b.getTitle(), b.getCreatedDate(), b.getViewCount());
+          b.getNo(), b.getTitle(), b.getCreatedDate(), b.getViewCount());
     }
   }
 

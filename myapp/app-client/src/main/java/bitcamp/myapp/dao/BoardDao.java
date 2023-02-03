@@ -9,3 +9,26 @@ public interface BoardDao {
   void update(Board b);
   boolean delete(Board b);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

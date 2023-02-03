@@ -95,7 +95,6 @@ public class LocalTeacherDao implements TeacherDao {
             e.printStackTrace();
         }
     }
-
 }
 
 

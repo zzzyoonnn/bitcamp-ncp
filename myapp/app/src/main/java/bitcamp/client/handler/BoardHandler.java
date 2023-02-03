@@ -1,6 +1,5 @@
 package bitcamp.client.handler;
 
-import java.util.LinkedList;
 import bitcamp.client.dao.BoardDao;
 import bitcamp.client.vo.Board;
 import bitcamp.util.Prompt;
