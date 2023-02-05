@@ -10,7 +10,7 @@ import java.util.List;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import bitcamp.client.vo.Board;
+import bitcamp.myapp.vo.Board;
 
 public class LocalBoardDao implements BoardDao {
 
@@ -32,68 +32,65 @@ public class LocalBoardDao implements BoardDao {
   public Board[] findAll() {
     Board[] boards = new Board[list.size()];
     Iterator<Board> i = list.iterator();
-        int index = 0;
-        while (i.hasNext()) {
-            boards[index++] = i.next();
-        }
-        return boards;
+    int index = 0;
+    while (i.hasNext()) {
+      boards[index++] = i.next();
     }
+    return boards;
+  }
 
   @Override
-    public Board findByNo(int no) {
-        Board b = new Board();
-        b.setNo(no);
+  public Board findByNo(int no) {
+    Board b = new Board();
+    b.setNo(no);
+    int index = list.indexOf(b);
+    if (index == -1) {
+      return null;
+    }
+    return list.get(index);
+  }
 
-        int index = list.indexOf(b);
-        if (index == -1) {
-            return null;
+  @Override
+  public void update(Board b) {
+    int index = list.indexOf(b);
+    list.set(index, b);
+  }
+
+  @Override
+  public boolean delete(Board b) {
+    return list.remove(b);
+  }
+
+  public void save(String filename) {
+    try (FileWriter out = new FileWriter(filename)) {
+
+       Gson gson = new Gson();
+       String json = gson.toJson(list);
+       out.write(json);
+       
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void load(String filename) {
+    if (list.size() > 0) { // 중복 로딩 방지!
+      return;
+    }
+    try (BufferedReader in = new BufferedReader(new FileReader(filename))) {
+    	// 1) JSON 데이터를 어떤 타입의 객체로 변환할 것인지 그 타입 정보를 준비한다.
+    	TypeToken<List<Board>> collectionType = new TypeToken() {};
+    	
+    	// 2) 입력 스트림에서 JSON 데이터를 읽고, 지정한 타입의 객체로 변환하여 리턴한다.
+    	list = new Gson().fromJson(in, collectionType);
+
+        if (list.size() > 0) {
+          lastNo = list.get(list.size() - 1).getNo();
         }
-
-        return list.get(index);
+    } catch (Exception e) {
+      e.printStackTrace();
     }
-
-    public void update(Board b) {
-        int index = list.indexOf(b);
-        list.set(index, b);
-    }
-
-    public boolean delete(Board b) {
-        return list.remove(b);
-    }
-
-    public void save(String filename) {
-        try (FileWriter out = new FileWriter(filename)) {
-
-           Gson gson = new Gson();
-           String json = gson.toJson(list);
-           out.write(json);
-           
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void load(String filename) {
-        if (list.size() > 0) { // 중복 로딩 방지!
-            return;
-        }
-
-        try (BufferedReader in = new BufferedReader(new FileReader(filename))) {
-
-        	// 1) JSON 데이터를 어떤 타입의 객체로 변환할 것인지 그 타입 정보를 준비한다.
-        	TypeToken<List<Board>> collectionType = new TypeToken<>() {};
-        	
-        	// 2) 입력 스트림에서 JSON 데이터를 읽고, 지정한 타입의 객체로 변환하여 리턴한다.
-        	list = new Gson().fromJson(in, collectionType);
-
-              if (list.size() > 0) {
-                  lastNo = list.get(list.size() - 1).getNo();
-              }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+  }
 }
 
 

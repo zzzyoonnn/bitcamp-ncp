@@ -1,24 +1,17 @@
 package bitcamp.client.dao;
 
-import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.util.List;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import bitcamp.client.vo.Teacher;
+import bitcamp.myapp.vo.Teacher;
 
 public class NetworkTeacherDao implements TeacherDao {
 
-  List<Teacher> list;
-  int lastNo;
   DataInputStream in;
   DataOutputStream out;
-  
+
   public NetworkTeacherDao(DataInputStream in, DataOutputStream out) {
     this.in = in;
     this.out = out;
@@ -38,7 +31,7 @@ public class NetworkTeacherDao implements TeacherDao {
   public Teacher findByNo(int no) {
 	return new Gson().fromJson(fetch("teacher", "findByNo"), Teacher.class);
   }
-
+  
   @Override
   public void update(Teacher teacher) {
 	fetch("teacher", "update", teacher);
@@ -46,38 +39,14 @@ public class NetworkTeacherDao implements TeacherDao {
 
   @Override
   public boolean delete(Teacher teacher) {
-    fetch("teacher", "delete", teacher);
+	fetch("teacher", "delete", teacher);
     return true;
-  }
-
-  public void save(String filename) {
-    try (FileWriter out = new FileWriter(filename)) {
-      out.write(new Gson().toJson(list));
-   } catch (Exception e) {
-     e.printStackTrace();
-   }
-  }
-
-  public void load(String filename) {
-    if (list.size() > 0) { // 중복 로딩 방지!
-      return;
-    }
-
-    try (BufferedReader in = new BufferedReader(new FileReader(filename))) {
-      TypeToken<List<Teacher>> collectionType = new TypeToken<>() {};
-      list = new Gson().fromJson(in, collectionType);
-      if (list.size() > 0) {
-        lastNo = list.get(list.size() - 1).getNo();
-      }
-
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
   }
 
   public String fetch(String dataName, String action, Object... data) throws DaoException {
     try {
       out.writeUTF(dataName);
+      out.writeUTF(action);
       
       if (data.length > 0) {
     	out.writeUTF(new Gson().toJson(data[0]));

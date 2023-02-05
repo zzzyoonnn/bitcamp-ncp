@@ -17,7 +17,7 @@ import bitcamp.myapp.vo.Board;
 import bitcamp.myapp.vo.Student;
 import bitcamp.myapp.vo.Teacher;
 
-public class ServerApp {
+public class ServerApp3 {
 
   BoardDao boardDao = new BoardDao(new LinkedList<Board>());
   StudentDao studentDao = new StudentDao(new ArrayList<Student>());
@@ -28,7 +28,7 @@ public class ServerApp {
   BoardServlet boardServlet = new BoardServlet(boardDao);
 
   public static void main(String[] args) {
-    new ServerApp().service(8888);
+    new ServerApp3().service(8888);
     System.out.println("서버 종료!");
   }
 
@@ -43,7 +43,12 @@ public class ServerApp {
 
       while (true) {
         Socket socket = serverSocket.accept();
-        new Thread(() -> processRequest(socket)).start();
+        new Thread(new Runnable() {
+          @Override
+          public void run() {
+            processRequest(socket);
+          }
+        }).start();
       }
 
     } catch (Exception e) {

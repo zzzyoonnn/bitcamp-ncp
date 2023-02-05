@@ -1,7 +1,7 @@
 package bitcamp.client.handler;
 
 import bitcamp.client.dao.BoardDao;
-import bitcamp.client.vo.Board;
+import bitcamp.myapp.vo.Board;
 import bitcamp.util.Prompt;
 
 public class BoardHandler {
@@ -9,7 +9,6 @@ public class BoardHandler {
   private BoardDao boardDao;
   private String title;
 
-  // 인스턴스를 만들 때 프롬프트 제목을 반드시 입력하도록 강제한다.
   public BoardHandler(String title, BoardDao boardDao) {
     this.title = title;
     this.boardDao = boardDao;
@@ -69,6 +68,7 @@ public class BoardHandler {
     b.setTitle(Prompt.inputString(String.format("제목(%s)? ", old.getTitle())));
     b.setContent(Prompt.inputString(String.format("내용(%s)? ", old.getContent())));
     b.setPassword(Prompt.inputString("암호? "));
+    b.setViewCount(old.getViewCount());
 
     if (!old.getPassword().equals(b.getPassword())) {
       System.out.println("암호가 맞지 않습니다!");

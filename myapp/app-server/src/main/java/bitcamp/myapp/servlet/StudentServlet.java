@@ -34,9 +34,6 @@ public class StudentServlet {
       out.writeUTF("400");
       return;
     }
-    
-    Thread.sleep(10000);
-    
     out.writeUTF("200");
     out.writeUTF(new Gson().toJson(b));
   }

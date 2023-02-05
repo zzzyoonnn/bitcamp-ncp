@@ -10,12 +10,13 @@ import java.util.List;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import bitcamp.client.vo.Student;
+import bitcamp.myapp.vo.Student;
 
-public class LocalStudentDao implements StudentDao {
+public class LocalStudentDao implements StudentDao{
 
   List<Student> list;
   int lastNo;
+
   public LocalStudentDao(List<Student> list) {
     this.list = list;
   }
@@ -64,9 +65,9 @@ public class LocalStudentDao implements StudentDao {
   public void save(String filename) {
     try (FileWriter out = new FileWriter(filename)) {
 
-    Gson gson = new Gson();
-    String json = gson.toJson(list);
-    out.write(json);
+      Gson gson = new Gson();
+      String json = gson.toJson(list);
+      out.write(json);
 
     } catch (Exception e) {
       e.printStackTrace();
@@ -80,8 +81,12 @@ public class LocalStudentDao implements StudentDao {
 
     try (BufferedReader in = new BufferedReader(new FileReader(filename))) {
 
-      list = new Gson().fromJson(in, new TypeToken<List<Student>>(){});
-                
+    	// 1) JSON 데이터를 어떤 타입의 객체로 변환할 것인지 그 타입 정보를 준비한다.
+    	TypeToken<List<Student>> collectionType = new TypeToken() {};
+    	
+    	// 2) 입력 스트림에서 JSON 데이터를 읽고, 지정한 타입의 객체로 변환하여 리턴한다.
+    	list = new Gson().fromJson(in, collectionType);
+        
       if (list.size() > 0) {
         lastNo = list.get(list.size() - 1).getNo();
       }

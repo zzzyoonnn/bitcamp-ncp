@@ -1,21 +1,14 @@
 package bitcamp.client.dao;
 
-import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.util.List;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import bitcamp.client.vo.Board;
+import bitcamp.myapp.vo.Board;
 
 public class NetworkBoardDao implements BoardDao {
 
-  List<Board> list;
-  int lastNo;
   DataInputStream in;
   DataOutputStream out;
 
@@ -36,7 +29,7 @@ public class NetworkBoardDao implements BoardDao {
 
   @Override
   public Board findByNo(int no) {
-	return new Gson().fromJson(fetch("board", "findByNo"), Board.class);
+	return new Gson().fromJson(fetch("board", "findByNo", no), Board.class);
   }
 
   @Override
@@ -49,40 +42,13 @@ public class NetworkBoardDao implements BoardDao {
 	fetch("board", "delete", board);
 	return true;
   }
-
-  public void save(String filename) {
-    try (FileWriter out = new FileWriter(filename)) {
-      out.write(new Gson().toJson(list));
-      
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
-
-  public void load(String filename) {
-    if (list.size() > 0) { // 중복 로딩 방지!
-    return;
-    }
-
-    try (BufferedReader in = new BufferedReader(new FileReader(filename))) {
-      list = new Gson().fromJson(in, new TypeToken<List<Board>>() {});
-      
-      if (list.size() > 0) {
-        lastNo = list.get(list.size() - 1).getNo();
-      }
-
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
   
   public String fetch(String dataName, String action, Object... data) throws DaoException {
 	try {
 	  out.writeUTF(dataName);
 	  out.writeUTF(action);
-	  
 	  if (data.length > 0) {
-		out.writeUTF(new Gson().toJson(data[0]));
+	    out.writeUTF(new Gson().toJson(data[0]));
 	  }
 	  
 	  // 응답
@@ -93,14 +59,33 @@ public class NetworkBoardDao implements BoardDao {
 		throw new DaoException("서버 실행 오류!");
 	  }
 	  return in.readUTF();
-	  
 	} catch (DaoException e) {
 	  throw e;
 	} catch (Exception e) {
-	  throw new DaoException("오류 발생!", e);
+	  throw new DaoException("오류 발생", e);
 	}
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

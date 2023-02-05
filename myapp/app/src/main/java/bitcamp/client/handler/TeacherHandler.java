@@ -1,8 +1,7 @@
 package bitcamp.client.handler;
 
-import java.util.ArrayList;
 import bitcamp.client.dao.TeacherDao;
-import bitcamp.client.vo.Teacher;
+import bitcamp.myapp.vo.Teacher;
 import bitcamp.util.Prompt;
 
 public class TeacherHandler {

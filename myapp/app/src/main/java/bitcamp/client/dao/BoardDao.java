@@ -1,13 +1,13 @@
 package bitcamp.client.dao;
 
-import bitcamp.client.vo.Board;
+import bitcamp.myapp.vo.Board;
 
 public interface BoardDao {
-  void insert(Board board);
-  Board[] findAll();
-  Board findByNo(int no);
-  void update(Board b);
-  boolean delete(Board b);
+  public void insert(Board board);
+  public Board[] findAll();
+  public Board findByNo(int no);
+  public void update(Board b);
+  public boolean delete(Board b);
 }
 
 

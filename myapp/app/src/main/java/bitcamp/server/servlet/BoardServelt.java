@@ -1,18 +1,15 @@
-package bitcamp.server.handler;
+package bitcamp.server.servlet;
 
-import java.util.LinkedList;
 import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.vo.Board;
 import bitcamp.util.Prompt;
 
-public class BoardHandler {
+public class BoardServelt {
 
-  private BoardDao boardDao = new BoardDao(new LinkedList<Board>());
-  private String title;
+  private BoardDao boardDao;
 
-  // 인스턴스를 만들 때 프롬프트 제목을 반드시 입력하도록 강제한다.
-  public BoardHandler(String title) {
-    this.title = title;
+  public BoardServelt(BoardDao boardDao) {
+    this.board = board;
   }
 
   private void inputBoard() {

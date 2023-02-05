@@ -1,11 +1,11 @@
 package bitcamp.client.dao;
 
-import bitcamp.client.vo.Teacher;
+import bitcamp.myapp.vo.Teacher;
 
 public interface TeacherDao {
-  void insert(Teacher t);
-  Teacher[] findAll();
-  Teacher findByNo(int no);
-  void update(Teacher t);
-  boolean delete(Teacher t);
+  public void insert(Teacher t);
+  public Teacher[] findAll();
+  public Teacher findByNo(int no);
+  public void update(Teacher t);
+  public boolean delete(Teacher t);
 }

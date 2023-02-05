@@ -1,7 +1,7 @@
 package bitcamp.client.handler;
 
 import bitcamp.client.dao.StudentDao;
-import bitcamp.client.vo.Student;
+import bitcamp.myapp.vo.Student;
 import bitcamp.util.Prompt;
 
 public class StudentHandler {
