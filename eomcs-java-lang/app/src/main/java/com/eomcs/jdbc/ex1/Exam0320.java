@@ -37,6 +37,8 @@ public class Exam0320 {
       if (isReceived) {
         // 서버에서 한 개 가져온 결과를 출력한다.
         System.out.printf("%s, %s, %s, %s, %s\n", //
+        	// column은 1번 부터
+        	// column의 데이터 타입에 상관없이 getString으로 출력 가능
             rs.getString(1), // board_id
             rs.getString(2), // title
             rs.getString(3), // contents

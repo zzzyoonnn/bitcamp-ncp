@@ -15,6 +15,8 @@ public class Exam0330 {
         ) {
 
       boolean isReceived = rs.next();
+      
+      // 실무에서 많이 사용
 
       if (isReceived) {
         System.out.printf("%d, %s, %s, %s, %d\n", 

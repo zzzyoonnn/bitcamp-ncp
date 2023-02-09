@@ -34,7 +34,7 @@ public class BoardDao {
 
       ArrayList<Board> list = new ArrayList<>();
       while (rs.next()) {
-        Board board = new Board();
+        Board board = new Board();	// dto = vo(value object)
         board.setNo(rs.getInt("board_id"));
         board.setTitle(rs.getString("title"));
         board.setContent(rs.getString("contents"));
