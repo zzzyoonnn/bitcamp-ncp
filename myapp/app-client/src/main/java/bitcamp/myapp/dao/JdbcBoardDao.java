@@ -84,7 +84,7 @@ public class JdbcBoardDao implements BoardDao {
 		Statement stmt = con.createStatement()) {
 		      
 	   String sql = String.format("update app_board set title='%s', content='%s' where board_id=%d",
-		 b.getTitle(), b.getContent(), b.getPassword());
+		 b.getTitle(), b.getContent(), b.getNo());
 
 	   stmt.executeUpdate(sql);
 

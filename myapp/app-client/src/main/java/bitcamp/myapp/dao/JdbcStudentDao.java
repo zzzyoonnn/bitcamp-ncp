@@ -35,7 +35,7 @@ public class JdbcStudentDao implements StudentDao {
         "jdbc:mariadb://localhost:3306/studydb", "study", "1111");
         Statement stmt = con.createStatement();
     	ResultSet rs = stmt.executeQuery(
-    	  "selete student_id, name, tel, pst_no, bas_addr, det_addr, work, gender, level from app_student order by student_id desc")) {
+    	  "selete student_id, name, tel, work, level from app_student order by student_id desc")) {
        	
       LinkedList<Student> list = new LinkedList<>();
       while (rs.next()) {
@@ -43,11 +43,7 @@ public class JdbcStudentDao implements StudentDao {
         s.setNo(rs.getInt("student_id"));
         s.setName(rs.getString("name"));
         s.setTel(rs.getString("tel"));
-        s.setPostNo(rs.getString("pst_no"));
-        s.setBasicAddress(rs.getString("bas_addr"));
-        s.setDetailAddress(rs.getString("det_addr"));
         s.setWorking(rs.getInt("0. 미취업\n1. 재직중\n재직자? ") == 1);
-        s.setGender(rs.getInt("0. 남자\n1. 여자\n성별? ") == 0 ? 'M' : 'W');
         s.setLevel((byte)rs.getInt("0. 비전공자\n1. 준전공자\n2. 전공자\n전공? "));
         
         list.add(s);
@@ -71,7 +67,6 @@ public class JdbcStudentDao implements StudentDao {
       if (rs.next()) {
         Student s = new Student();
         
-        s.setNo(rs.getInt("student_id"));
         s.setName(rs.getString("name"));
         s.setTel(rs.getString("tel"));
         s.setPostNo(rs.getString("pst_no"));
