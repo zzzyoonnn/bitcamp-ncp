@@ -96,6 +96,35 @@ public class JdbcTeacherDao implements TeacherDao {
       throw new DaoException(e);
     }
   }
+  
+  @Override
+  public Teacher[] findByKeyword(String keyword) {
+    try (Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery(
+            "select teacher_id, name, tel, created_date, email, degree, school, major, wage"
+                + " from app_teacher"
+                + " where teacher_id=" + no)) {
+
+      if (rs.next()) {
+        Teacher s = new Teacher();
+        s.setNo(rs.getInt("teacher_id"));
+        s.setName(rs.getString("name"));
+        s.setTel(rs.getString("tel"));
+        s.setCreatedDate(rs.getString("created_date"));
+        s.setEmail(rs.getString("email"));
+        s.setDegree(rs.getInt("degree"));
+        s.setSchool(rs.getString("school"));
+        s.setMajor(rs.getString("major"));
+        s.setWage(rs.getInt("wage"));
+        return s;
+      }
+
+      return null;
+
+    } catch (Exception e) {
+      throw new DaoException(e);
+    }
+  }
 
   @Override
   public void update(Teacher t) {

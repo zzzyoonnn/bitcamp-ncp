@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.LinkedList;
+
 import bitcamp.myapp.vo.Board;
 
 public class JdbcBoardDao implements BoardDao {
@@ -79,13 +81,52 @@ public class JdbcBoardDao implements BoardDao {
       throw new DaoException(e);
     }
   }
+  
+  @Override
+  public Board[] findByKeyword(String keyword) {
+    try (Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery(
+            "select board_id, title, content, pwd, created_date, view_cnt"
+            + " from app_board"
+            + " where title like ('%" + keyword + "%')"
+            + " or content like ('%" + keyword + "%')"
+            + " or pwd like ('%\" + keyword + \"%')"
+            + " or created_date like ('%\" + keyword + \"%')"
+            + " or view_cnt lick ('%\" + keyword + \"%')"
+            + " order by board_id desc")) {
+
+      LinkedList<Board> list = new LinkedList<>();
+      while (rs.next()) {
+        Board b = new Board();
+        b.setNo(rs.getInt("board_id"));
+        b.setTitle(rs.getString("title"));
+        b.setContent(rs.getString("content"));
+        b.setPassword(rs.getString("pwd"));
+        b.setCreatedDate(rs.getString("created_date"));
+        b.setViewCount(rs.getInt("view_cnt"));
+        
+        list.add(b);
+      }
+
+      Board[] arr = new Board[list.size()];
+      list.toArray(arr);
+      
+      return arr;
+
+    } catch (Exception e) {
+      throw new DaoException(e);
+    }
+  }
 
   @Override
   public void update(Board b) {
     try (Statement stmt = con.createStatement()) {
 
-      String sql = String.format("update app_board set title='%s', content='%s' where board_id=%d",
-          b.getTitle(), b.getContent(), b.getNo());
+      String sql = String.format(
+        "update app_board set title='%s', content='%s' where board_id=%d",
+          b.getTitle(), 
+          b.getContent(), 
+          b.getNo());
 
       stmt.executeUpdate(sql);
 
