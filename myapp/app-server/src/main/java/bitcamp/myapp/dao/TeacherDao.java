@@ -9,8 +9,6 @@ public interface TeacherDao {
   Teacher[] findAll();
 
   Teacher findByNo(int no);
-  
-  Teacher[] findByKeyword(String keyword);
 
   void update(Teacher t);
 
