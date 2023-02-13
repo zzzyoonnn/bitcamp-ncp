@@ -18,7 +18,6 @@ public class Teacher extends Member implements java.io.Serializable {
       obj.setNo(Integer.parseInt(values[0]));
       obj.setName(values[1]);
       obj.setTel(values[2]);
-      obj.setCreatedDate(values[3]);
       obj.setEmail(values[4]);
       obj.setDegree(Integer.parseInt(values[5]));
       obj.setSchool(values[6]);
@@ -35,51 +34,57 @@ public class Teacher extends Member implements java.io.Serializable {
   // Information Expert 패턴
   public String toCsvString() {
     return String.format("%d,%s,%s,%s,%s,%d,%s,%s,%d",
-        this.getNo(),
-        this.getName(),
-        this.getTel(),
-        this.getCreatedDate(),
-        this.getEmail(),
         this.getDegree(),
         this.getSchool(),
         this.getMajor(),
         this.getWage());
   }
 
-  @Override
-  public String toString() {
-    return "Teacher [email=" + email + ", degree=" + degree + ", school=" + school + ", major="
-        + major + ", wage=" + wage + "]";
-  }
-  public String getEmail() {
-    return email;
-  }
-  public void setEmail(String email) {
-    this.email = email;
-  }
-  public int getDegree() {
-    return degree;
-  }
-  public void setDegree(int degree) {
-    this.degree = degree;
-  }
-  public String getSchool() {
-    return school;
-  }
-  public void setSchool(String school) {
-    this.school = school;
-  }
-  public String getMajor() {
-    return major;
-  }
-  public void setMajor(String major) {
-    this.major = major;
-  }
-  public int getWage() {
-    return wage;
-  }
-  public void setWage(int wage) {
-    this.wage = wage;
-  }
+@Override
+public String toString() {
+	return "Teacher [email=" + email + ", degree=" + degree + ", school=" + school + ", major=" + major + ", wage="
+			+ wage + "]";
+}
+
+public String getEmail() {
+	return email;
+}
+
+public void setEmail(String email) {
+	this.email = email;
+}
+
+public int getDegree() {
+	return degree;
+}
+
+public void setDegree(int degree) {
+	this.degree = degree;
+}
+
+public String getSchool() {
+	return school;
+}
+
+public void setSchool(String school) {
+	this.school = school;
+}
+
+public String getMajor() {
+	return major;
+}
+
+public void setMajor(String major) {
+	this.major = major;
+}
+
+public int getWage() {
+	return wage;
+}
+
+public void setWage(int wage) {
+	this.wage = wage;
+}
+
 
 }

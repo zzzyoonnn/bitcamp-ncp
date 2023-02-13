@@ -11,7 +11,6 @@ public class ClientApp {
     new ClientApp().execute("localhost", 8888);
   }
 
-  
   void execute(String ip, int port) {
     try (Scanner keyboard = new Scanner(System.in);
         Socket socket = new Socket(ip, port);

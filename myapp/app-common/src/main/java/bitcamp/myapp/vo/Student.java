@@ -11,17 +11,16 @@ public class Student extends Member implements java.io.Serializable {
   private char gender;
   private byte level;
 
+
+
   @Override
-public String toString() {
-	return "Student [postNo=" + postNo + ", basicAddress=" + basicAddress + ", detailAddress=" + detailAddress
-			+ ", working=" + working + ", gender=" + gender + ", level=" + level + ", getPostNo()=" + getPostNo()
-			+ ", getBasicAddress()=" + getBasicAddress() + ", getDetailAddress()=" + getDetailAddress()
-			+ ", isWorking()=" + isWorking() + ", getGender()=" + getGender() + ", getLevel()=" + getLevel()
-			+ ", toString()=" + super.toString() + ", hashCode()=" + hashCode() + ", getNo()=" + getNo()
-			+ ", getName()=" + getName() + ", getEmail()=" + getEmail() + ", getPassword()=" + getPassword()
-			+ ", getTel()=" + getTel() + ", getCreatedDate()=" + getCreatedDate() + ", getClass()=" + getClass() + "]";
-}
-public String getPostNo() {
+  public String toString() {
+    return "Student [postNo=" + postNo + ", basicAddress=" + basicAddress + ", detailAddress="
+        + detailAddress + ", working=" + working + ", gender=" + gender + ", level=" + level
+        + ", getNo()=" + getNo() + ", getName()=" + getName() + ", getEmail()=" + getEmail()
+        + ", getTel()=" + getTel() + ", getCreatedDate()=" + getCreatedDate() + "]";
+  }
+  public String getPostNo() {
     return postNo;
   }
   public void setPostNo(String postNo) {

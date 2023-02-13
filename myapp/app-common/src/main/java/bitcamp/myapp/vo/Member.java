@@ -13,17 +13,17 @@ public class Member implements java.io.Serializable {
   private String tel;
   private Date createdDate;
 
-  @Override
-  public String toString() {
-	  return "Member [no=" + no + ", name=" + name + ", email=" + email + ", password=" + password + ", tel=" + tel
-			  + ", createdDate=" + createdDate + "]";
-  }
+
 
   @Override
-  public int hashCode() {
-	  return Objects.hash(no);
+  public String toString() {
+    return "Member [no=" + no + ", name=" + name + ", email=" + email + ", password=" + password
+        + ", tel=" + tel + ", createdDate=" + createdDate + "]";
   }
-  
+  @Override
+  public int hashCode() {
+    return Objects.hash(no);
+  }
   @Override
   public boolean equals(Object obj) {
     if (this == obj)
@@ -35,53 +35,45 @@ public class Member implements java.io.Serializable {
     Member other = (Member) obj;
     return no == other.no;
   }
-  
+
   public int getNo() {
-	  return no;
+    return no;
   }
-  
   public void setNo(int no) {
-	  this.no = no;
+    this.no = no;
   }
-  
   public String getName() {
-	  return name;
+    return name;
   }
-  
   public void setName(String name) {
-	  this.name = name;
+    this.name = name;
   }
-  
   public String getEmail() {
-	  return email;
+    return email;
   }
-  
   public void setEmail(String email) {
-	  this.email = email;
+    this.email = email;
   }
-  
   public String getPassword() {
-	  return password;
+    return password;
   }
-  
   public void setPassword(String password) {
-	  this.password = password;
+    this.password = password;
   }
-  
   public String getTel() {
-	  return tel;
+    return tel;
   }
-  
   public void setTel(String tel) {
-	  this.tel = tel;
+    this.tel = tel;
   }
-  
   public Date getCreatedDate() {
-	  return createdDate;
+    return createdDate;
   }
-  
   public void setCreatedDate(Date createdDate) {
-	  this.createdDate = createdDate;
+    this.createdDate = createdDate;
   }
+
+
+
 
 }
