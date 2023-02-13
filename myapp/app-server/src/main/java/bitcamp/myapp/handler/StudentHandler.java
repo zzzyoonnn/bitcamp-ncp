@@ -2,7 +2,6 @@ package bitcamp.myapp.handler;
 
 import java.sql.Connection;
 import java.util.List;
-
 import bitcamp.myapp.dao.MemberDao;
 import bitcamp.myapp.dao.StudentDao;
 import bitcamp.myapp.vo.Student;
@@ -36,22 +35,21 @@ public class StudentHandler {
     s.setLevel((byte) streamTool.promptInt("0. 비전공자\n1. 준전공자\n2. 전공자\n전공? "));
 
     con.setAutoCommit(false);
-    
-   try {
+    try {
       memberDao.insert(s);
       studentDao.insert(s);
       con.commit();
       streamTool.println("입력했습니다!").send();
-      
+
     } catch (Exception e) {
       con.rollback();
       streamTool.println("입력 실패입니다!").send();
       e.printStackTrace();
-      
+
     } finally {
       con.setAutoCommit(true);
     }
-    
+
   }
 
   private void printMembers(StreamTool streamTool) throws Exception {
@@ -69,23 +67,23 @@ public class StudentHandler {
   private void printMember(StreamTool streamTool) throws Exception {
     int memberNo = streamTool.promptInt("회원번호? ");
 
-    Student s = this.studentDao.findByNo(memberNo);
+    Student m = this.studentDao.findByNo(memberNo);
 
-    if (s == null) {
+    if (m == null) {
       streamTool.println("해당 번호의 학생이 없습니다.").send();
       return;
     }
 
     streamTool
-    .printf("    이름: %s\n", s.getName())
-    .printf("    전화: %s\n", s.getTel())
-    .printf("우편번호: %s\n", s.getPostNo())
-    .printf("기본주소: %s\n", s.getBasicAddress())
-    .printf("상세주소: %s\n", s.getDetailAddress())
-    .printf("재직여부: %s\n", s.isWorking() ? "예" : "아니오")
-    .printf("    성별: %s\n", s.getGender() == 'M' ? "남자" : "여자")
-    .printf("    전공: %s\n", getLevelText(s.getLevel()))
-    .printf("  등록일: %s\n", s.getCreatedDate())
+    .printf("    이름: %s\n", m.getName())
+    .printf("    전화: %s\n", m.getTel())
+    .printf("우편번호: %s\n", m.getPostNo())
+    .printf("기본주소: %s\n", m.getBasicAddress())
+    .printf("상세주소: %s\n", m.getDetailAddress())
+    .printf("재직여부: %s\n", m.isWorking() ? "예" : "아니오")
+    .printf("    성별: %s\n", m.getGender() == 'M' ? "남자" : "여자")
+    .printf("    전공: %s\n", getLevelText(m.getLevel()))
+    .printf("  등록일: %s\n", m.getCreatedDate())
     .send();
 
   }
@@ -137,12 +135,14 @@ public class StudentHandler {
         studentDao.update(m);
         con.commit();
         streamTool.println("변경했습니다.");
+
       } catch (Exception e) {
-    	con.rollback();
-    	streamTool.println("변경 실패했습니다.");
-    	e.printStackTrace();
+        con.rollback();
+        streamTool.println("변경 실패했습니다!");
+        e.printStackTrace();
+
       } finally {
-    	con.setAutoCommit(true);
+        con.setAutoCommit(true);
       }
     } else {
       streamTool.println("변경 취소했습니다.");
@@ -172,15 +172,14 @@ public class StudentHandler {
       memberDao.delete(memberNo);
       con.commit();
       streamTool.println("삭제했습니다.").send();
+
     } catch (Exception e) {
       con.rollback();
       streamTool.println("삭제 실패했습니다.").send();
+
     } finally {
       con.setAutoCommit(true);
     }
-    
-    streamTool.println("삭제했습니다.").send();
-
   }
 
   private void searchMember(StreamTool streamTool) throws Exception {

@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
 import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.dao.DaoException;
 import bitcamp.myapp.vo.Board;
@@ -14,7 +13,6 @@ public class BoardDaoImpl implements BoardDao {
 
   Connection con;
 
-  // 의존객체 Connection 을 생성자에서 받는다.
   public BoardDaoImpl(Connection con) {
     this.con = con;
   }
@@ -49,10 +47,6 @@ public class BoardDaoImpl implements BoardDao {
 
         list.add(b);
       }
-
-      Board[] boards = new Board[list.size()];
-      list.toArray(boards);
-
       return list;
 
     } catch (Exception e) {
@@ -121,7 +115,6 @@ public class BoardDaoImpl implements BoardDao {
 
         list.add(b);
       }
-
       return list;
 
     } catch (Exception e) {
