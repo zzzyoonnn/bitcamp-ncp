@@ -11,8 +11,6 @@ public class Student extends Member implements java.io.Serializable {
   private char gender;
   private byte level;
 
-
-
   @Override
   public String toString() {
     return "Student [postNo=" + postNo + ", basicAddress=" + basicAddress + ", detailAddress="
@@ -29,6 +27,7 @@ public class Student extends Member implements java.io.Serializable {
   public String getBasicAddress() {
     return basicAddress;
   }
+  
   public void setBasicAddress(String basicAddress) {
     this.basicAddress = basicAddress;
   }
