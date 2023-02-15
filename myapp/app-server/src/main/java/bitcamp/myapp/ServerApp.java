@@ -5,11 +5,8 @@ import java.io.DataOutputStream;
 import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-
 import org.apache.ibatis.io.Resources;
-import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-
 import bitcamp.myapp.dao.impl.BoardDaoImpl;
 import bitcamp.myapp.dao.impl.MemberDaoImpl;
 import bitcamp.myapp.dao.impl.StudentDaoImpl;
@@ -18,15 +15,11 @@ import bitcamp.myapp.handler.BoardHandler;
 import bitcamp.myapp.handler.HelloHandler;
 import bitcamp.myapp.handler.StudentHandler;
 import bitcamp.myapp.handler.TeacherHandler;
-import bitcamp.util.ConnectionFactory;
-import bitcamp.util.ConnectionPool;
+import bitcamp.util.BitcampSqlSessionFactory;
 import bitcamp.util.StreamTool;
+import bitcamp.util.TransactionManager;
 
 public class ServerApp {
-
-  ConnectionPool connectionPool = new ConnectionPool(
-      "jdbc:mariadb://localhost:3306/studydb", "study", "1111");
-  ConnectionFactory conFactory = new ConnectionFactory(connectionPool);
 
   StudentHandler studentHandler;
   TeacherHandler teacherHandler;
@@ -43,31 +36,36 @@ public class ServerApp {
   }
 
   public ServerApp() throws Exception{
-	  
-	// Mybatis API 사용 준비
-	// 1) Mybatis 설정 파일 준비
-	//    => resources/bitcamp/myapp/config/mybatis-config.xml
 
-	// 2) SQL Mapper 파일 준비
-	//    => resources/bitcamp/myapp/mapper/BoardMapper.xml
+    // Mybatis API 사용 준비
+    // 1) Mybatis 설정 파일 준비
+    //    => resources/bitcamp/myapp/config/mybatis-config.xml
 
-	// 3) Mybatis 설정 파일을 읽을 때 사용할 입력 스트림 객체 준비
-	InputStream mybatisConfigInputStream = Resources.getResourceAsStream(
-		"bitcamp/myapp/config/mybatis-config.xml");
+    // 2) SQL Mapper 파일 준비
+    //    => resources/bitcamp/myapp/mapper/BoardMapper.xml
 
-	// 4) SqlSessionFactoryBuilder 객체 준비
-	SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
+    // 3) Mybatis 설정 파일을 읽을 때 사용할 입력 스트림 객체 준비
+    InputStream mybatisConfigInputStream = Resources.getResourceAsStream(
+        "bitcamp/myapp/config/mybatis-config.xml");
 
-	// 5) builder를 이용하여 SqlSessionFactory 객체 생성
-	SqlSessionFactory sqlSessionFactory = builder.build(mybatisConfigInputStream);
-	  
+    // 4) SqlSessionFactoryBuilder 객체 준비
+    SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
+
+    // 5) builder를 이용하여 SqlSessionFactory 객체 생성
+    // 6) 오리지널 SqlSessionFactory에 트랜잭션 보조 기능이 덧붙여진 프록시 객체를 준비한다.
+    BitcampSqlSessionFactory sqlSessionFactory = new BitcampSqlSessionFactory(
+        builder.build(mybatisConfigInputStream));
+
+    // 7) BitcampSqlSessionFactory객체를 이용하여 트랜잭션을 다루는 객체를 준비한다.
+    TransactionManager txManager = new TransactionManager(sqlSessionFactory);
+
     BoardDaoImpl boardDao = new BoardDaoImpl(sqlSessionFactory);
-    MemberDaoImpl memberDao = new MemberDaoImpl(conFactory);
-    StudentDaoImpl studentDao = new StudentDaoImpl(conFactory);
-    TeacherDaoImpl teacherDao = new TeacherDaoImpl(conFactory);
+    MemberDaoImpl memberDao = new MemberDaoImpl(sqlSessionFactory);
+    StudentDaoImpl studentDao = new StudentDaoImpl(sqlSessionFactory);
+    TeacherDaoImpl teacherDao = new TeacherDaoImpl(sqlSessionFactory);
 
-    this.studentHandler = new StudentHandler("학생", conFactory, memberDao, studentDao);
-    this.teacherHandler = new TeacherHandler("강사", conFactory, memberDao, teacherDao);
+    this.studentHandler = new StudentHandler("학생", txManager, memberDao, studentDao);
+    this.teacherHandler = new TeacherHandler("강사", txManager, memberDao, teacherDao);
     this.boardHandler = new BoardHandler("게시판", boardDao);
   }
 
@@ -177,10 +175,6 @@ public class ServerApp {
     } catch (Exception e) {
       System.out.println("클라이언트 요청 처리 오류!");
       e.printStackTrace();
-
-    } finally {
-      // 현재 스레드가 갖고 있는 커넥션 객체를 ConnectionPool에 반납시킨다.
-      conFactory.closeConnection();
     }
   }
 }
