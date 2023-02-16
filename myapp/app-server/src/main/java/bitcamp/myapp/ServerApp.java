@@ -17,10 +17,6 @@ import bitcamp.myapp.handler.BoardHandler;
 import bitcamp.myapp.handler.HelloHandler;
 import bitcamp.myapp.handler.StudentHandler;
 import bitcamp.myapp.handler.TeacherHandler;
-import bitcamp.myapp.vo.Board;
-import bitcamp.myapp.vo.Member;
-import bitcamp.myapp.vo.Student;
-import bitcamp.myapp.vo.Teacher;
 import bitcamp.util.BitcampSqlSessionFactory;
 import bitcamp.util.DaoGenerator;
 import bitcamp.util.StreamTool;
@@ -70,10 +66,10 @@ public class ServerApp {
     DaoGenerator daoGenerator = new DaoGenerator(sqlSessionFactory);
     
     // DAO 제너레이터를 이용한 DAO 구현체 생성
-    BoardDao boardDao = daoGenerator.getObject(Board.class);
-    MemberDao memberDao = daoGenerator.getObject(Member.class);
-    StudentDao studentDao = daoGenerator.getObject(Student.class);
-    TeacherDao teacherDao = daoGenerator.getObject(Teacher.class);
+    BoardDao boardDao = daoGenerator.getObject(BoardDao.class);
+    MemberDao memberDao = daoGenerator.getObject(MemberDao.class);
+    StudentDao studentDao = daoGenerator.getObject(StudentDao.class);
+    TeacherDao teacherDao = daoGenerator.getObject(TeacherDao.class);
 
     this.studentHandler = new StudentHandler("학생", txManager, memberDao, studentDao);
     this.teacherHandler = new TeacherHandler("강사", txManager, memberDao, teacherDao);
