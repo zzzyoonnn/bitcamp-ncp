@@ -3,12 +3,16 @@ package bitcamp.util;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.util.List;
 
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import bitcamp.myapp.dao.BoardDao;
 
-public class DaoGenerator {
+public class DaoGenerator implements InvocationHandler {
   
   SqlSessionFactory sqlSessionFactory;
   
@@ -23,32 +27,69 @@ public class DaoGenerator {
 	return (T) Proxy.newProxyInstance(
 		getClass().getClassLoader(),	// 현재 클래스의 로딩을 담당한 관리자 : 즉, 클래스 로딩 관리자
 		new Class[] {classInfo},	// 클래스가 구현해야 할 인터페이스 정보 목록
-		new MyInvocationHandler());	// InvocationHandler 객체
+		this	// Dao 인터페이스 자체가 DaoGenerator
+		);	// InvocationHandler 객체
 	
   }
   
   // 자동 생성된 프록시 객체에 대해 메서드를 호출하면
   // 실제 InvocationHandler의 invoke()가 호출된다.
-  class MyInvocationHandler implements InvocationHandler {
-	// 프록시 객체에 대해 메서드를 호출하면 이 메서드가 실행된다.
-	@Override
-	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-	  System.out.printf("%s() 메서드 호출했음!\n", method.getName());
-	  if (method.getReturnType() == int.class) {
-		return 1;
-	  }
-	  return null;
+  
+  @Override
+  public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+	SqlSession sqlSession = sqlSessionFactory.openSession();
+	  
+	String daoName = proxy.getClass().getInterfaces()[0].getSimpleName();
+	String methodName = method.getName();
+	String sqlStatementName = String.format("%s.%s", daoName, methodName);
+	System.out.printf("%s.%s() 호출했음!\n", daoName, methodName);
+	Class<?> returnType = method.getReturnType();
+	  
+	if (returnType == int.class || returnType == void.class) {
+	  return args == null ? sqlSession.insert(sqlStatementName) :
+	  sqlSession.insert(sqlStatementName, args[0]);
+	} else if (returnType == List.class) {
+	  return args == null ? sqlSession.selectList(sqlStatementName) :
+	  sqlSession.selectList(sqlStatementName, args[0]);
+	} else {
+	  return args == null ? sqlSession.selectOne(sqlStatementName) :
+	  sqlSession.selectOne(sqlStatementName, args[0]);
 	}
   }
+
   
-  public static void main(String[] args) {
-	DaoGenerator generator = new DaoGenerator(null);
+  public static void main(String[] args) throws Exception {
+	
+	BitcampSqlSessionFactory sqlSessionFactory = new BitcampSqlSessionFactory(
+			new SqlSessionFactoryBuilder().build(
+	  Resources.getResourceAsStream("bitcamp/myapp/config/mybatis-config.xml")));
+
+	DaoGenerator generator = new DaoGenerator(sqlSessionFactory);
 	BoardDao dao = generator.getObject(BoardDao.class);	// getObject(인터페이스 정보)	// Generic
 	
-	dao.insert(null);
+	/*
+	Board b = new Board();
+	b.setTitle("테스트1");
+	b.setContent("테스트내용1");
+	b.setPassword("1111");
+	dao.insert(b);
+	 */
+	
+	//dao.delete(13);
+	
+	/*
+	List<Board> list = dao.findAll();
+	for(Board b : list)
+	  System.out.println(b);
+	*/
+	
+	//System.out.println(dao.findByNo(13));
+	
+	/*
 	dao.findAll();
 	dao.findByNo(2);
 	dao.update(null);
 	dao.delete(1);
+	*/
   }
 }
