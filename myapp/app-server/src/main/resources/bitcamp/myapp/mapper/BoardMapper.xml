@@ -3,15 +3,15 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="BoardDao">
-	
-	<resultMap type="board" id="boardMap">
-		<id column="board_id" property="no"/>	<!-- primary 키만 id 붙임 -->
-		<result column="title" property="title"/>
-		<result column="content" property="content"/>
-		<result column="pwd" property="password"/>
-		<result column="created_date" property="createdDate"/>
-		<result column="view_cnt" property="viewCount"/>
-	</resultMap>
+
+  <resultMap type="board" id="boardMap">
+    <id column="board_id" property="no"/>
+    <result column="title" property="title"/>
+    <result column="content" property="content"/>
+    <result column="pwd" property="password"/>
+    <result column="created_date" property="createdDate"/>
+    <result column="view_cnt" property="viewCount"/>
+  </resultMap>
 
   <insert id="insert" parameterType="board">
     insert into app_board(title, content, pwd) 
@@ -20,10 +20,10 @@
 
   <select id="findAll" resultMap="boardMap">
     select 
-      board_id,
+      board_id, 
       title, 
       created_date, 
-      view_cnt
+      view_cnt 
     from 
       app_board 
     order by 

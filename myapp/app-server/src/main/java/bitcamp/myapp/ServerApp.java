@@ -5,15 +5,14 @@ import java.io.DataOutputStream;
 import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-
 import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.dao.MemberDao;
 import bitcamp.myapp.dao.StudentDao;
 import bitcamp.myapp.dao.TeacherDao;
-import bitcamp.myapp.servlet.board.*;
+//import bitcamp.myapp.handler.BoardHandler;
+//import bitcamp.myapp.handler.HelloHandler;
 import bitcamp.myapp.handler.StudentHandler;
 import bitcamp.myapp.handler.TeacherHandler;
 import bitcamp.util.BitcampSqlSessionFactory;
@@ -26,6 +25,7 @@ public class ServerApp {
   StudentHandler studentHandler;
   TeacherHandler teacherHandler;
   //BoardHandler boardHandler;
+  //HelloHandler helloHandler = new HelloHandler();
 
   public static void main(String[] args) {
     try {
@@ -60,9 +60,9 @@ public class ServerApp {
     // 7) BitcampSqlSessionFactory객체를 이용하여 트랜잭션을 다루는 객체를 준비한다.
     TransactionManager txManager = new TransactionManager(sqlSessionFactory);
 
-    // 8) DAO 구현체 생성기 준비
+    // DAO 구현체 생성기 준비
     DaoGenerator daoGenerator = new DaoGenerator(sqlSessionFactory);
-    
+
     // DAO 제너레이터를 이용한 DAO 구현체 생성
     BoardDao boardDao = daoGenerator.getObject(BoardDao.class);
     MemberDao memberDao = daoGenerator.getObject(MemberDao.class);
@@ -126,6 +126,9 @@ public class ServerApp {
             break;
           case 3:
             //boardHandler.service(streamTool);
+            break;
+          case 4:
+            //helloHandler.service(streamTool);
             break;
           case 9:
             break loop; // loop 라벨이 붙은 while 문을 나간다.

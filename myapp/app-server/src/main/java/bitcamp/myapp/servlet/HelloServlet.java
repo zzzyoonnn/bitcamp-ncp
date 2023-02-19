@@ -1,7 +1,6 @@
 package bitcamp.myapp.servlet;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,7 +15,13 @@ public class HelloServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response)
-	throws ServletException, IOException {
-	  System.out.println("HelloServlet.service() 호출됨33333!");
-	}
+      throws ServletException, IOException {
+    System.out.println("HelloServlet.service() 호출됨3333!");
+  }
 }
+
+
+
+
+
+

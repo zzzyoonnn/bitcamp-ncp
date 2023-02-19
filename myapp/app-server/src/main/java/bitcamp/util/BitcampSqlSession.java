@@ -3,7 +3,6 @@ package bitcamp.util;
 import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
-
 import org.apache.ibatis.cursor.Cursor;
 import org.apache.ibatis.executor.BatchResult;
 import org.apache.ibatis.session.Configuration;

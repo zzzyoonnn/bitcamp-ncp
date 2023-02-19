@@ -15,7 +15,7 @@ import bitcamp.myapp.vo.Board;
 import bitcamp.util.BitcampSqlSessionFactory;
 import bitcamp.util.DaoGenerator;
 
-@WebServlet("/board/*")
+@WebServlet("/board/view")
 public class BoardViewServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
@@ -35,6 +35,7 @@ public class BoardViewServlet extends HttpServlet {
     }
   }
 
+  @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
@@ -118,5 +119,7 @@ public class BoardViewServlet extends HttpServlet {
 
     out.println("</body>");
     out.println("</html>");
+
   }
+
 }

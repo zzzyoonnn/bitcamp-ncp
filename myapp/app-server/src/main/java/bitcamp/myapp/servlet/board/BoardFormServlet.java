@@ -34,6 +34,7 @@ public class BoardFormServlet extends HttpServlet {
     }
   }
 
+  @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
@@ -75,5 +76,6 @@ public class BoardFormServlet extends HttpServlet {
     out.println("</script>");
     out.println("</body>");
     out.println("</html>");
+
   }
 }

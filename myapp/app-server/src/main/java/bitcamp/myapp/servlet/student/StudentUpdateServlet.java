@@ -1,67 +1,24 @@
 package bitcamp.myapp.servlet.student;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintWriter;
 import java.util.List;
-
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.ibatis.io.Resources;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-
 import bitcamp.myapp.dao.MemberDao;
 import bitcamp.myapp.dao.StudentDao;
 import bitcamp.myapp.vo.Student;
-import bitcamp.util.BitcampSqlSessionFactory;
-import bitcamp.util.DaoGenerator;
 import bitcamp.util.StreamTool;
 import bitcamp.util.TransactionManager;
 
-@WebServlet("/student")
-public class StudentUpdateServlet extends HttpServlet {
-  private static final long serialVersionUID = 1L;
+public class StudentUpdateServlet {
 
   private TransactionManager txManager;
   private MemberDao memberDao;
   private StudentDao studentDao;
+  private String title;
 
-  public StudentUpdateServlet() {
-	try {
-	  InputStream mybatisConfigInputStream = Resources.getResourceAsStream(
-		  "bitcamp/myapp/config/mybatis-config.xml");
-
-	  SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
-
-	  BitcampSqlSessionFactory sqlSessionFactory = new BitcampSqlSessionFactory(
-	      builder.build(mybatisConfigInputStream));
-
-	  txManager = new TransactionManager(sqlSessionFactory);
-	  memberDao = new DaoGenerator(sqlSessionFactory).getObject(MemberDao.class);
-	  studentDao = new DaoGenerator(sqlSessionFactory).getObject(StudentDao.class);
-	  
-	} catch (Exception e) {
-	  e.printStackTrace();
-	}
-  }
-  
-  @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
-	  throws ServletException, IOException {
-	String menu = request.getParameter("menu");
-	if (menu == null) {
-	  menu(request, response);
-	}
-	
-	switch (menu) {
-	  case "2":
-		printMembers(request, response);
-		break;
-	}
+  public StudentUpdateServlet(String title, TransactionManager txManager, MemberDao memberDao, StudentDao studentDao) {
+    this.title = title;
+    this.txManager = txManager;
+    this.memberDao = memberDao;
+    this.studentDao = studentDao;
   }
 
   private void inputMember(StreamTool streamTool) throws Exception {
@@ -91,41 +48,16 @@ public class StudentUpdateServlet extends HttpServlet {
     }
   }
 
-  private void printMembers(HttpServletRequest request, HttpServletResponse response)
-	  throws ServletException, IOException {
-	response.setContentType("text/html;charset=UTF-8");
-	PrintWriter out = response.getWriter();
-	
-	out.println("<!DOCTYPE html>");
-	out.println("<html>");
-	out.println("<head>");
-	out.println("<meta charset='UTF-8'>");
-	out.println("<title>비트캠프 - NCP 1기</title>");
-	out.println("</head>");
-	out.println("<body>");
-	out.println("<h1>학생 목록</h1>");
-	out.println("<ul>");
-	out.println("<table boarder='1'>");
-	
-	out.println("<div><a href='form'>학생 등록</a></div>");
-	
-	out.println("<tr>");
-	out.println("  <th>번호</th> <th>이름</th> <th>전화</th> <th>재직</th> <th>전공</th>");
-	out.println("</tr>");
-	
-	List<Student> members = this.studentDao.findAll();
-    for (Student s : members) {
-      out.println("<tr>");
-	  out.printf("  <td>%d</td> <td>%s</td> <td>%s</td> <td>%s</td> <td>%s</td>\n",
-		  s.getNo(), s.getName(), s.getTel(),
-		  s.isWorking() ? "예" : "아니오",
-	      getLevelText(s.getLevel()));
-	  out.println("</tr>");
+  private void printMembers(StreamTool streamTool) throws Exception {
+    List<Student> members = this.studentDao.findAll();
+    streamTool.println("번호\t이름\t전화\t재직\t전공");
+    for (Student m : members) {
+      streamTool.printf("%d\t%s\t%s\t%s\t%s\n",
+          m.getNo(), m.getName(), m.getTel(),
+          m.isWorking() ? "예" : "아니오",
+              getLevelText(m.getLevel()));
     }
-	out.println("</table>");
-	
-	out.println("</body>");
-	out.println("</html>");
+    streamTool.send();
   }
 
   private void printMember(StreamTool streamTool) throws Exception {
@@ -258,31 +190,58 @@ public class StudentUpdateServlet extends HttpServlet {
     streamTool.send();
   }
 
-  
+  public void service(StreamTool streamTool) throws Exception {
 
-  void menu(HttpServletRequest request, HttpServletResponse response)
-	  throws ServletException, IOException {
-	response.setContentType("text/html;charset=UTF-8");
-	PrintWriter out = response.getWriter();  
-	
-	out.println("<!DOCTYPE html>");
-	out.println("<html>");
-	out.println("<head>");
-	out.println("<meta charset='UTF-8'>");
-	out.println("<title>비트캠프 - NCP 1기</title>");
-	out.println("</head>");
-	out.println("<body>");
-	out.println("<h1>학생</h1>");
-	out.println("<ul>");
-	out.println("  <li><a href='student?menu=1'>등록</a></li>");
-	out.println("  <li><a href='student?menu=2'>목록</a></li>");
-	out.println("  <li><a href='student?menu=3'>조회</a></li>");
-	out.println("  <li><a href='student?menu=4'>변경</a></li>");
-	out.println("  <li><a href='student?menu=5'>삭제</a></li>");
-	out.println("  <li><a href='student?menu=6'>검색</a></li>");
-	out.println("</ul>");
-	out.println("</body>");
-	out.println("</html>");
+    menu(streamTool);
+
+    while (true) {
+      String command = streamTool.readString();
+
+      if (command.equals("menu")) {
+        menu(streamTool);
+        continue;
+      }
+
+      int menuNo;
+      try {
+        menuNo = Integer.parseInt(command);
+      } catch (Exception e) {
+        streamTool.println("메뉴 번호가 옳지 않습니다!").println().send();
+        continue;
+      }
+
+      try {
+        switch (menuNo) {
+          case 0:
+            streamTool.println("메인화면으로 이동!").send();
+            return;
+          case 1: this.inputMember(streamTool); break;
+          case 2: this.printMembers(streamTool); break;
+          case 3: this.printMember(streamTool); break;
+          case 4: this.modifyMember(streamTool); break;
+          case 5: this.deleteMember(streamTool); break;
+          case 6: this.searchMember(streamTool); break;
+          default:
+            streamTool.println("잘못된 메뉴 번호 입니다.").send();
+        }
+      } catch (Exception e) {
+        streamTool.printf("명령 실행 중 오류 발생! - %s : %s\n",
+            e.getMessage(),
+            e.getClass().getSimpleName()).send();
+      }
+    }
+  }
+
+  void menu(StreamTool streamTool) throws Exception {
+    streamTool.printf("[%s]\n", this.title)
+    .println("1. 등록")
+    .println("2. 목록")
+    .println("3. 조회")
+    .println("4. 변경")
+    .println("5. 삭제")
+    .println("6. 검색")
+    .println("0. 이전")
+    .send();
   }
 }
 

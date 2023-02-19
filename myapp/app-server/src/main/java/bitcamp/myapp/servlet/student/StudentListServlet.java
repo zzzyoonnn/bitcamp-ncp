@@ -19,31 +19,25 @@ import bitcamp.myapp.dao.StudentDao;
 import bitcamp.myapp.vo.Student;
 import bitcamp.util.BitcampSqlSessionFactory;
 import bitcamp.util.DaoGenerator;
-import bitcamp.util.StreamTool;
 import bitcamp.util.TransactionManager;
 
 @WebServlet("/student/list")
 public class StudentListServlet extends HttpServlet {
-  private static final long serialVersionUID = 1L;
 
-  //private TransactionManager txManager;
+  private TransactionManager txManager;
   private MemberDao memberDao;
   private StudentDao studentDao;
 
   public StudentListServlet() {
 	try {
 	  InputStream mybatisConfigInputStream = Resources.getResourceAsStream(
-		  "bitcamp/myapp/config/mybatis-config.xml");
-
+	      "bitcamp/myapp/config/mybatis-config.xml");
 	  SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
-
 	  BitcampSqlSessionFactory sqlSessionFactory = new BitcampSqlSessionFactory(
 	      builder.build(mybatisConfigInputStream));
-
-	  //txManager = new TransactionManager(sqlSessionFactory);
 	  memberDao = new DaoGenerator(sqlSessionFactory).getObject(MemberDao.class);
 	  studentDao = new DaoGenerator(sqlSessionFactory).getObject(StudentDao.class);
-	  
+	  txManager = new TransactionManager(sqlSessionFactory);
 	} catch (Exception e) {
 	  e.printStackTrace();
 	}
@@ -53,8 +47,8 @@ public class StudentListServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	  throws ServletException, IOException {
 	response.setContentType("text/html;charset=UTF-8");
-	PrintWriter out = response.getWriter();  
-		
+	PrintWriter out = response.getWriter();
+
 	out.println("<!DOCTYPE html>");
 	out.println("<html>");
 	out.println("<head>");
@@ -71,27 +65,39 @@ public class StudentListServlet extends HttpServlet {
 	out.println("  <th>번호</th> <th>이름</th> <th>전화</th> <th>재직</th> <th>전공</th>");
 	out.println("</tr>");
 	
-	List<Student> members = this.studentDao.findAll();
+    List<Student> members = this.studentDao.findAll();
     for (Student s : members) {
-      out.println("<tr>");
-	  out.printf("  <td>%d</td> <td>%s</td> <td>%s</td> <td>%s</td> <td>%s</td>\n",
-		  s.getNo(), s.getName(), s.getTel(), s.isWorking() ? "예" : "아니오",
-	      getLevelText(s.getLevel()));
-	  out.println("</tr>");
+      out.println("  <tr>");
+      out.printf("  <td>%d</td> <td>%s</td> <td>%s</td> <td>%s</td> <td>%s</td>\n",
+        		s.getNo(), s.getName(), s.getTel(),
+                s.isWorking() ? "예" : "아니오",
+                    getLevelText(s.getLevel()));
+      out.println("</tr>");
     }
-	out.println("</table>");
-	
-	out.println("</body>");
-	out.println("</html>");
+    out.println("</table>");
+    
+    out.println("</body>");
+    out.println("</html>");
   }
-  
+
+  // 인스턴스 멤버(필드나 메서드)를 사용하지 않기 때문에
+  // 그냥 스태틱 메서드로 두어라!
   private static String getLevelText(int level) {
-	    switch (level) {
-	      case 0: return "비전공자";
-	      case 1: return "준전공자";
-	      default: return "전공자";
-	    }
-	  }
+    switch (level) {
+      case 0: return "비전공자";
+      case 1: return "준전공자";
+      default: return "전공자";
+    }
+  }
 }
+
+
+
+
+
+
+
+
+
 
 

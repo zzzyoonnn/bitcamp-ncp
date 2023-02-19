@@ -35,6 +35,7 @@ public class BoardInsertServlet extends HttpServlet {
     }
   }
 
+  @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     request.setCharacterEncoding("UTF-8");
@@ -63,4 +64,5 @@ public class BoardInsertServlet extends HttpServlet {
     out.println("</body>");
     out.println("</html>");
   }
+
 }

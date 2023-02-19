@@ -35,6 +35,7 @@ public class BoardUpdateServlet extends HttpServlet {
     }
   }
 
+  @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     request.setCharacterEncoding("UTF-8");
@@ -77,4 +78,5 @@ public class BoardUpdateServlet extends HttpServlet {
     // 어떻게? 응답 헤더에 Refresh 를 추가한다.
     response.setHeader("Refresh", "1;url=list");
   }
+
 }
