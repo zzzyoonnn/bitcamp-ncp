@@ -36,7 +36,7 @@ public class StudentViewServlet extends HttpServlet {
 	  SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
 	  BitcampSqlSessionFactory sqlSessionFactory = new BitcampSqlSessionFactory(
 	      builder.build(mybatisConfigInputStream));
-	  txManager = new DaoGenerator(sqlSessionFactory);
+	  txManager = new TransactionManager(sqlSessionFactory);
 	  memberDao = new DaoGenerator(sqlSessionFactory).getObject(MemberDao.class);
 	  studentDao = new DaoGenerator(sqlSessionFactory).getObject(StudentDao.class);
 	} catch (Exception e) {

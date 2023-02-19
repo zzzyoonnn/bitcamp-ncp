@@ -57,9 +57,6 @@ public class StudentInsertServlet extends HttpServlet {
 	student.setBasicAddress("name");
 	student.setDetailAddress("name");
 	  
-
-	
-	
 	response.setContentType("text/html;charset=UTF-8");
 	PrintWriter out = response.getWriter();
 

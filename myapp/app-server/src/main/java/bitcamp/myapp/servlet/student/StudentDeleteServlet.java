@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.stream.Stream;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -38,6 +39,7 @@ public class StudentDeleteServlet extends HttpServlet {
 	      builder.build(mybatisConfigInputStream));
 	  memberDao = new DaoGenerator(sqlSessionFactory).getObject(MemberDao.class);
 	  studentDao = new DaoGenerator(sqlSessionFactory).getObject(StudentDao.class);
+	  txManager = new TransactionManager(sqlSessionFactory);
 	} catch (Exception e) {
 	  e.printStackTrace();
 	}
@@ -67,23 +69,23 @@ public class StudentDeleteServlet extends HttpServlet {
     if (m == null) {
       out.println("<p>해당 번호의 회원이 없습니다.</p>");
     }
-
-    String str = streamTool.promptString("정말 삭제하시겠습니까?(y/N) ");
+/*
+    String str = out.println("정말 삭제하시겠습니까?(y/N) ");
     if (!str.equalsIgnoreCase("Y")) {
       out.println("삭제 취소했습니다.");
       return;
     }
-
+*/
     txManager.startTransaction();
     try {
       studentDao.delete(memberNo);
       memberDao.delete(memberNo);
       txManager.commit();
-      streamTool.println("삭제했습니다.").send();
+      out.println("삭제했습니다.");
 
     } catch (Exception e) {
       txManager.rollback();
-      streamTool.println("삭제 실패했습니다.").send();
+      out.println("삭제 실패했습니다.");
     }
     
     
