@@ -32,9 +32,9 @@
 <title>비트캠프 - NCP 1기</title>
 </head>
 <body>
-<h1>강사</h1>
+<h1>강사(JSP)</h1>
 
-<div><a href='form'>새 강사</a></div>
+<div><a href='form.jsp'>새 강사</a></div>
 
 <table border='1'>
 <tr>
@@ -53,7 +53,7 @@
 
   <tr>
       <td><%=teacher.getNo()%></td> 
-      <td><a href='view?no=<%=teacher.getNo()%>'><%=teacher.getName()%></a></td> 
+      <td><a href='view.jsp?no=<%=teacher.getNo()%>'><%=teacher.getName()%></a></td> 
       <td><%=teacher.getTel()%></td> 
       <td><%=getDegreeText(teacher.getDegree())%></td> 
       <td><%=teacher.getMajor()%></td> 

@@ -32,6 +32,7 @@ public class TeacherUpdateServlet extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
+	  
     Teacher teacher = new Teacher();
     teacher.setNo(Integer.parseInt(request.getParameter("no")));
     teacher.setName(request.getParameter("name"));
