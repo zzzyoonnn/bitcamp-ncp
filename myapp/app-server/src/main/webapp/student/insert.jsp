@@ -1,83 +1,25 @@
-<%@page import="bitcamp.myapp.dao.MemberDao"%>
-<%@page import="bitcamp.util.TransactionManager"%>
-<%@page import="bitcamp.myapp.vo.Student"%>
-<%@page import="java.util.List"%>
-<%@page import="bitcamp.myapp.dao.StudentDao"%>
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="EUC-KR">
-
-<%!
-  private TransactionManager txManager;
-  private MemberDao memberDao;
-  private StudentDao studentDao;
-
-  @Override
-  public void init() {
-    ServletContext ctx = getServletContext();
-    txManager = (TransactionManager) ctx.getAttribute("txManager");
-    memberDao = (MemberDao) ctx.getAttribute("memberDao");
-    studentDao = (StudentDao) ctx.getAttribute("studentDao");
-  }
-  
-  private static String getLevelText(int level) {
-    switch (level) {
-      case 0: return "ºñÀü°øÀÚ";
-      case 1: return "ÁØÀü°øÀÚ";
-      default: return "Àü°øÀÚ";
-    }
-  }
-%>
-
-<% 
-    Student student = new Student();
-    student.setName(request.getParameter("name"));
-    student.setEmail(request.getParameter("email"));
-    student.setPassword(request.getParameter("password"));
-    student.setTel(request.getParameter("tel"));
-    student.setPostNo(request.getParameter("postNo"));
-    student.setBasicAddress(request.getParameter("basicAddress"));
-    student.setDetailAddress(request.getParameter("detailAddress"));
-    student.setWorking(request.getParameter("working") != null);
-    student.setGender(request.getParameter("gender").charAt(0));
-    student.setLevel(Byte.parseByte(request.getParameter("level")));
-%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset='UTF-8'>
 <meta http-equiv='Refresh' content='1;url=list'>
-<title>ºñÆ®Ä·ÇÁ - NCP 1±â</title>
+<title>ë¹„íŠ¸ìº í”„ - NCP 1ê¸°</title>
 </head>
 <body>
-<h1>ÇÐ»ý(JSP)</h1>
-
-<% 
-    txManager.startTransaction();
-    try {
-      memberDao.insert(student);
-      studentDao.insert(student);
-      txManager.commit();
-%>
-      
-  <p>ÀÔ·Â Çß½À´Ï´Ù.</p>
-
-<% 
-    } catch (Exception e) {
-      txManager.rollback();
-%>
-      
-  <p>ÀÔ·Â ½ÇÆÐÀÔ´Ï´Ù.</p>
+<h1>í•™ìƒ(JSP + MVC2 + EL + JSTL)</h1>
+<c:choose>
+  <c:when test="${empty error}">
+    <p>ìž…ë ¥í–ˆìŠµë‹ˆë‹¤.</p>
+  </c:when>
   
-<% 
-      e.printStackTrace();
-    }
-%>
-
+  <c:otherwise>
+    <p>ìž…ë ¥ ì‹¤íŒ¨ìž…ë‹ˆë‹¤.</p>
+  </c:otherwise>
+</c:choose>
 </body>
 </html>
+
 

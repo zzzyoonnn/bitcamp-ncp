@@ -1,145 +1,117 @@
-<%@page import="bitcamp.myapp.vo.Student"%>
-<%@page import="java.util.List"%>
-<%@page import="bitcamp.myapp.dao.StudentDao"%>
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="EUC-KR">
-
-<%!
-  private StudentDao studentDao;
-
-  @Override
-  public void init() {
-    ServletContext ctx = getServletContext();
-    studentDao = (StudentDao) ctx.getAttribute("studentDao");
-  }
-  
-  private static String getLevelText(int level) {
-    switch (level) {
-      case 0: return "ºñÀü°øÀÚ";
-      case 1: return "ÁØÀü°øÀÚ";
-      default: return "Àü°øÀÚ";
-    }
-  }
-%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset='UTF-8'>
-<title>ºñÆ®Ä·ÇÁ - NCP 1±â</title>
+<title>ë¹„íŠ¸ìº í”„ - NCP 1ê¸°</title>
 </head>
 <body>
-<h1>ÇĞ»ı(JSP)</h1>
+<h1>í•™ìƒ(JSP + MVC2 + EL + JSTL)</h1>
 
-<% 
-    int studentNo = Integer.parseInt(request.getParameter("no"));
-    Student student = this.studentDao.findByNo(studentNo);
+<c:if test="${empty student}">
+  <p>í•´ë‹¹ ë²ˆí˜¸ì˜ í•™ìƒì´ ì—†ìŠµë‹ˆë‹¤.</p>
+  <div>
+    <button id='btn-list' type='button'>ëª©ë¡</button>
+  </div>
+</c:if>
 
-    if (student == null) {
-%>
+<form id='student-form' action='update' method='post'>
 
-    <p>ÇØ´ç ¹øÈ£ÀÇ ÇĞ»ıÀÌ ¾ø½À´Ï´Ù.</p>
-
-<% 
-    } else {
-%>
-    	
-  <form id='student-form' action='update' method='post'>
-
+<c:if test="${not empty student}">
   <table border='1'>
 
   <tr>
-    <th>¹øÈ£</th>
-      <td><input type='text' name='no' value='<%=student.getNo()%>'></td>
+    <th>ë²ˆí˜¸</th>
+    <td><input type='text' name='no' value='${student.no}' readonly></td>
   </tr>
 
   <tr>
-    <th>ÀÌ¸§</th>
-      <td><input type='text' name='name' value='<%=student.getName()%>'></td>
+    <th>ì´ë¦„</th>
+    <td><input type='text' name='name' value='${student.name}'></td>
   </tr>
 
   <tr>
-    <th>ÀÌ¸ŞÀÏ</th>
-      <td><input type='email' name='email' value='<%=student.getEmail()%>'></td>
+    <th>ì´ë©”ì¼</th>
+    <td><input type='email' name='email' value='${student.email}'></td>
   </tr>
 
   <tr>
-    <th>¾ÏÈ£</th>
+    <th>ì•”í˜¸</th>
     <td><input type='password' name='password'></td>
   </tr>
 
   <tr>
-    <th>ÀüÈ­</th>
-      <td><input type='tel' name='tel' value='<%=student.getTel()%>'></td>
+    <th>ì „í™”</th>
+    <td><input type='tel' name='tel' value='${student.tel}'></td>
   </tr>
 
   <tr>
-    <th>¿ìÆí¹øÈ£</th>
-      <td><input type='text' name='postNo' value='<%=student.getPostNo()%>'></td>
+    <th>ìš°í¸ë²ˆí˜¸</th>
+    <td><input type='text' name='postNo' value='${student.postNo}'></td>
   </tr>
 
   <tr>
-    <th>±âº»ÁÖ¼Ò</th>
-      <td><input type='text' name='basicAddress' value='<%=student.getBasicAddress()%>'></td>
+    <th>ê¸°ë³¸ì£¼ì†Œ</th>
+    <td><input type='text' name='basicAddress' value='${student.basicAddress}'></td>
   </tr>
 
   <tr>
-    <th>»ó¼¼ÁÖ¼Ò</th>
-      <td><input type='tel' name='detailAddress' value='<%=student.getDetailAddress()%>'></td>
+    <th>ìƒì„¸ì£¼ì†Œ</th>
+    <td><input type='tel' name='detailAddress' value='${student.detailAddress}'></td>
   </tr>
 
   <tr>
-    <th>ÀçÁ÷¿©ºÎ</th>
-      <td><input type='checkbox' name='working' value='<%=student.isWorking() ? "checked" : ""%>'> ÀçÁ÷Áß</td>
+    <th>ì¬ì§ì—¬ë¶€</th>
+    <td><input type='checkbox' name='working' ${student.working ? "ì˜ˆ" : "ì•„ë‹ˆì˜¤"}>ì¬ì§ì¤‘</td>
   </tr>
 
   <tr>
-    <th>¼ºº°</th>
-      <td><input type='radio' name='gender' value='M' <%=student.getGender() == 'M' ? "checked" : ""%>> ³²
-          <input type='radio' name='gender' value='W' <%=student.getGender() == 'W' ? "checked" : ""%>> ¿©</td> 
+    <th>ì„±ë³„</th>
+    <td><input type='radio' name='gender' value='M' ${student.gender == 'M'.charAt(0) ? "checked" : ""}>ë‚¨
+    <input type='radio' name='gender' value='W' ${student.gender == 'W'.charAt(0) ? "checked" : ""}>ì—¬</td>
+
   </tr>
 
   <tr>
-    <th>Àü°ø</th>
-      <td><select name='level'>
-            <option value='0' <%=student.getLevel() == 0 ? "selected" : ""%>>ºñÀü°øÀÚ</option>
-            <option value='1' <%=student.getLevel() == 1 ? "selected" : ""%>>ÁØÀü°øÀÚ</option>
-            <option value='2' <%=student.getLevel() == 2 ? "selected" : ""%>>Àü°øÀÚ</option>
-          </select></td>
+    <th>ì „ê³µ</th>
+    <td><select name='level'>"
+    <option value='0' ${student.level == 0 ? "selected" : ""}>ë¹„ì „ê³µì</option>
+    <option value='1' ${student.level == 1 ? "selected" : ""}>ì¤€ì „ê³µì</option>
+    <option value='2' ${student.level == 2 ? "selected" : ""}>ì „ê³µì</option>
+    </select>
+    </td>
   </tr>
 
   <tr>
-    <th>µî·ÏÀÏ</th>
-      <td><%=student.getCreatedDate()%></td>
+    <th>ë“±ë¡ì¼</th>
+    <td>${student.createdDate}</td>
   </tr>
 
   </table>
-
-<% 
-    }
-%>
-    
+  
 <div>
-  <button id='btn-list' type='button'>¸ñ·Ï</button>
-  <button>º¯°æ</button>
-  <button id='btn-delete' type='button'>»èÁ¦</button>
+  <button id='btn-list' type='button'>ëª©ë¡</button>
+  <button>ë³€ê²½</button>
+  <button id='btn-delete' type='button'>ì‚­ì œ</button>
 </div>
 
 </form>
+</c:if>
 
 <script>
 document.querySelector('#btn-list').onclick = function() {
-  location.href = 'list.jsp';
+  location.href = 'list';
 }
+
+<c:if test="${not empty student}">
 document.querySelector('#btn-delete').onclick = function() {
   var form = document.querySelector('#student-form');
-  form.action = 'delete.jsp';
+  form.action = 'delete';
   form.submit();
 }
+</c:if>
 </script>
 
 </body>

@@ -1,79 +1,25 @@
-<%@page import="bitcamp.myapp.dao.MemberDao"%>
-<%@page import="bitcamp.util.TransactionManager"%>
-<%@page import="bitcamp.myapp.vo.Teacher"%>
-<%@page import="java.util.List"%>
-<%@page import="bitcamp.myapp.dao.TeacherDao"%>
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-    
-<%! 
-  private TransactionManager txManager;
-  private MemberDao memberDao;
-  private TeacherDao teacherDao;
-
-  @Override
-  public void init() {
-    ServletContext ctx = getServletContext();
-    txManager = (TransactionManager) ctx.getAttribute("txManager");
-    memberDao = (MemberDao) ctx.getAttribute("memberDao");
-    teacherDao = (TeacherDao) ctx.getAttribute("teacherDao");
-  }
-  
-  private static String getDegreeText(int degree) {
-    switch (degree) {
-      case 1: return "°íÁ¹";
-      case 2: return "Àü¹®ÇÐ»ç";
-      case 3: return "ÇÐ»ç";
-      case 4: return "¼®»ç";
-      case 5: return "¹Ú»ç";
-      default: return "±âÅ¸";
-    }
-  }
-%>
-
-<% 
-    Teacher teacher = new Teacher();
-    teacher.setName(request.getParameter("name"));
-    teacher.setEmail(request.getParameter("email"));
-    teacher.setPassword(request.getParameter("password"));
-    teacher.setTel(request.getParameter("tel"));
-    teacher.setDegree(Integer.parseInt(request.getParameter("degree")));
-    teacher.setSchool(request.getParameter("school"));
-    teacher.setMajor(request.getParameter("major"));
-    teacher.setWage(Integer.parseInt(request.getParameter("wage")));
-%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset='UTF-8'>
-<meta http-equiv='Refresh' content='1;url=list.jsp'>
-<title>ºñÆ®Ä·ÇÁ - NCP 1±â</title>
+<meta http-equiv='Refresh' content='1;url=list'>
+<title>ë¹„íŠ¸ìº í”„ - NCP 1ê¸°</title>
 </head>
 <body>
-<h1>°­»ç(JSP)</h1>
-
-<% 
-    txManager.startTransaction();
-    try {
-      memberDao.insert(teacher);
-      teacherDao.insert(teacher);
-      txManager.commit();
-%>
-      
-  <p>ÀÔ·Â Çß½À´Ï´Ù.</p>
-
-<% 
-    } catch (Exception e) {
-      txManager.rollback();
-%>
-      
-  <p>ÀÔ·Â ½ÇÆÐÀÔ´Ï´Ù.</p>
+<h1>ê°•ì‚¬(JSP + MVC2 + EL + JSTL)</h1>
+<c:choose>
+  <c:when test="${empty error}">
+    <p>ìž…ë ¥í–ˆìŠµë‹ˆë‹¤.</p>
+  </c:when>
   
-<% 
-      e.printStackTrace();
-    }
-%>
-
+  <c:otherwise>
+    <p>ìž…ë ¥ ì‹¤íŒ¨ìž…ë‹ˆë‹¤.</p>
+  </c:otherwise>
+</c:choose>
 </body>
 </html>
+
+
