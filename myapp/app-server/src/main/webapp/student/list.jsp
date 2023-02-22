@@ -24,14 +24,15 @@
       <td>${student.working ? "예" : "아니오"}</td> 
       <td>
         <c:choose>
-          <c:when test="${student.level ==0}">비전공자</c:when>
-          <c:when test="${student.level ==1}">준전공자</c:when>
-          <c:when test="${student.level ==2}">전공자</c:when>
+          <c:when test="${student.level == 0}">비전공자</c:when>
+          <c:when test="${student.level == 1}">준전공자</c:when>
+          <c:when test="${student.level == 2}">전공자</c:when>
           <c:otherwise>기타</c:otherwise>
         </c:choose>
       </td>
   </tr>
 </c:forEach>
+
 </table>
 
 <form action='list' method='get'>

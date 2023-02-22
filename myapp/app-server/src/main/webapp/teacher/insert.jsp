@@ -12,12 +12,11 @@
 <h1>강사(JSP + MVC2 + EL + JSTL)</h1>
 <c:choose>
   <c:when test="${empty error}">
-    <p>입력했습니다.</p>
+      <p>입력했습니다.</p>
   </c:when>
-  
   <c:otherwise>
-    <p>입력 실패입니다.</p>
-  </c:otherwise>
+      <p>입력 실패입니다.</p>
+  </c:otherwise>  
 </c:choose>
 </body>
 </html>
