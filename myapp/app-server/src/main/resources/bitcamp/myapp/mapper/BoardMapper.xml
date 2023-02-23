@@ -34,12 +34,12 @@
 
   <select id="findAll" resultMap="boardMap" parameterType="string">
     select 
-      b.board_id,
-      b.title,
+      b.board_id, 
+      b.title, 
       b.writer,
-      b.created_date,
+      b.created_date, 
       b.view_cnt,
-      m.name
+      m.name 
     from 
       app_board b
       inner join app_member m on b.writer = m.member_id
@@ -54,12 +54,12 @@
 
   <select id="findByNo" parameterType="int" resultMap="boardMap">
     select 
-      b.board_id,
-      b.title,
+      b.board_id, 
+      b.title, 
       b.content,
-      b.writer,
-      (select name from app_member where member_id = b.writer) name,
-      b.created_date,
+      b.writer, 
+      (select name from app_member where member_id = b.writer) name, 
+      b.created_date, 
       b.view_cnt,
       bf.boardfile_id,
       bf.filepath,

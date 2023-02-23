@@ -9,7 +9,7 @@ public interface BoardFileDao {
   List<BoardFile> findAllOfBoard(int boardNo);
   BoardFile findByNo(int boardFileNo);
   int delete(int boardFileNo);
-  int deleteOfBoard(int boardno);
+  int deleteOfBoard(int boardNo);
 }
 
 

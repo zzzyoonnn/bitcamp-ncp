@@ -53,7 +53,7 @@
         <c:if test="${boardFile.no != 0}">
           <li>
             <a href="../download/boardfile?fileNo=${boardFile.no}">${boardFile.originalFilename}</a>
-            [<a href="filedelete?no=${board.no}&fileNo=${boardFile.no}">삭제</a>]
+            [<a href="filedelete?boardNo=${board.no}&fileNo=${boardFile.no}">삭제</a>]
           </li>
         </c:if>
       </c:forEach>

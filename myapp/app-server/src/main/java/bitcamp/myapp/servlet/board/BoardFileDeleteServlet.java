@@ -1,14 +1,12 @@
 package bitcamp.myapp.servlet.board;
 
 import java.io.IOException;
-
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.dao.BoardFileDao;
 import bitcamp.myapp.vo.Board;
@@ -36,14 +34,14 @@ public class BoardFileDeleteServlet extends HttpServlet {
     Member loginUser = (Member) request.getSession().getAttribute("loginUser");
 
     int boardNo = Integer.parseInt(request.getParameter("boardNo"));
-    
+
     Board old = boardDao.findByNo(boardNo);
-    
+
     if (old.getWriter().getNo() != loginUser.getNo()) {
       response.sendRedirect("../auth/fail");
       return;
     }
-    
+
     boardFileDao.delete(Integer.parseInt(request.getParameter("fileNo")));
 
     response.sendRedirect("view?no=" + boardNo);

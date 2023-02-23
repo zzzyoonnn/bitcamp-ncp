@@ -34,9 +34,7 @@ public class DaoGenerator implements InvocationHandler {
   @Override
   public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 
-	// try문을 해줘야지 다량의 입력이 들어와도 로딩 걸리지 않게
-	// 각각의 입력때마다 끊어줌
-	try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+    try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
       String daoName = proxy.getClass().getInterfaces()[0].getSimpleName();
       String methodName = method.getName();
       String sqlStatementName = String.format("%s.%s", daoName, methodName);
@@ -53,7 +51,7 @@ public class DaoGenerator implements InvocationHandler {
         return args == null ? sqlSession.selectOne(sqlStatementName) :
           sqlSession.selectOne(sqlStatementName, args[0]);
       }
-	}
+    }
   }
 
 
