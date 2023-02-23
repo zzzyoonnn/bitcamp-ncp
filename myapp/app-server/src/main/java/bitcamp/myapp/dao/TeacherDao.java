@@ -2,7 +2,6 @@ package bitcamp.myapp.dao;
 
 import java.util.List;
 import java.util.Map;
-
 import bitcamp.myapp.vo.Teacher;
 
 public interface TeacherDao {

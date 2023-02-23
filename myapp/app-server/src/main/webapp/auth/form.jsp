@@ -1,44 +1,47 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>ºñÆ®Ä·ÇÁ - NCP 1±â</title>
+<meta charset="UTF-8">
+<title>ë¹„íŠ¸ìº í”„ - NCP 1ê¸°</title>
 </head>
 <body>
-<h1>·Î±×ÀÎ</h1>
+<h1>ë¡œê·¸ì¸</h1>
 <form action="login" method="post">
-<c:if test="${error == 'loginfail'}">
-  <p>ÀÌ¸ÞÀÏ ¶Ç´Â ¾ÏÈ£°¡ ¸ÂÁö ¾Ê½À´Ï´Ù!</p>
-</c:if>
-<table border="1">
 
+<c:if test="${error == 'loginfail'}">
+  <p>ì´ë©”ì¼ ë˜ëŠ” ì•”í˜¸ê°€ ë§žì§€ ì•ŠìŠµë‹ˆë‹¤!</p>
+</c:if>
+
+<table border="1">
 <tr>
-  <th>È¸¿ø À¯Çü</th>
+  <th>íšŒì› ìœ í˜•</th>
   <td>
-    <input type="radio" name="usertype" value="student" checked> ÇÐ»ý
-    <input type="radio" name="usertype" value="teacher"> °­»ç
+    <input type="radio" name="usertype" value="student" checked> í•™ìƒ
+    <input type="radio" name="usertype" value="teacher"> ê°•ì‚¬
   </td>
 </tr>
-
 <tr>
-  <th>ÀÌ¸ÞÀÏ</th>
-  <td><input type="email" name="email" value=${cookie.email.value}></td>
+  <th>ì´ë©”ì¼</th>
+  <td><input type="email" name="email" value="${cookie.email.value}"></td>
 </tr>
-
 <tr>
-  <th>¾ÏÈ£</th>
+  <th>ì•”í˜¸</th>
   <td><input type="password" name="password"></td>
 </tr>
 </table>
-
 <div>
-  <input type="checkbox" name="saveEmail">ÀÌ¸ÞÀÏ ÀúÀå<br>
-  <button>·Î±×ÀÎ</button>
+  <input type="checkbox" name="saveEmail"> ì´ë©”ì¼ ì €ìž¥<br>
+  <button>ë¡œê·¸ì¸</button>
 </div>
-
 </form>
 </body>
 </html>
+
+
+
+
+
+

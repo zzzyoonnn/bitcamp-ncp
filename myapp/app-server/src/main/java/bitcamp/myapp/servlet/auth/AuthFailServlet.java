@@ -1,13 +1,11 @@
 package bitcamp.myapp.servlet.auth;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 @WebServlet("/auth/fail")
 public class AuthFailServlet extends HttpServlet {
@@ -16,7 +14,17 @@ public class AuthFailServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-	  
-	request.getRequestDispatcher("/auth/form.jsp").forward(request, response);
+
+    request.getRequestDispatcher("/auth/fail.jsp").forward(request, response);
   }
+
 }
+
+
+
+
+
+
+
+
+

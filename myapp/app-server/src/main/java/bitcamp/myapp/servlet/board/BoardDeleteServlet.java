@@ -1,47 +1,71 @@
 package bitcamp.myapp.servlet.board;
 
 import java.io.IOException;
+
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import bitcamp.myapp.dao.BoardDao;
+import bitcamp.myapp.dao.BoardFileDao;
 import bitcamp.myapp.vo.Board;
 import bitcamp.myapp.vo.Member;
+import bitcamp.util.TransactionManager;
 
+// 게시글 삭제는 게시글 수정 폼을 그대로 사용하기 때문에
+// 요청 데이터가 multipart/form-data형식으로 넘어온다.
+//multipart/form-data를 처리할 때 Servlet3.0 기본 라이브러리를 사용한다면
+//다음 애노테이션을 붙여야 한다.
+@MultipartConfig(maxFileSize = 1024 * 1024 * 50)
 @WebServlet("/board/delete")
 public class BoardDeleteServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
-
+  
+  private TransactionManager txManager;
   private BoardDao boardDao;
+  private BoardFileDao boardFileDao;
 
   @Override
   public void init() {
     ServletContext ctx = getServletContext();
     boardDao = (BoardDao) ctx.getAttribute("boardDao");
+    boardFileDao = (BoardFileDao) ctx.getAttribute("boardFileDao");
+    txManager = (TransactionManager) ctx.getAttribute("txManager");
   }
 
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-	  
-	// 로그인 사용자의 정보를 가져온다.
-	Member loginUser = (Member) request.getSession().getAttribute("loginUser");
 
-    int boardNo = Integer.parseInt(request.getParameter("no"));
+	txManager.startTransaction();
+	try {
+      // 로그인 사용자의 정보를 가져온다.
+      Member loginUser = (Member) request.getSession().getAttribute("loginUser");
 
-    Board old = boardDao.findByNo(boardNo);
-    
-    if (old.getWriterNo() != loginUser.getNo()) {
-      response.sendRedirect("../auth/fail");
-      return;
-    } else if (boardDao.delete(boardNo) == 0) {
-      request.setAttribute("error", "data");
-    }
+      int boardNo = Integer.parseInt(request.getParameter("no"));
 
+      Board old = boardDao.findByNo(boardNo);
+
+      if (old.getWriter().getNo() != loginUser.getNo()) {
+        response.sendRedirect("../auth/fail");
+        return;
+      } 
+      
+      boardFileDao.deleteOfBoard(boardNo);
+      if (boardDao.delete(boardNo) == 0) {
+        throw new RuntimeException("게시글이 존재하지 않습니다!");
+      }
+      
+      txManager.commit();
+	} catch (Exception e) {
+	  txManager.rollback();
+	  e.printStackTrace();
+	  request.setAttribute("error", "data");
+	}
     request.getRequestDispatcher("/board/delete.jsp").forward(request, response);
-
   }
 }

@@ -1,6 +1,7 @@
 package bitcamp.myapp.vo;
 
 import java.sql.Date;
+import java.util.List;
 import java.util.Objects;
 
 public class Board implements java.io.Serializable {
@@ -15,14 +16,8 @@ public class Board implements java.io.Serializable {
   private int writerNo;
   private String writerName;
   private Member writer;
+  private List<BoardFile> attachedFiles;
 
-  @Override
-  public String toString() {
-	return "Board [no=" + no + ", title=" + title + ", content=" + content + ", password=" + password + ", createdDate="
-			+ createdDate + ", viewCount=" + viewCount + ", writerNo=" + writerNo + ", writerName=" + writerName
-			+ ", writer=" + writer + "]";
-  }
-  
   @Override
   public int hashCode() {
     return Objects.hash(no);
@@ -75,24 +70,36 @@ public class Board implements java.io.Serializable {
   public void setViewCount(int viewCount) {
     this.viewCount = viewCount;
   }
-public int getWriterNo() {
-	return writerNo;
-}
-public void setWriterNo(int writerNo) {
-	this.writerNo = writerNo;
-}
-public String getWriterName() {
-	return writerName;
-}
-public void setWriterName(String writerName) {
-	this.writerName = writerName;
-}
-public Member getWriter() {
-	return writer;
-}
-public void setWriter(Member writer) {
-	this.writer = writer;
-}
-
+  public int getWriterNo() {
+    return writerNo;
+  }
+  public void setWriterNo(int writerNo) {
+    this.writerNo = writerNo;
+  }
+  public String getWriterName() {
+    return writerName;
+  }
+  public void setWriterName(String writerName) {
+    this.writerName = writerName;
+  }
+  public Member getWriter() {
+    return writer;
+  }
+  public void setWriter(Member writer) {
+    this.writer = writer;
+  }
+  public List<BoardFile> getAttachedFiles() {
+    return attachedFiles;
+  }
+  public void setAttachedFiles(List<BoardFile> attachedFiles) {
+    this.attachedFiles = attachedFiles;
+  }
+  @Override
+  public String toString() {
+    return "Board [no=" + no + ", title=" + title + ", content=" + content + ", password="
+        + password + ", createdDate=" + createdDate + ", viewCount=" + viewCount + ", writerNo="
+        + writerNo + ", writerName=" + writerName + ", writer=" + writer + ", attachedFiles="
+        + attachedFiles + "]";
+  }
 
 }

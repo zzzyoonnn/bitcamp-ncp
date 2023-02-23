@@ -20,8 +20,8 @@
 <c:forEach items="${boards}" var="b">
   <tr>
      <td>${b.no}</td> 
-     <td><a href='view?no=${b.no}'>${b.title}</a></td>
-     <td>${b.writer.name}</td> 
+     <td><a href='view?no=${b.no}'>${b.title}</a></td> 
+     <td>${b.writer.name}</td>
      <td>${b.createdDate}</td> 
      <td>${b.viewCount} </td>
   </tr>
