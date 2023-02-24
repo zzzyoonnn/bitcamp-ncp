@@ -1,4 +1,4 @@
-package bitcamp.myapp.controller;
+package bitcamp.myapp.controller.board;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+
+import bitcamp.myapp.controller.PageController;
 import bitcamp.myapp.service.BoardService;
 import bitcamp.myapp.vo.Board;
 import bitcamp.myapp.vo.BoardFile;

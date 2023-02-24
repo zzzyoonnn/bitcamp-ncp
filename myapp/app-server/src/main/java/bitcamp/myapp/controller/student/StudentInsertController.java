@@ -1,30 +1,22 @@
-package bitcamp.myapp.servlet.student;
+package bitcamp.myapp.controller.student;
 
-import java.io.IOException;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import bitcamp.myapp.controller.PageController;
 import bitcamp.myapp.service.StudentService;
 import bitcamp.myapp.vo.Student;
 
-@WebServlet("/student/update")
-public class StudentUpdateServlet extends HttpServlet {
-  private static final long serialVersionUID = 1L;
+public class StudentInsertController implements PageController {
 
   private StudentService studentService;
 
-  @Override
-  public void init() {
-    studentService = (StudentService) getServletContext().getAttribute("studentService");
+  public StudentInsertController(StudentService studentService) {
+    this.studentService = studentService;
   }
 
-  @Override
-  protected void doPost(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+  public String execute(HttpServletRequest request, HttpServletResponse response) {
     Student student = new Student();
-    student.setNo(Integer.parseInt(request.getParameter("no")));
     student.setName(request.getParameter("name"));
     student.setEmail(request.getParameter("email"));
     student.setPassword(request.getParameter("password"));
@@ -37,12 +29,12 @@ public class StudentUpdateServlet extends HttpServlet {
     student.setLevel(Byte.parseByte(request.getParameter("level")));
 
     try {
-      studentService.update(student);
+      studentService.add(student);
     } catch (Exception e) {
       e.printStackTrace();
       request.setAttribute("error", "other");
     }
-    request.setAttribute("view", "/student/update.jsp");
+    return "/student/insert.jsp";
   }
 
 }

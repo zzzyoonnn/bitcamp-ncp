@@ -1,8 +1,9 @@
-package bitcamp.myapp.controller;
+package bitcamp.myapp.controller.board;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bitcamp.myapp.controller.PageController;
 import bitcamp.myapp.service.BoardService;
 
 public class BoardListController implements PageController {

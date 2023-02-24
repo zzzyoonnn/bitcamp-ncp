@@ -1,29 +1,23 @@
-package bitcamp.myapp.servlet.teacher;
+package bitcamp.myapp.controller.teacher;
 
-import java.io.IOException;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import bitcamp.myapp.controller.PageController;
 import bitcamp.myapp.service.TeacherService;
 import bitcamp.myapp.vo.Teacher;
 
-@WebServlet("/teacher/insert")
-public class TeacherInsertServlet extends HttpServlet {
-  private static final long serialVersionUID = 1L;
+public class TeacherUpdateController implements PageController {
 
   private TeacherService teacherService;
 
-  @Override
-  public void init() {
-    teacherService = (TeacherService) getServletContext().getAttribute("teacherService");
+  public TeacherUpdateController(TeacherService teacherService) {
+    this.teacherService = teacherService;
   }
 
-  @Override
-  protected void doPost(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+  public String execute(HttpServletRequest request, HttpServletResponse response) {
     Teacher teacher = new Teacher();
+    teacher.setNo(Integer.parseInt(request.getParameter("no")));
     teacher.setName(request.getParameter("name"));
     teacher.setEmail(request.getParameter("email"));
     teacher.setPassword(request.getParameter("password"));
@@ -34,13 +28,12 @@ public class TeacherInsertServlet extends HttpServlet {
     teacher.setWage(Integer.parseInt(request.getParameter("wage")));
 
     try {
-      teacherService.add(teacher);
-
+      teacherService.update(teacher);
     } catch (Exception e) {
       e.printStackTrace();
       request.setAttribute("error", "other");
     }
-    request.setAttribute("view", "/teacher/insert.jsp");
+    return "/teacher/update.jsp";
   }
 
 }

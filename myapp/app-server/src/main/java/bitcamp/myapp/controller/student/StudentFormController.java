@@ -1,19 +1,15 @@
-package bitcamp.myapp.controller;
+package bitcamp.myapp.controller.student;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class BoardFormController implements PageController {
+import bitcamp.myapp.controller.PageController;
+
+public class StudentFormController implements PageController {
+
   @Override
   public String execute(HttpServletRequest request, HttpServletResponse response) {
-    return "/board/form.jsp";
+	return "/student/form.jsp";
+
   }
 }
-
-
-
-
-
-
-
-

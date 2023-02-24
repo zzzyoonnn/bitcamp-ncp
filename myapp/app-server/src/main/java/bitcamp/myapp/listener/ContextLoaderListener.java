@@ -11,12 +11,28 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import bitcamp.myapp.controller.AuthFailController;
-import bitcamp.myapp.controller.BoardFormController;
-import bitcamp.myapp.controller.BoardInsertController;
-import bitcamp.myapp.controller.BoardListController;
 import bitcamp.myapp.controller.LoginController;
 import bitcamp.myapp.controller.LoginFormController;
 import bitcamp.myapp.controller.LogoutController;
+import bitcamp.myapp.controller.board.BoardDeleteController;
+import bitcamp.myapp.controller.board.BoardFileDeleteController;
+import bitcamp.myapp.controller.board.BoardFormController;
+import bitcamp.myapp.controller.board.BoardInsertController;
+import bitcamp.myapp.controller.board.BoardListController;
+import bitcamp.myapp.controller.board.BoardUpdateController;
+import bitcamp.myapp.controller.board.BoardViewController;
+import bitcamp.myapp.controller.student.StudentDeleteController;
+import bitcamp.myapp.controller.student.StudentFormController;
+import bitcamp.myapp.controller.student.StudentInsertController;
+import bitcamp.myapp.controller.student.StudentListController;
+import bitcamp.myapp.controller.student.StudentUpdateController;
+import bitcamp.myapp.controller.student.StudentViewController;
+import bitcamp.myapp.controller.teacher.TeacherDeleteController;
+import bitcamp.myapp.controller.teacher.TeacherFormController;
+import bitcamp.myapp.controller.teacher.TeacherInsertController;
+import bitcamp.myapp.controller.teacher.TeacherListController;
+import bitcamp.myapp.controller.teacher.TeacherUpdateController;
+import bitcamp.myapp.controller.teacher.TeacherViewController;
 import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.dao.BoardFileDao;
 import bitcamp.myapp.dao.MemberDao;
@@ -63,6 +79,24 @@ public class ContextLoaderListener implements ServletContextListener {
       BoardListController boardListController = new BoardListController(boardService);
       BoardFormController boardFormController = new BoardFormController();
       BoardInsertController boardInsertController = new BoardInsertController(boardService);
+      BoardViewController boardViewController = new BoardViewController(boardService);
+      BoardDeleteController boardDeleteController = new BoardDeleteController(boardService);
+      BoardUpdateController boardUpdateController = new BoardUpdateController(boardService);
+      BoardFileDeleteController boardFileDeleteController = new BoardFileDeleteController(boardService);
+      
+      StudentListController studentListController = new StudentListController(studentService);
+      StudentViewController studentViewController = new StudentViewController(studentService);
+      StudentFormController studentFormController = new StudentFormController();
+      StudentInsertController studentInsertController = new StudentInsertController(studentService);
+      StudentUpdateController studentUpdateController = new StudentUpdateController(studentService);
+      StudentDeleteController studentDeleteController = new StudentDeleteController(studentService);
+      
+      TeacherListController teacherListController = new TeacherListController(teacherService);
+      TeacherViewController teacherViewController = new TeacherViewController(teacherService);
+      TeacherFormController teacherFormController = new TeacherFormController();
+      TeacherInsertController teacherInsertController = new TeacherInsertController(teacherService);
+      TeacherDeleteController teacherDeleteController = new TeacherDeleteController(teacherService);
+      TeacherUpdateController teacherUpdateController = new TeacherUpdateController(teacherService);
       
       // 서블릿 컨텍스트 보관소를 알아낸다.
       ServletContext ctx = sce.getServletContext();
@@ -77,7 +111,25 @@ public class ContextLoaderListener implements ServletContextListener {
       ctx.setAttribute("/board/list", boardListController);
       ctx.setAttribute("/board/form", boardFormController);
       ctx.setAttribute("/board/insert", boardInsertController);
+      ctx.setAttribute("/board/view", boardViewController);
+      ctx.setAttribute("/board/delete", boardDeleteController);
+      ctx.setAttribute("/board/update", boardUpdateController);
+      ctx.setAttribute("/board/filedelete", boardFileDeleteController);
 
+      ctx.setAttribute("/student/list", studentListController);
+      ctx.setAttribute("/student/view", studentViewController);
+      ctx.setAttribute("/student/form", studentFormController);
+      ctx.setAttribute("/student/insert", studentInsertController);
+      ctx.setAttribute("/student/update", studentUpdateController);
+      ctx.setAttribute("/student/delete", studentDeleteController);
+      
+      ctx.setAttribute("/teacher/list", teacherListController);
+      ctx.setAttribute("/teacher/view", teacherViewController);
+      ctx.setAttribute("/teacher/form", teacherFormController);
+      ctx.setAttribute("/teacher/insert", teacherInsertController);
+      ctx.setAttribute("/teacher/delete", teacherDeleteController);
+      ctx.setAttribute("/teacher/update", teacherUpdateController);
+      
     } catch (Exception e) {
       System.out.println("웹 애플리케이션 자원을 준비하는 중에 오류 발생!");
       e.printStackTrace();

@@ -1,0 +1,22 @@
+package bitcamp.myapp.controller.teacher;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import bitcamp.myapp.controller.PageController;
+import bitcamp.myapp.service.TeacherService;
+
+public class TeacherViewController implements PageController {
+
+  private TeacherService teacherService;
+
+  public TeacherViewController(TeacherService teacherService) {
+    this.teacherService = teacherService;
+  }
+
+  public String execute(HttpServletRequest request, HttpServletResponse response) {
+    request.setAttribute("teacher",
+        teacherService.get(Integer.parseInt(request.getParameter("no"))));
+    return "/teacher/view.jsp";
+  }
+}
