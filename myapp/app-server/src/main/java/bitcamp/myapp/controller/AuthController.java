@@ -1,13 +1,6 @@
 package bitcamp.myapp.controller;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -15,26 +8,37 @@ import javax.servlet.http.HttpSession;
 import bitcamp.myapp.service.StudentService;
 import bitcamp.myapp.service.TeacherService;
 import bitcamp.myapp.vo.Member;
+import bitcamp.util.Controller;
+import bitcamp.util.RequestMapping;
+import bitcamp.util.RequestParam;
 
-public class LoginController implements PageController {
-  private static final long serialVersionUID = 1L;
+@Controller
+public class AuthController {
 
   private StudentService studentService;
   private TeacherService teacherService;
 
-  public LoginController(StudentService studentService, TeacherService teacherService) {
+  public AuthController(StudentService studentService, TeacherService teacherService) {
     this.studentService = studentService;
     this.teacherService = teacherService;
   }
+  
+  @RequestMapping("/auth/form")
+  public String form() {
+    return "/auth/form.jsp";
+  }
 
-  @Override
-  public String execute(HttpServletRequest request, HttpServletResponse response) {
+  @RequestMapping("/auth/login")
+  public String login(
+	  @RequestParam("usertype") String usertype,
+	  @RequestParam("email") String email,
+	  @RequestParam("password") String password,
+	  @RequestParam("saveEmail") String saveEmail,
+	  HttpServletRequest request,
+	  HttpServletResponse response,
+	  HttpSession session) {
 
-    String usertype = request.getParameter("usertype");
-    String email = request.getParameter("email");
-    String password = request.getParameter("password");
-
-    if (request.getParameter("saveEmail") != null) {
+    if (saveEmail != null) {
       Cookie cookie = new Cookie("email", email);
       cookie.setMaxAge(60 * 60 * 24 * 30); // 30일 동안 유지
       response.addCookie(cookie);
@@ -42,7 +46,6 @@ public class LoginController implements PageController {
     } else {
       Cookie cookie = new Cookie("email", "");
       cookie.setMaxAge(0);
-      // response.addCookie(cookie);
       response.addCookie(cookie);
     }
 
@@ -57,16 +60,25 @@ public class LoginController implements PageController {
     }
 
     if (member != null) {
-      HttpSession session = request.getSession();
       session.setAttribute("loginUser", member);
-      return "redirect:../"; // ===> http://localhost:8080/web/
+      return "redirect:../";
     } else {
       request.setAttribute("error", "loginfail");
       return "/auth/form.jsp";
     }
-
   }
-
+  
+  @RequestMapping("/auth/logout")
+  public String logout(HttpSession session) {
+	  session.invalidate();
+    return "redirect:../";
+  }
+  
+  
+  @RequestMapping("/auth/fail")
+  public String fail() {
+    return "/auth/fail.jsp";
+  }
 }
 
 

@@ -1,33 +1,29 @@
-package bitcamp.myapp.servlet;
+package bitcamp.myapp.controller;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import bitcamp.myapp.service.BoardService;
 import bitcamp.myapp.vo.BoardFile;
+import bitcamp.util.Controller;
+import bitcamp.util.RequestMapping;
 
-@WebServlet("/download/boardfile")
-public class DownloadServlet extends HttpServlet {
-  private static final long serialVersionUID = 1L;
+@Controller
+public class DownloadController {
 
   private BoardService boardService;
 
-  @Override
-  public void init() {
-    boardService = (BoardService) getServletContext().getAttribute("boardService");
+  public DownloadController(BoardService boardService) {
+    this.boardService = boardService;
   }
 
-  @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-
+  @RequestMapping("/download/boardfile")
+  public String boardfile(HttpServletRequest request, HttpServletResponse response) {
     try {
       int fileNo = Integer.parseInt(request.getParameter("fileNo"));
 
@@ -37,7 +33,7 @@ public class DownloadServlet extends HttpServlet {
       }
 
       File downloadFile = new File(
-          this.getServletContext().getRealPath("/board/upload/" + boardFile.getFilepath()));
+          request.getServletContext().getRealPath("/board/upload/" + boardFile.getFilepath()));
       if (!downloadFile.exists()) {
         throw new RuntimeException("파일이 존재하지 않음!");
       }
@@ -59,9 +55,10 @@ public class DownloadServlet extends HttpServlet {
       }
 
     } catch (Exception e) {
-      request.getRequestDispatcher("/downloadfail.jsp").forward(request, response);
       e.printStackTrace();
+      return "/downloadfail.jsp";
     }
+    return null;
   }
 }
 

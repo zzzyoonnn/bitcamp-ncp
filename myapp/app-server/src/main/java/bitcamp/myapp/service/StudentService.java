@@ -1,8 +1,6 @@
 package bitcamp.myapp.service;
 
 import java.util.List;
-
-import bitcamp.myapp.vo.BoardFile;
 import bitcamp.myapp.vo.Student;
 
 public interface StudentService {
@@ -12,7 +10,6 @@ public interface StudentService {
   Student get(String email, String password);
   void update(Student student);
   void delete(int no);
-  
 }
 
 

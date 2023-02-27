@@ -10,6 +10,7 @@ public interface BoardService {
   Board get(int no);
   void update(Board board);
   void delete(int no);
+
   BoardFile getFile(int fileNo);
   void deleteFile(int fileNo);
 }

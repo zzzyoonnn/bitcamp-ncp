@@ -1,7 +1,6 @@
 package bitcamp.myapp.service.impl;
 
 import java.util.List;
-
 import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.dao.BoardFileDao;
 import bitcamp.myapp.service.BoardService;
@@ -88,16 +87,16 @@ public class DefaultBoardService implements BoardService {
     }
   }
 
+
   @Override
   public BoardFile getFile(int fileNo) {
-	return boardFileDao.findByNo(fileNo);
+    return boardFileDao.findByNo(fileNo);
   }
-  
+
   @Override
   public void deleteFile(int fileNo) {
-	boardFileDao.delete(fileNo);
+    boardFileDao.delete(fileNo);
   }
-  
 }
 
 
