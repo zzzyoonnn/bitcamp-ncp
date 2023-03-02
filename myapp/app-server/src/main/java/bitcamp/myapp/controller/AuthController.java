@@ -4,12 +4,10 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import bitcamp.myapp.service.StudentService;
 import bitcamp.myapp.service.TeacherService;
 import bitcamp.myapp.vo.Member;
@@ -22,18 +20,18 @@ public class AuthController {
 
   @RequestMapping("/auth/form")
   public String form() {
-    return "/auth/form.jsp";
+    return "auth/form";
   }
 
   @RequestMapping("/auth/login")
   public String login(
-	  @RequestParam("usertype") String usertype,
-	  @RequestParam("email") String email,
-	  @RequestParam("password") String password,
-	  @RequestParam("saveEmail") String saveEmail,
-	  HttpServletRequest request,
-	  HttpServletResponse response,
-	  HttpSession session) {
+      @RequestParam("usertype") String usertype,
+      @RequestParam("email") String email,
+      @RequestParam("password") String password,
+      @RequestParam("saveEmail") String saveEmail,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      HttpSession session) {
 
     if (saveEmail != null) {
       Cookie cookie = new Cookie("email", email);
@@ -55,26 +53,24 @@ public class AuthController {
         member = teacherService.get(email, password);
         break;
     }
-
     if (member != null) {
       session.setAttribute("loginUser", member);
       return "redirect:../../";
     } else {
       request.setAttribute("error", "loginfail");
-      return "/auth/form.jsp";
+      return "auth/form";
     }
   }
-  
+
   @RequestMapping("/auth/logout")
   public String logout(HttpSession session) {
-	  session.invalidate();
+    session.invalidate();
     return "redirect:../../";
   }
-  
-  
+
   @RequestMapping("/auth/fail")
   public String fail() {
-    return "/auth/fail.jsp";
+    return "auth/fail";
   }
 }
 

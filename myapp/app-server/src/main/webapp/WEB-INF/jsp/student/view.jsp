@@ -57,7 +57,7 @@
   </tr>
   <tr>
     <th>성별</th>
-    <td><input type='radio' name='gender' value='M' ${student.gender == 'M'.charAt(0) ? "checked" : ""}> 남
+    <td><input type='radio' name='gender' value='M' ${student.gender == 'M'.charAt(0) ? "checked" : ""}>
     <input type='radio' name='gender' value='W' ${student.gender == 'W'.charAt(0) ? "checked" : ""}> 여</td>
   </tr>
   <tr>
