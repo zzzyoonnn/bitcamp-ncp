@@ -15,12 +15,15 @@ import bitcamp.myapp.vo.Member;
 @Controller
 public class AuthController {
 
+  {
+    System.out.println("AuthController 생성됨!");
+  }
+
   @Autowired private StudentService studentService;
   @Autowired private TeacherService teacherService;
 
   @RequestMapping("/auth/form")
-  public String form() {
-    return "auth/form";
+  public void form() {
   }
 
   @RequestMapping("/auth/login")
@@ -53,6 +56,7 @@ public class AuthController {
         member = teacherService.get(email, password);
         break;
     }
+
     if (member != null) {
       session.setAttribute("loginUser", member);
       return "redirect:../../";
@@ -60,6 +64,7 @@ public class AuthController {
       request.setAttribute("error", "loginfail");
       return "auth/form";
     }
+
   }
 
   @RequestMapping("/auth/logout")
@@ -69,9 +74,9 @@ public class AuthController {
   }
 
   @RequestMapping("/auth/fail")
-  public String fail() {
-    return "auth/fail";
+  public void fail() {
   }
+
 }
 
 

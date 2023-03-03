@@ -5,11 +5,7 @@ import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.TransactionDefinition;
-import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.support.DefaultTransactionDefinition;
 import bitcamp.myapp.dao.MemberDao;
 import bitcamp.myapp.dao.StudentDao;
 import bitcamp.myapp.service.StudentService;
@@ -18,15 +14,14 @@ import bitcamp.myapp.vo.Student;
 @Service
 public class DefaultStudentService implements StudentService {
 
-  @Autowired private PlatformTransactionManager txManager;
   @Autowired private MemberDao memberDao;
   @Autowired private StudentDao studentDao;
 
   @Transactional
   @Override
   public void add(Student student) {
-      memberDao.insert(student);
-      studentDao.insert(student);
+    memberDao.insert(student);
+    studentDao.insert(student);
   }
 
   @Override
@@ -51,11 +46,11 @@ public class DefaultStudentService implements StudentService {
   @Transactional
   @Override
   public void update(Student student) {
-      if (memberDao.update(student) == 1 &&
-          studentDao.update(student) == 1) {
-      } else {
-        throw new RuntimeException("회원이 존재하지 않습니다.");
-      }
+    if (memberDao.update(student) == 1 &&
+        studentDao.update(student) == 1) {
+    } else {
+      throw new RuntimeException("회원이 존재하지 않습니다.");
+    }
   }
 
   @Transactional

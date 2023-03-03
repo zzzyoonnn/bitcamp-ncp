@@ -1,11 +1,9 @@
 package bitcamp.myapp.service.impl;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.dao.BoardFileDao;
 import bitcamp.myapp.service.BoardService;
@@ -15,6 +13,10 @@ import bitcamp.myapp.vo.BoardFile;
 @Service
 public class DefaultBoardService implements BoardService {
 
+  {
+    System.out.println("DefaultBoardService 생성됨!");
+  }
+
   @Autowired private BoardDao boardDao;
   @Autowired private BoardFileDao boardFileDao;
 
@@ -23,11 +25,11 @@ public class DefaultBoardService implements BoardService {
   public void add(Board board) {
     boardDao.insert(board);
     if (board.getAttachedFiles().size() > 0) {
-	  for (BoardFile boardFile : board.getAttachedFiles()) {
-	    boardFile.setBoardNo(board.getNo());
-	  }
-	  boardFileDao.insertList(board.getAttachedFiles());
-	}
+      for (BoardFile boardFile : board.getAttachedFiles()) {
+        boardFile.setBoardNo(board.getNo());
+      }
+      boardFileDao.insertList(board.getAttachedFiles());
+    }
   }
 
   @Override
