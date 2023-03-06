@@ -7,21 +7,21 @@
 <head>
 <meta charset='UTF-8'>
 <c:if test="${not empty refresh}">
-	<meta http-equiv='Refresh' content='1;url=${refresh }'>
+  <meta http-equiv='Refresh' content='1;url=${refresh}'>
 </c:if>
 <title>비트캠프 - NCP 1기</title>
 <style>
-	header {
-		height: 60px;
-		background-color: gray;
-		color: black;
-	}
-	
-	footer {
-		height: 60px;
-		background-color: blue;
-		color: white;
-	}
+  header {
+    height: 60px;
+    background-color: gray;
+    color: black;
+  }
+  
+  footer {
+    height: 60px;
+    background-color: navy;
+    color: white;
+  }
 </style>
 </head>
 <body>

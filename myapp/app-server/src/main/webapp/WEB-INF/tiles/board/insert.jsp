@@ -10,3 +10,4 @@
 <c:if test="${error == 'data'}">
   <p>입력 실패입니다!</p>
 </c:if>
+

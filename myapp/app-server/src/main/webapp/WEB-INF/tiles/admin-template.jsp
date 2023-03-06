@@ -7,23 +7,23 @@
 <head>
 <meta charset='UTF-8'>
 <c:if test="${not empty refresh}">
-	<meta http-equiv='Refresh' content='1;url=${refresh }'>
+  <meta http-equiv='Refresh' content='1;url=${refresh}'>
 </c:if>
 <title>비트캠프 - NCP 1기</title>
 <style>
 header {
-	height: 80px;
-	background: black;
-	color: white;
+  height: 80px;
+  background: black;
+  color: white;
 }
 
 footer {
-	height: 100px;
-	background: darkgray;
-	color: white;
+  height: 100px;
+  background: darkgray;
+  color: white;
 }
 
-a:visted {
+a:visited {
 	color: white;
 }
 </style>

@@ -4,15 +4,19 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
+
 import bitcamp.myapp.service.BoardService;
 import bitcamp.myapp.vo.Board;
 import bitcamp.myapp.vo.BoardFile;
@@ -33,6 +37,7 @@ public class BoardController {
 
   @GetMapping("form")
   public void form() {
+
   }
 
   @PostMapping("insert")
@@ -75,9 +80,10 @@ public class BoardController {
   }
 
   @GetMapping("list")
-  public void list(String keyword, Model model) {
+  public String list(String keyword, Model model) {
     System.out.println("BoardController.list() 호출됨!");
     model.addAttribute("boards", boardService.list(keyword));
+    return "board/list.html";
   }
 
   @GetMapping("view")
@@ -138,12 +144,12 @@ public class BoardController {
         return "redirect:../auth/fail";
       }
       boardService.delete(no);
-      model.addAttribute("refresh", "list");
 
     }  catch (Exception e) {
       e.printStackTrace();
       model.addAttribute("error", "data");
     }
+    model.addAttribute("refresh", "list");
     return "board/delete";
   }
 
