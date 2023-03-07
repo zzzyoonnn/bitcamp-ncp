@@ -2,19 +2,45 @@ package bitcamp.myapp.web.interceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
+
 import bitcamp.myapp.vo.Member;
 
 public class AuthInterceptor implements HandlerInterceptor {
+
+  Logger log = LogManager.getLogger(getClass());	
+  
   @Override
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
       throws Exception {
+	  
+	log.trace("preHander 호출됨!");
     Member loginUser = (Member) request.getSession().getAttribute("loginUser");
     if (loginUser == null) {
       response.sendRedirect(request.getContextPath() + "/app/auth/form");
       return false;
     }
     return true;
+  }
+  
+  @Override
+  public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
+		ModelAndView modelAndView) throws Exception {
+	// TODO Auto-generated method stub
+	HandlerInterceptor.super.postHandle(request, response, handler, modelAndView);
+	log.trace("postHandle 호출됨!");
+  }
+  
+  @Override
+  public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
+		throws Exception {
+	// TODO Auto-generated method stub
+	HandlerInterceptor.super.afterCompletion(request, response, handler, ex);
+	log.trace("afterCompletion 호출됨!");
   }
 }
 

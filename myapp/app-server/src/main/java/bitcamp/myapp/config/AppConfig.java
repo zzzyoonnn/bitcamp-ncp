@@ -1,6 +1,8 @@
 package bitcamp.myapp.config;
 
 import java.nio.charset.StandardCharsets;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScan.Filter;
@@ -39,17 +41,21 @@ import bitcamp.myapp.web.interceptor.AuthInterceptor;
 @EnableWebMvc
 public class AppConfig implements WebMvcConfigurer {
 
+  Logger log = LogManager.getLogger(getClass());
+
   {
-    System.out.println("AppConfig 생성됨!");
+    log.trace("AppConfig 생성됨!");
   }
 
   @Bean
   public MultipartResolver multipartResolver() {
+    log.trace("MultipartResolver 생성됨!");
     return new StandardServletMultipartResolver();
   }
 
   @Bean
   public ViewResolver viewResolver() {
+    log.trace("InternalResourceViewResolver 생성됨!");
     // 페이지 컨트롤러가 jsp 경로를 리턴하면
     // viewResolver가 그 경로를 가지고 최종 jsp 경로를 계산한 다음에
     // JstlView를 통해 실행한다.
@@ -63,6 +69,7 @@ public class AppConfig implements WebMvcConfigurer {
 
   @Bean
   public ViewResolver tilesViewResolver() {
+    log.trace("UrlBasedViewResolver 생성됨!");
     UrlBasedViewResolver vr = new UrlBasedViewResolver();
 
     // Tiles 설정에 따라 템플릿을 실행할 뷰 처리기를 등록한다.
@@ -79,6 +86,7 @@ public class AppConfig implements WebMvcConfigurer {
   // 실행할 Thymeleaf 템플릿을 결정하는 일을 한다.
   @Bean
   public ThymeleafViewResolver viewResolver(ISpringTemplateEngine templateEngine){
+    log.trace("ThymeleafViewResolver 생성됨!");
     ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
     viewResolver.setTemplateEngine(templateEngine);
 
@@ -99,7 +107,7 @@ public class AppConfig implements WebMvcConfigurer {
   // WebMvcConfigurer 규칙에 맞춰 인터셉터를 등록한다.
   @Override
   public void addInterceptors(InterceptorRegistry registry) {
-    System.out.println("AppConfig.addInterceptors() 호출됨!");
+    log.trace("AppConfig.addInterceptors() 호출됨!");
     registry.addInterceptor(
         new AuthInterceptor()).addPathPatterns("/**/*insert", "/**/*update", "/**/*delete");
   }

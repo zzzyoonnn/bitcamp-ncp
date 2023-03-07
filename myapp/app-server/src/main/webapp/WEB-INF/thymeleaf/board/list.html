@@ -16,11 +16,11 @@
   <tr data-th-each="b : ${boards}">
      <td data-th-text="${b.no}">1</td> 
      <td><a href='view?no=1'
-       data-th-href="@{view(no=${b.no})}"
-       data-th-text="${b.title}">제목입니다.</a></td> 
+        data-th-href="@{view(no=${b.no})}" 
+        data-th-text="${b.title}">제목입니다.</a></td> 
      <td data-th-text="${b.writer.name}">홍길동</td>
-     <td data-th-text="${b.createdDate}">2023-03-05</td> 
-     <td data-th-text="${b.viewCount}">5</td>
+     <td data-th-text="${b.createdDate}">2023-01-01</td> 
+     <td data-th-text="${b.viewCount}">77</td>
   </tr>
 </table>
 
