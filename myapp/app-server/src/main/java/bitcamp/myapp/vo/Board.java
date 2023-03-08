@@ -4,6 +4,9 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonFormat.Shape;
+
 public class Board implements java.io.Serializable {
   private static final long serialVersionUID = 1L;
 
@@ -11,6 +14,11 @@ public class Board implements java.io.Serializable {
   private String title;
   private String content;
   private String password;
+  
+  // Jackson 라이브러리가 Date 타입 값을 JSON 문자열로 반환할 때 사용할 규칙 설정
+  @JsonFormat(
+	  shape = Shape.STRING,
+	  pattern = "yyyy-MM-dd")
   private Date createdDate;
   private int viewCount;
   private int writerNo;

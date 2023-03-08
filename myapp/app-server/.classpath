@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="output" path="bin/default"/>
 	<classpathentry output="bin/main" kind="src" path="src/main/java">
 		<attributes>
 			<attribute name="gradle_scope" value="main"/>
@@ -20,8 +19,9 @@
 			<attribute name="test" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-17/"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
+	<classpathentry kind="output" path="bin/default"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-17/"/>
 	<classpathentry sourcepath="C:/Users/dwsrh/.gradle/caches/modules-2/files-2.1/org.springframework/spring-webmvc/5.3.25/315c7bb3f46a09d2b2dc1f6ff8b671b36a122ce8/spring-webmvc-5.3.25-sources.jar" kind="lib" path="C:/Users/dwsrh/.gradle/caches/modules-2/files-2.1/org.springframework/spring-webmvc/5.3.25/62a8258bcc4f7a58dd69af5140481b64653c90/spring-webmvc-5.3.25.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
@@ -77,6 +77,24 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry sourcepath="C:/Users/dwsrh/.gradle/caches/modules-2/files-2.1/org.apache.logging.log4j/log4j-core/2.20.0/dcff7bf4ae8a02121c3d9ea326f4c1e8efbf9306/log4j-core-2.20.0-sources.jar" kind="lib" path="C:/Users/dwsrh/.gradle/caches/modules-2/files-2.1/org.apache.logging.log4j/log4j-core/2.20.0/eb2a9a47b1396e00b5eee1264296729a70565cc0/log4j-core-2.20.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/dwsrh/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.14.2/3d74e455fa89503ce195b9cb87a29612060f9cc8/jackson-annotations-2.14.2-sources.jar" kind="lib" path="C:/Users/dwsrh/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.14.2/a7aae9525864930723e3453ab799521fdfd9d873/jackson-annotations-2.14.2.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/dwsrh/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.14.2/8217d78341a78cd2fbc69f26372e40d38f8767da/jackson-core-2.14.2-sources.jar" kind="lib" path="C:/Users/dwsrh/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.14.2/f804090e6399ce0cf78242db086017512dd71fcc/jackson-core-2.14.2.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/dwsrh/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.14.2/e3c1c58faa2bc0d8c3b40e478102eb2ffba07ce3/jackson-databind-2.14.2-sources.jar" kind="lib" path="C:/Users/dwsrh/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.14.2/1e71fddbc80bb86f71a6345ac1e8ab8a00e7134/jackson-databind-2.14.2.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
