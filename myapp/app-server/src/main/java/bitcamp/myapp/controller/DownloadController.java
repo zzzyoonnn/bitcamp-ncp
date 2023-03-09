@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +17,7 @@ import bitcamp.myapp.vo.BoardFile;
 
 @Controller
 public class DownloadController {
+
   Logger log = LogManager.getLogger(getClass());
 
   {

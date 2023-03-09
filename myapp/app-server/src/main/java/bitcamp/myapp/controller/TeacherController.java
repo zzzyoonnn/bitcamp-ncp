@@ -14,6 +14,7 @@ import bitcamp.myapp.vo.Teacher;
 @Controller
 @RequestMapping("/teacher")
 public class TeacherController {
+
   Logger log = LogManager.getLogger(getClass());
 
   {

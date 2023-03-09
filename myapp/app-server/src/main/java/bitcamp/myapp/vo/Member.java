@@ -2,7 +2,6 @@ package bitcamp.myapp.vo;
 
 import java.sql.Date;
 import java.util.Objects;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 
@@ -14,11 +13,11 @@ public class Member implements java.io.Serializable {
   private String email;
   private String password;
   private String tel;
-  
-  // Jackson 라이브러리가 Date 타입 값을 JSON 문자열로 반환할 때 사용할 규칙 설정
+
+  //Jackson 라이브러리가 Date 타입 값을 JSON 문자열로 변환할 때 사용할 규칙을 설정한다.
   @JsonFormat(
-	  shape = Shape.STRING,
-	  pattern = "yyyy-MM-dd")
+      shape = Shape.STRING,
+      pattern = "yyyy-MM-dd")
   private Date createdDate;
 
 
