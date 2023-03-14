@@ -4,8 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpSession;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
 import bitcamp.myapp.service.BoardService;
 import bitcamp.myapp.vo.Board;
 import bitcamp.myapp.vo.BoardFile;
@@ -24,6 +24,7 @@ import bitcamp.myapp.vo.Member;
 import bitcamp.util.ErrorCode;
 import bitcamp.util.RestResult;
 import bitcamp.util.RestStatus;
+import jakarta.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/boards")
@@ -41,7 +42,6 @@ public class BoardController {
     log.trace("BoardController 생성됨!");
   }
 
-  @Autowired private ServletContext servletContext;
   @Autowired private BoardService boardService;
 
   @PostMapping
@@ -63,7 +63,7 @@ public class BoardController {
       }
 
       String filename = UUID.randomUUID().toString();
-      file.transferTo(new File(servletContext.getRealPath("/board/upload/" + filename)));
+      file.transferTo(new File(System.getProperty("user.home") + "/webapp-upload/" + filename));
 
       BoardFile boardFile = new BoardFile();
       boardFile.setOriginalFilename(file.getOriginalFilename());
@@ -134,7 +134,7 @@ public class BoardController {
       }
 
       String filename = UUID.randomUUID().toString();
-      file.transferTo(new File(servletContext.getRealPath("/board/upload/" + filename)));
+      file.transferTo(new File("./upload/" + filename));
 
       BoardFile boardFile = new BoardFile();
       boardFile.setOriginalFilename(file.getOriginalFilename());
