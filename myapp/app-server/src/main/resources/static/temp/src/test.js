@@ -1,13 +1,9 @@
-HTML CSS BabelResult Skip Results Iframe
-EDIT ON
 class ProductCategoryRow extends React.Component {
   render() {
     const category = this.props.category;
     return (
       <tr>
-        <th colSpan="2">
-          {category}
-        </th>
+        <th colSpan="2">{category}</th>
       </tr>
     );
   }
@@ -16,11 +12,11 @@ class ProductCategoryRow extends React.Component {
 class ProductRow extends React.Component {
   render() {
     const product = this.props.product;
-    const name = product.stocked ?
-      product.name :
-      <span style={{color: 'red'}}>
-        {product.name}
-      </span>;
+    const name = product.stocked ? (
+      product.name
+    ) : (
+      <span style={{ color: "red" }}>{product.name}</span>
+    );
 
     return (
       <tr>
@@ -50,15 +46,11 @@ class ProductTable extends React.Component {
         rows.push(
           <ProductCategoryRow
             category={product.category}
-            key={product.category} />
+            key={product.category}
+          />
         );
       }
-      rows.push(
-        <ProductRow
-          product={product}
-          key={product.name}
-        />
-      );
+      rows.push(<ProductRow product={product} key={product.name} />);
       lastCategory = product.category;
     });
 
@@ -77,7 +69,6 @@ class ProductTable extends React.Component {
 }
 
 class SearchBar extends React.Component {
-
   constructor(props) {
     super(props);
     this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
@@ -106,8 +97,7 @@ class SearchBar extends React.Component {
             type="checkbox"
             checked={this.props.inStockOnly}
             onChange={this.handleInStockChange}
-          />
-          {' '}
+          />{" "}
           Only show products in stock
         </p>
       </form>
@@ -119,24 +109,24 @@ class FilterableProductTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      filterText: '',
-      inStockOnly: false
+      filterText: "",
+      inStockOnly: false,
     };
-    
+
     this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
-    this.handleInStockChange = this.handleInStockChange(this);
+    this.handleInStockChange = this.handleInStockChange.bind(this);
   }
 
   handleFilterTextChange(filterText) {
     this.setState({
-      filterText: filterText
+      filterText: filterText,
     });
   }
-  
+
   handleInStockChange(inStockOnly) {
     this.setState({
-      inStockOnly: inStockOnly
-    })
+      inStockOnly: inStockOnly,
+    });
   }
 
   render() {
@@ -158,18 +148,39 @@ class FilterableProductTable extends React.Component {
   }
 }
 
-
 const PRODUCTS = [
-  {category: 'Sporting Goods', price: '$49.99', stocked: true, name: 'Football'},
-  {category: 'Sporting Goods', price: '$9.99', stocked: true, name: 'Baseball'},
-  {category: 'Sporting Goods', price: '$29.99', stocked: false, name: 'Basketball'},
-  {category: 'Electronics', price: '$99.99', stocked: true, name: 'iPod Touch'},
-  {category: 'Electronics', price: '$399.99', stocked: false, name: 'iPhone 5'},
-  {category: 'Electronics', price: '$199.99', stocked: true, name: 'Nexus 7'}
+  {
+    category: "Sporting Goods",
+    price: "$49.99",
+    stocked: true,
+    name: "Football",
+  },
+  {
+    category: "Sporting Goods",
+    price: "$9.99",
+    stocked: true,
+    name: "Baseball",
+  },
+  {
+    category: "Sporting Goods",
+    price: "$29.99",
+    stocked: false,
+    name: "Basketball",
+  },
+  {
+    category: "Electronics",
+    price: "$99.99",
+    stocked: true,
+    name: "iPod Touch",
+  },
+  {
+    category: "Electronics",
+    price: "$399.99",
+    stocked: false,
+    name: "iPhone 5",
+  },
+  { category: "Electronics", price: "$199.99", stocked: true, name: "Nexus 7" },
 ];
 
-const root = ReactDOM.createRoot(document.getElementById('container'));
+const root = ReactDOM.createRoot(document.getElementById("container"));
 root.render(<FilterableProductTable products={PRODUCTS} />);
-View Compiled
-
-Resources
