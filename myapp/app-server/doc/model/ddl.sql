@@ -17,7 +17,7 @@ DROP TABLE IF EXISTS lms_class RESTRICT;
 DROP TABLE IF EXISTS lms_member RESTRICT;
 
 -- 교육센터
-DROP TABLE IF EXISTS lms_edu_center RESTRICT;
+DROP TABLE IF EXISTS lms_egit adu_center RESTRICT;
 
 -- 부서
 DROP TABLE IF EXISTS lms_department RESTRICT;
