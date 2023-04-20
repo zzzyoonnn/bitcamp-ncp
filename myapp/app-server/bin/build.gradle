@@ -1,19 +1,32 @@
 plugins {
-	id 'eclipse'
+  id 'application' 
+  id 'eclipse'
   id 'java'
-  id 'org.springframework.boot' version '2.7.9'
-  id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+  id 'org.springframework.boot' version '3.0.4'
+  id 'io.spring.dependency-management' version '1.1.0'
+    id "com.github.node-gradle.node" version "3.5.1" // gradle에서 npm 사용
+}
+
+node {
+  version = '17.6.0'
+  npmVersion = '8.5.1'
+  download = true
+}
+
+tasks.register("npm-install") {
+  group = "application"
+  description = "Installs dependencies from package.json"
+  tasks.appNpmInstall.exec();
+}
+
+task appNpmInstall(type: NpmTask) {
+  description = "Installs dependencies from package.json"
+  workingDir = file("${projectDir}/src/main/resources/static");
+  args = ["install"]
 }
 
 group = 'bitcamp'
 version = '0.0.1-SNAPSHOT'
-
-configurations {
-  compileOnly {
-    extendsFrom annotationProcessor
-  }
-}
-
 
 // CLI 환경에서 'build' 작업을 수행할 때 사용하는 설정
 tasks.withType(JavaCompile) {
@@ -22,15 +35,10 @@ tasks.withType(JavaCompile) {
     targetCompatibility = '17'
 }
 
-// 'eclipse' 플러그인 설정:
 eclipse {
-
-    // => eclipse 프로젝트 이름 설정하기
     project {
         name = "myapp-server"
     }
-
-    // => eclipse IDE 설정하기
     jdt {  
       sourceCompatibility = 17
       targetCompatibility = 17
@@ -38,32 +46,42 @@ eclipse {
     }
 }
 
+configurations {
+  compileOnly {
+    extendsFrom annotationProcessor
+  }
+}
+
+
 repositories {
     mavenCentral()
 }
 
 dependencies {
   implementation 'org.springframework.boot:spring-boot-starter-jdbc'
-  implementation 'org.springframework.boot:spring-boot-starter-web'
-  implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.3.0'
-  //compileOnly 'org.projectlombok:lombok'
+  implementation ('org.springframework.boot:spring-boot-starter-web') {
+    exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+  }
+  implementation 'org.springframework.boot:spring-boot-starter-undertow'
+  implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.0'
+  compileOnly 'org.projectlombok:lombok'
   developmentOnly 'org.springframework.boot:spring-boot-devtools'
   runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
   annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
-	//annotationProcessor 'org.projectlombok:lombok'
+  annotationProcessor 'org.projectlombok:lombok'
   testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    
-    // Google JSON 라이브러리 
-    //implementation 'com.google.code.gson:gson:2.10.1'
-    
-    // Log4j 2.x 라이브러리
-    //implementation 'org.apache.logging.log4j:log4j-core:2.20.0'
-    
-    // MappingJackson2HttpMessageConverter 가 사용할 라이브러리
-    //implementation 'com.fasterxml.jackson.core:jackson-databind:2.14.2'
+  
+  //implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+  implementation 'io.awspring.cloud:spring-cloud-starter-aws:2.4.4'
+  
+  
+
 }
 
 tasks.named('test') {
   useJUnitPlatform()
 }
 
+application {
+    mainClass = 'bitcamp.myapp.App'
+}

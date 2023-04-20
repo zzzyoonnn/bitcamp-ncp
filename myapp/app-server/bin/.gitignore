@@ -1,3 +1,8 @@
+/.project
+/Dockerfile
+/build.gradle
+/build/
+/doc/
 /src/
 /main/
 /test/

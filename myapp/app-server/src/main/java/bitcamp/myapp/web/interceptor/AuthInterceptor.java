@@ -1,14 +1,11 @@
 package bitcamp.myapp.web.interceptor;
 
 import java.io.PrintWriter;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import bitcamp.myapp.vo.Member;
 import bitcamp.util.ErrorCode;
 import bitcamp.util.RestResult;
